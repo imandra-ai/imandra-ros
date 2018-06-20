@@ -1,0 +1,3 @@
+roslaunch mybot_gazebo mybot_world.launch
+
+rostopic pub /cmd_vel geometry_msgs/Twist

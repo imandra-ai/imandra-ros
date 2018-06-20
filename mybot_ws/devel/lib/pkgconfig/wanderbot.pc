@@ -1,0 +1,8 @@
+prefix=/home/kanishev/Programming/AestheticIntegration/ROS_Tutorials/mybot_ws/devel
+
+Name: wanderbot
+Description: Description of wanderbot
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/kanishev/Programming/AestheticIntegration/ROS_Tutorials/mybot_ws/devel/lib 
+Requires: 
