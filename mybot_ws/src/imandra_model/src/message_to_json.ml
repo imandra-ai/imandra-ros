@@ -22,7 +22,7 @@ let twist_to_json x =
 
 let outgoing_to_json x =
   match x with
-  | Geometry data -> `Assoc 
+  | Twist data -> `Assoc 
   [ ( "data" , data |> twist_to_json )
-  ; ( "tag"  , `String "geometry"    )
+  ; ( "tag"  , `String "twist"    )
   ]

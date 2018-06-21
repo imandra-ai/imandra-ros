@@ -49,29 +49,31 @@ def clock_to_json(msg):
 
 def dict_to_twist(data):
     msg = Twist()
-    msg.linear.x = data["Linear"]["x"]
-    msg.linear.y = data["Linear"]["y"]
-    msg.linear.z = data["Linear"]["z"]
-    msg.angular.x = data["Angular"]["x"]
-    msg.angular.y = data["Angular"]["y"]
-    msg.angular.z = data["Angular"]["z"]
+    msg.linear.x  = float(data["Linear"]["x"] ) / 1000
+    msg.linear.y  = float(data["Linear"]["y"] ) / 1000
+    msg.linear.z  = float(data["Linear"]["z"] ) / 1000
+    msg.angular.x = float(data["Angular"]["x"]) / 1000
+    msg.angular.y = float(data["Angular"]["y"]) / 1000
+    msg.angular.z = float(data["Angular"]["z"]) / 1000
     return msg
 
-# Initializing ZMQ
+##### Initializing ZMQ
 
 zmq_context  = zmq.Context.instance()
 zmq_poller = zmq.Poller()
 pub_socket = zmq_context.socket(zmq.PUB)
 pub_socket.bind("tcp://127.0.0.1:16000")
 
-req_socket = zmq_context.socket(zmq.REQ)
-req_socket.connect("tcp://127.0.0.1:16001")
+sub_socket = zmq_context.socket(zmq.SUB)
+sub_socket.connect("tcp://127.0.0.1:16001")
+sub_socket.setsockopt(zmq.SUBSCRIBE, '')
 
-
-# Initializing ROS
+##### Initializing ROS
 
 rospy.init_node("imandra")
 cmd_vel_pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
+
+# Wiring ROS -> ZMQ
 
 def forward_clock(msg):
     pub_socket.send(clock_to_json(msg))
@@ -81,7 +83,16 @@ def forward_laser(msg):
     pub_socket.send(laser_scan_to_json(msg))
 rospy.Subscriber("mybot/laser/scan", LaserScan, forward_laser)
 
+# Wiring ZMQ -> ROS
 
-rate = rospy.Rate(10)
+def json_dispatch(msg):
+    msg = json.loads(msg)
+    if msg["tag"] == "twist":
+        msg = dict_to_twist(msg["data"])
+        print "ZMQ -> ROS " + str(msg)
+        cmd_vel_pub.publish(msg)
+
 while not rospy.is_shutdown():
-    rate.sleep()
+    msg = sub_socket.recv()
+    json_dispatch(msg)
+    

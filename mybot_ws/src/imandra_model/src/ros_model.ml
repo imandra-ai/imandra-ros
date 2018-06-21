@@ -61,7 +61,7 @@ type incoming =
   | Sensor of Sensor_msgs.laser_scan
 
 type outgoing =
-  | Geometry  of Geometry_msg.twist
+  | Twist of Geometry_msg.twist
   
 type mode =
   | Start
@@ -84,14 +84,23 @@ let init_state =
 
 let valid_incoming incoming =
   match incoming with
-    | Sensor smsg -> List.length smsg.Sensor_msgs.ranges = 9
+    | Sensor smsg -> List.length smsg.Sensor_msgs.ranges = 5
     | _ -> true
 
 let drive state =
   { state with 
     mode = Driving 
-  ; outgoing = Some ( Geometry Geometry_msg.
-    { linear  = mkvector 0 0 1
+  ; outgoing = Some ( Twist Geometry_msg.
+    { linear  = mkvector 100 0 0
+    ; angular = mkvector 0 0 100 
+    } ) 
+  }
+
+let stop state =
+  { state with 
+    mode = Start 
+  ; outgoing = Some ( Twist Geometry_msg.
+    { linear  = mkvector 0 0 0
     ; angular = mkvector 0 0 0 
     } ) 
   }
@@ -100,10 +109,17 @@ let process_start ( state , msg ) =
   match msg with
     | Clock  _ -> state
     | Sensor l -> begin 
-      if List.nth l.Sensor_msgs.ranges 4 < 1000 
+      if List.nth l.Sensor_msgs.ranges 2 < 1000 
       then state else drive state
     end
 
+let process_driving ( state , msg ) =
+  match msg with
+    | Clock  _ -> state
+    | Sensor l -> begin 
+      if List.nth l.Sensor_msgs.ranges 2 < 1000 
+      then stop state else drive state
+    end
 
 let one_step (state : state) =
   let state = { state with outgoing = None } in
@@ -111,5 +127,6 @@ let one_step (state : state) =
   match state.incoming with None -> state | Some msg ->
   if not (valid_incoming msg) then { state with mode = Error } else 
   match state.mode with
-    | Start -> process_start ( state , msg )
+    | Start   -> process_start   ( state , msg )
+    | Driving -> process_driving ( state , msg )
     | _ -> state

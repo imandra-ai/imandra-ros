@@ -1,10 +1,15 @@
 
 (jbuild_version 1)
 
-(library
-  ( (name rosmodel)
-    (public_name rosmodel)
-    (wrapped false)
-    (libraries (yojson))
+(executable
+  ( (name rosnode)
+    (modules (:standard))
+    (libraries 
+      ( lwt.unix
+        lwt-zmq
+        ZMQ
+        yojson
+      )
+    )
   )
 )
