@@ -1,0 +1,10 @@
+
+(jbuild_version 1)
+
+(library
+  ( (name rosmodel)
+    (public_name rosmodel)
+    (wrapped false)
+    (libraries (yojson))
+  )
+)
