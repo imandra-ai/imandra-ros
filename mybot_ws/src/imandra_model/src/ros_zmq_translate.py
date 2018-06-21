@@ -7,22 +7,28 @@ from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
 from rosgraph_msgs.msg import Clock
 
-def float_to_number(x):
-    return int(x * 1000)
+def float_to_number(max):
+    def f(x):
+        try:
+            return int(x * 1000)
+        except:
+            return int(max * 1000)
+    return f
 
 def laser_scan_to_json(msg):
+    convf = float_to_number(msg.range_max)
     data = \
         { "tag"  : "laser_scan"
         , "data" : \
-            { "Angle_min"       : float_to_number ( msg.angle_min       ) 
-            , "Angle_max"       : float_to_number ( msg.angle_max       ) 
-            , "Angle_increment" : float_to_number ( msg.angle_increment ) 
-            , "Time_increment"  : float_to_number ( msg.time_increment  ) 
-            , "Scan_time"       : float_to_number ( msg.scan_time       ) 
-            , "Range_min"       : float_to_number ( msg.range_min       ) 
-            , "Range_max"       : float_to_number ( msg.range_max       ) 
-            , "Ranges"          : map ( float_to_number , msg.ranges      ) 
-            , "Intensities"     : map ( float_to_number , msg.intensities ) 
+            { "Angle_min"       : convf ( msg.angle_min       ) 
+            , "Angle_max"       : convf ( msg.angle_max       ) 
+            , "Angle_increment" : convf ( msg.angle_increment ) 
+            , "Time_increment"  : convf ( msg.time_increment  ) 
+            , "Scan_time"       : convf ( msg.scan_time       ) 
+            , "Range_min"       : convf ( msg.range_min       ) 
+            , "Range_max"       : convf ( msg.range_max       ) 
+            , "Ranges"          : map ( convf , msg.ranges      ) 
+            , "Intensities"     : map ( convf , msg.intensities ) 
             }
         }
     return json.dumps(data)
