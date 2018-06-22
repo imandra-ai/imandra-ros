@@ -93,6 +93,9 @@ def json_dispatch(msg):
         cmd_vel_pub.publish(msg)
 
 while not rospy.is_shutdown():
-    msg = sub_socket.recv()
-    json_dispatch(msg)
-    
+    try:
+        msg = sub_socket.recv()
+        json_dispatch(msg)
+    except KeyboardInterrupt:
+        print("Interrupt received, stopping")
+        break

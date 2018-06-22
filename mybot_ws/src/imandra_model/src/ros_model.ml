@@ -64,10 +64,9 @@ type outgoing =
   | Twist of Geometry_msg.twist
   
 type mode =
-  | Start
-  | Twisting
+  | Stopped
+  | Turning
   | Driving
-  | Backing
   | Error
 
 type state = 
@@ -77,7 +76,7 @@ type state =
   }
 
 let init_state = 
-  { mode = Start
+  { mode = Stopped
   ; incoming = None
   ; outgoing = None
   }
@@ -92,25 +91,35 @@ let drive state =
     mode = Driving 
   ; outgoing = Some ( Twist Geometry_msg.
     { linear  = mkvector 100 0 0
-    ; angular = mkvector 0 0 100 
+    ; angular = mkvector 0 0 0 
     } ) 
   }
 
 let stop state =
   { state with 
-    mode = Start 
+    mode = Stopped 
   ; outgoing = Some ( Twist Geometry_msg.
     { linear  = mkvector 0 0 0
     ; angular = mkvector 0 0 0 
     } ) 
   }
 
-let process_start ( state , msg ) =
+let turn state =
+  { state with 
+    mode = Turning 
+  ; outgoing = Some ( Twist Geometry_msg.
+    { linear  = mkvector 0 0 0
+    ; angular = mkvector 0 0 100 
+    } ) 
+  }
+  
+let process_stopped ( state , msg ) =
   match msg with
     | Clock  _ -> state
     | Sensor l -> begin 
       if List.nth l.Sensor_msgs.ranges 2 < 1000 
-      then state else drive state
+      then turn state 
+      else drive state
     end
 
 let process_driving ( state , msg ) =
@@ -118,7 +127,17 @@ let process_driving ( state , msg ) =
     | Clock  _ -> state
     | Sensor l -> begin 
       if List.nth l.Sensor_msgs.ranges 2 < 1000 
-      then stop state else drive state
+      then stop state 
+      else drive state
+    end
+
+let process_turning ( state , msg ) =
+  match msg with
+    | Clock  _ -> state
+    | Sensor l -> begin 
+      if List.nth l.Sensor_msgs.ranges 2 > 1000 
+      then stop state 
+      else state
     end
 
 let one_step (state : state) =
@@ -127,6 +146,8 @@ let one_step (state : state) =
   match state.incoming with None -> state | Some msg ->
   if not (valid_incoming msg) then { state with mode = Error } else 
   match state.mode with
-    | Start   -> process_start   ( state , msg )
+    | Stopped -> process_stopped ( state , msg )
     | Driving -> process_driving ( state , msg )
+    | Turning -> process_turning ( state , msg )  
     | _ -> state
+
