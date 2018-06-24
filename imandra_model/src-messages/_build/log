@@ -1,0 +1,3 @@
+# jbuilder build
+# OCAMLPARAM: unset
+$ /home/ubuntu/CamlEnv/install/opam/4.05.0/bin/ocamlc.opt -config > /tmp/jbuild5c14dd.output

@@ -1,60 +1,6 @@
-type number = int
-type time = 
-  { seconds : int
-  ; milliseconds : int
-  }
-
-type vector3d = 
-  { x : number
-  ; y : number
-  ; z : number }
+open Messages
 
 let mkvector x y z = { x ; y ; z }
-
-module Geometry_msg = struct
-  type twist = 
-    { linear  : vector3d
-    ; angular : vector3d
-    }
-  let default_twist =
-    { linear  = { x = 0 ; y = 0 ; z = 0 }
-    ; angular = { x = 0 ; y = 0 ; z = 0 }
-    }
-end
-
-module Sensor_msgs = struct
-  type laser_scan = 
-    { angle_min        : number
-    ; angle_max        : number
-    ; angle_increment  : number
-    ; time_increment   : number
-    ; scan_time        : number
-    ; range_min        : number
-    ; range_max        : number
-    ; ranges           : number list
-    ; intensities      : number list
-    }
-end
-
-module Rosgraph_msgs = struct 
-  type severity =
-    | DEBUG
-    | INFO
-    | WARN
-    | ERROR
-    | FATAL 
-  type clock = { clock : time }
-  type log = 
-  { level : severity
-  ; name  : string 
-  ; msg   : string  
-  ; file  : string 
-  ; func  : string
-  ; line  : int 
-  ; topics : string list  
-  }
-end
-
 
 type incoming =
   | Clock  of Rosgraph_msgs.clock
@@ -112,32 +58,34 @@ let turn state =
     ; angular = mkvector 0 0 100 
     } ) 
   }
-  
+
+let lnth l i = List.nth i l
+
 let process_stopped ( state , msg ) =
   match msg with
     | Clock  _ -> state
     | Sensor l -> begin 
-      if List.nth l.Sensor_msgs.ranges 2 < 1000 
-      then turn state 
-      else drive state
+      match lnth l.Sensor_msgs.ranges 2 with
+      | Some n when n < 1000 -> turn state 
+      | _ -> drive state
     end
 
 let process_driving ( state , msg ) =
   match msg with
     | Clock  _ -> state
     | Sensor l -> begin 
-      if List.nth l.Sensor_msgs.ranges 2 < 1000 
-      then stop state 
-      else drive state
+      match lnth l.Sensor_msgs.ranges 2 with
+      | Some n when n < 1000 -> turn state 
+      | _ -> drive state
     end
 
 let process_turning ( state , msg ) =
   match msg with
     | Clock  _ -> state
     | Sensor l -> begin 
-      if List.nth l.Sensor_msgs.ranges 2 > 1000 
-      then stop state 
-      else state
+      match lnth l.Sensor_msgs.ranges 2 with
+      | Some n when n < 1000 -> turn state 
+      | _ -> drive state
     end
 
 let one_step (state : state) =

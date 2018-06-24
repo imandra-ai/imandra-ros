@@ -1,11 +1,12 @@
-
 (jbuild_version 1)
 
 (executable
   ( (name rosnode)
     (modules (:standard))
+    (flags (:standard -open Imandra_prelude))
     (libraries 
-      ( lwt.unix
+      ( ros_wrapper
+        lwt.unix
         lwt-zmq
         ZMQ
         yojson
