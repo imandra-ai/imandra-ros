@@ -1,0 +1,10 @@
+_build/*
+_opam/
+*.native
+.imandra_init.log
+fix-engine.install
+.vscode*
+module_graph.svg
+*.merlin
+*.install
+*jbuild-ignore

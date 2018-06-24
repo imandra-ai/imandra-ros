@@ -4,13 +4,13 @@ let rec ros_event_loop ( zmqpub , zmqsub ) state : unit Lwt.t=
   let loop = ros_event_loop ( zmqpub , zmqsub ) in
   Lwt_zmq.Socket.(recv zmqsub) >>= fun msg ->
   let msg = Yojson.Basic.from_string msg in
-  let msg = Json_to_message.json_to_incoming_opt msg in
+  let msg = Model_codec.json_to_incoming_opt msg in
   match msg with None -> loop state | Some msg ->  
   let state = Ros_model.{ state with incoming = Some msg } in
   let state = Ros_model.one_step state in
   match state.Ros_model.outgoing with
     | Some msg -> begin
-      let msg = Message_to_json.outgoing_to_json msg in
+      let msg = Model_codec.outgoing_to_json msg in
       let msg = Yojson.Basic.to_string msg in
       Lwt_zmq.Socket.send zmqpub msg >>= fun () ->
       loop state

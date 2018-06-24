@@ -1,4 +1,4 @@
-open Ros_model
+open Message
 module J  = Yojson.Basic
 module JU = Yojson.Basic.Util 
 
@@ -67,20 +67,3 @@ let json_to_laser_scan_opt json =
   ; ranges           
   ; intensities      
   }
-
-let json_to_incoming_opt json =
-  let module JU = Yojson.Basic.Util in 
-  let data =  JU.member "data" json in
-  if data == `Null then None else
-  match JU.member "tag" json |> JU.to_string_option with
-  | Some "laser_scan" -> begin
-    match json_to_laser_scan_opt data with 
-    | Some data -> Some ( Sensor data ) | None -> None
-  end
-  | Some "clock" -> begin
-    match json_to_clock_opt data with 
-    | Some data -> Some ( Clock data ) | None -> None
-  end
-  | _ -> None
-
-

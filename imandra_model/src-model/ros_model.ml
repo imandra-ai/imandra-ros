@@ -1,4 +1,4 @@
-open Messages
+open Message
 
 let mkvector x y z = { x ; y ; z }
 

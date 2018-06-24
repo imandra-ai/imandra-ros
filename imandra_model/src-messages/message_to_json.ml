@@ -1,4 +1,4 @@
-open Ros_model
+open Message
 module J  = Yojson.Basic
 module JU = Yojson.Basic.Util 
 
@@ -19,10 +19,3 @@ let twist_to_json x =
   [ ( "Linear"  , x.linear  |> vector3d_to_json )
   ; ( "Angular" , x.angular |> vector3d_to_json )
   ] |> assoc_filter_nulls
-
-let outgoing_to_json x =
-  match x with
-  | Twist data -> `Assoc 
-  [ ( "data" , data |> twist_to_json )
-  ; ( "tag"  , `String "twist"    )
-  ]

@@ -54,4 +54,3 @@ module Rosgraph_msgs = struct
   }
 end
 
-
