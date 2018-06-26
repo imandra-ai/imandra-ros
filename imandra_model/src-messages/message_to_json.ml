@@ -1,4 +1,4 @@
-open Message
+open Ros_message;;
 module J  = Yojson.Basic
 module JU = Yojson.Basic.Util 
 

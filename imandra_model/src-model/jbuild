@@ -4,7 +4,6 @@
   ( (name        ros_model)
     (public_name ros_model)
     (wrapped     false)
-    (flags (:standard -open Imandra_prelude))
     (libraries 
       ( ros_messages 
         imandra_utils
