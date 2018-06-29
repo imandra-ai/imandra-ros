@@ -1,55 +1,55 @@
 open Basic_types;;
 
 type modelState = {
-   model_name : string ;
-   pose : Geometry_msgs.pose ;
-   twist : Geometry_msgs.twist ;
-   reference_frame : string ;
+   modelState_model_name : string ;
+   modelState_pose : Geometry_msgs.pose ;
+   modelState_twist : Geometry_msgs.twist ;
+   modelState_reference_frame : string ;
 }
 
 type oDEJointProperties = {
-   damping : float64 list ;
-   hiStop : float64 list ;
-   loStop : float64 list ;
-   erp : float64 list ;
-   cfm : float64 list ;
-   stop_erp : float64 list ;
-   stop_cfm : float64 list ;
-   fudge_factor : float64 list ;
-   fmax : float64 list ;
-   vel : float64 list ;
+   oDEJointProperties_damping : float64 list ;
+   oDEJointProperties_hiStop : float64 list ;
+   oDEJointProperties_loStop : float64 list ;
+   oDEJointProperties_erp : float64 list ;
+   oDEJointProperties_cfm : float64 list ;
+   oDEJointProperties_stop_erp : float64 list ;
+   oDEJointProperties_stop_cfm : float64 list ;
+   oDEJointProperties_fudge_factor : float64 list ;
+   oDEJointProperties_fmax : float64 list ;
+   oDEJointProperties_vel : float64 list ;
 }
 
 type modelStates = {
-   name : string list ;
-   pose : Geometry_msgs.pose list ;
-   twist : Geometry_msgs.twist list ;
+   modelStates_name : string list ;
+   modelStates_pose : Geometry_msgs.pose list ;
+   modelStates_twist : Geometry_msgs.twist list ;
 }
 
 type linkStates = {
-   name : string list ;
-   pose : Geometry_msgs.pose list ;
-   twist : Geometry_msgs.twist list ;
+   linkStates_name : string list ;
+   linkStates_pose : Geometry_msgs.pose list ;
+   linkStates_twist : Geometry_msgs.twist list ;
 }
 
 type linkState = {
-   link_name : string ;
-   pose : Geometry_msgs.pose ;
-   twist : Geometry_msgs.twist ;
-   reference_frame : string ;
+   linkState_link_name : string ;
+   linkState_pose : Geometry_msgs.pose ;
+   linkState_twist : Geometry_msgs.twist ;
+   linkState_reference_frame : string ;
 }
 
 type oDEPhysics = {
-   auto_disable_bodies : bool ;
-   sor_pgs_precon_iters : uint32 ;
-   sor_pgs_iters : uint32 ;
-   sor_pgs_w : float64 ;
-   sor_pgs_rms_error_tol : float64 ;
-   contact_surface_layer : float64 ;
-   contact_max_correcting_vel : float64 ;
-   cfm : float64 ;
-   erp : float64 ;
-   max_contacts : uint32 ;
+   oDEPhysics_auto_disable_bodies : bool ;
+   oDEPhysics_sor_pgs_precon_iters : uint32 ;
+   oDEPhysics_sor_pgs_iters : uint32 ;
+   oDEPhysics_sor_pgs_w : float64 ;
+   oDEPhysics_sor_pgs_rms_error_tol : float64 ;
+   oDEPhysics_contact_surface_layer : float64 ;
+   oDEPhysics_contact_max_correcting_vel : float64 ;
+   oDEPhysics_cfm : float64 ;
+   oDEPhysics_erp : float64 ;
+   oDEPhysics_max_contacts : uint32 ;
 }
 
 type contactState = {
@@ -64,10 +64,10 @@ type contactState = {
 }
 
 type worldState = {
-   name : string list ;
-   pose : Geometry_msgs.pose list ;
-   twist : Geometry_msgs.twist list ;
-   wrench : Geometry_msgs.wrench list ;
+   worldState_name : string list ;
+   worldState_pose : Geometry_msgs.pose list ;
+   worldState_twist : Geometry_msgs.twist list ;
+   worldState_wrench : Geometry_msgs.wrench list ;
 }
 
 type contactsState = {

@@ -1,27 +1,27 @@
 open Basic_types;;
 
 type multiDOFJointTrajectoryPoint = {
-   transforms : Geometry_msgs.transform list ;
-   velocities : Geometry_msgs.twist list ;
-   accelerations : Geometry_msgs.twist list ;
-   time_from_start : duration ;
+   multiDOFJointTrajectoryPoint_transforms : Geometry_msgs.transform list ;
+   multiDOFJointTrajectoryPoint_velocities : Geometry_msgs.twist list ;
+   multiDOFJointTrajectoryPoint_accelerations : Geometry_msgs.twist list ;
+   multiDOFJointTrajectoryPoint_time_from_start : duration ;
 }
 
 type multiDOFJointTrajectory = {
-   joint_names : string list ;
-   points : multiDOFJointTrajectoryPoint list ;
+   multiDOFJointTrajectory_joint_names : string list ;
+   multiDOFJointTrajectory_points : multiDOFJointTrajectoryPoint list ;
 }
 
 type jointTrajectoryPoint = {
-   positions : float64 list ;
-   velocities : float64 list ;
-   accelerations : float64 list ;
-   effort : float64 list ;
-   time_from_start : duration ;
+   jointTrajectoryPoint_positions : float64 list ;
+   jointTrajectoryPoint_velocities : float64 list ;
+   jointTrajectoryPoint_accelerations : float64 list ;
+   jointTrajectoryPoint_effort : float64 list ;
+   jointTrajectoryPoint_time_from_start : duration ;
 }
 
 type jointTrajectory = {
-   joint_names : string list ;
-   points : jointTrajectoryPoint list ;
+   jointTrajectory_joint_names : string list ;
+   jointTrajectory_points : jointTrajectoryPoint list ;
 }
 

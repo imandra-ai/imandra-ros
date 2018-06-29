@@ -1,62 +1,62 @@
 open Basic_types;;
 
 type intParameter = {
-   name : string ;
-   value : int32 ;
+   intParameter_name : string ;
+   intParameter_value : int32 ;
 }
 
 type strParameter = {
-   name : string ;
-   value : string ;
+   strParameter_name : string ;
+   strParameter_value : string ;
 }
 
 type doubleParameter = {
-   name : string ;
-   value : float64 ;
+   doubleParameter_name : string ;
+   doubleParameter_value : float64 ;
 }
 
 type boolParameter = {
-   name : string ;
-   value : bool ;
+   boolParameter_name : string ;
+   boolParameter_value : bool ;
 }
 
 type sensorLevels = ()
 
 type groupState = {
-   name : string ;
-   state : bool ;
-   id : int32 ;
-   parent : int32 ;
+   groupState_name : string ;
+   groupState_state : bool ;
+   groupState_id : int32 ;
+   groupState_parent : int32 ;
 }
 
 type paramDescription = {
-   name : string ;
-   ros_type : string ;
-   level : uint32 ;
-   description : string ;
-   edit_method : string ;
+   paramDescription_name : string ;
+   paramDescription_ros_type : string ;
+   paramDescription_level : uint32 ;
+   paramDescription_description : string ;
+   paramDescription_edit_method : string ;
 }
 
 type config = {
-   bools : boolParameter list ;
-   ints : intParameter list ;
-   strs : strParameter list ;
-   doubles : doubleParameter list ;
-   groups : groupState list ;
+   config_bools : boolParameter list ;
+   config_ints : intParameter list ;
+   config_strs : strParameter list ;
+   config_doubles : doubleParameter list ;
+   config_groups : groupState list ;
 }
 
 type group = {
-   name : string ;
-   ros_type : string ;
-   parameters : paramDescription list ;
-   parent : int32 ;
-   id : int32 ;
+   group_name : string ;
+   group_ros_type : string ;
+   group_parameters : paramDescription list ;
+   group_parent : int32 ;
+   group_id : int32 ;
 }
 
 type configDescription = {
-   groups : group list ;
-   max : config ;
-   min : config ;
-   dflt : config ;
+   configDescription_groups : group list ;
+   configDescription_max : config ;
+   configDescription_min : config ;
+   configDescription_dflt : config ;
 }
 

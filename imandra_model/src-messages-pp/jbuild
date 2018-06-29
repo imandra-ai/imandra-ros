@@ -1,0 +1,15 @@
+(jbuild_version 1)
+
+(library
+  ( (name        ros_messages_pp)
+    (public_name ros_messages_pp)
+    (wrapped     true)
+    (libraries 
+      ( ros_messages
+        yojson
+      )
+    )
+  )
+)
+
+

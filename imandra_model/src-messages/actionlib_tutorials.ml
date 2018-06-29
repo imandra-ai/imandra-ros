@@ -5,7 +5,7 @@ type fibonacciGoal = {
 }
 
 type fibonacciFeedback = {
-   sequence : int32 list ;
+   fibonacciFeedback_sequence : int32 list ;
 }
 
 type averagingGoal = {
@@ -13,60 +13,60 @@ type averagingGoal = {
 }
 
 type averagingFeedback = {
-   sample : int32 ;
-   data : float32 ;
-   mean : float32 ;
-   std_dev : float32 ;
+   averagingFeedback_sample : int32 ;
+   averagingFeedback_data : float32 ;
+   averagingFeedback_mean : float32 ;
+   averagingFeedback_std_dev : float32 ;
 }
 
 type fibonacciActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : fibonacciFeedback ;
+   fibonacciActionFeedback_status : Actionlib_msgs.goalStatus ;
+   fibonacciActionFeedback_feedback : fibonacciFeedback ;
 }
 
 type fibonacciResult = {
-   sequence : int32 list ;
+   fibonacciResult_sequence : int32 list ;
 }
 
 type averagingResult = {
-   mean : float32 ;
-   std_dev : float32 ;
+   averagingResult_mean : float32 ;
+   averagingResult_std_dev : float32 ;
 }
 
 type fibonacciActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : fibonacciGoal ;
+   fibonacciActionGoal_goal_id : Actionlib_msgs.goalID ;
+   fibonacciActionGoal_goal : fibonacciGoal ;
 }
 
 type fibonacciActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : fibonacciResult ;
+   fibonacciActionResult_status : Actionlib_msgs.goalStatus ;
+   fibonacciActionResult_result : fibonacciResult ;
 }
 
 type averagingActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : averagingGoal ;
+   averagingActionGoal_goal_id : Actionlib_msgs.goalID ;
+   averagingActionGoal_goal : averagingGoal ;
 }
 
 type averagingActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : averagingFeedback ;
+   averagingActionFeedback_status : Actionlib_msgs.goalStatus ;
+   averagingActionFeedback_feedback : averagingFeedback ;
 }
 
 type averagingActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : averagingResult ;
+   averagingActionResult_status : Actionlib_msgs.goalStatus ;
+   averagingActionResult_result : averagingResult ;
 }
 
 type fibonacciAction = {
-   action_goal : fibonacciActionGoal ;
-   action_result : fibonacciActionResult ;
-   action_feedback : fibonacciActionFeedback ;
+   fibonacciAction_action_goal : fibonacciActionGoal ;
+   fibonacciAction_action_result : fibonacciActionResult ;
+   fibonacciAction_action_feedback : fibonacciActionFeedback ;
 }
 
 type averagingAction = {
-   action_goal : averagingActionGoal ;
-   action_result : averagingActionResult ;
-   action_feedback : averagingActionFeedback ;
+   averagingAction_action_goal : averagingActionGoal ;
+   averagingAction_action_result : averagingActionResult ;
+   averagingAction_action_feedback : averagingActionFeedback ;
 }
 

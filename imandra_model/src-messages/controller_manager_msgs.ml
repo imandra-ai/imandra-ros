@@ -1,15 +1,15 @@
 open Basic_types;;
 
 type controllerStatistics = {
-   name : string ;
-   ros_type : string ;
-   timestamp : time ;
-   running : bool ;
-   max_time : duration ;
-   mean_time : duration ;
-   variance_time : duration ;
-   num_control_loop_overruns : int32 ;
-   time_last_control_loop_overrun : time ;
+   controllerStatistics_name : string ;
+   controllerStatistics_ros_type : string ;
+   controllerStatistics_timestamp : time ;
+   controllerStatistics_running : bool ;
+   controllerStatistics_max_time : duration ;
+   controllerStatistics_mean_time : duration ;
+   controllerStatistics_variance_time : duration ;
+   controllerStatistics_num_control_loop_overruns : int32 ;
+   controllerStatistics_time_last_control_loop_overrun : time ;
 }
 
 type hardwareInterfaceResources = {
@@ -22,9 +22,9 @@ type controllersStatistics = {
 }
 
 type controllerState = {
-   name : string ;
-   state : string ;
-   ros_type : string ;
-   claimed_resources : hardwareInterfaceResources list ;
+   controllerState_name : string ;
+   controllerState_state : string ;
+   controllerState_ros_type : string ;
+   controllerState_claimed_resources : hardwareInterfaceResources list ;
 }
 

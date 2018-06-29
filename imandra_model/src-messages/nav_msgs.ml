@@ -39,8 +39,8 @@ type occupancyGrid = {
 }
 
 type getMapActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : getMapFeedback ;
+   getMapActionFeedback_status : Actionlib_msgs.goalStatus ;
+   getMapActionFeedback_feedback : getMapFeedback ;
 }
 
 type getMapResult = {
@@ -48,8 +48,8 @@ type getMapResult = {
 }
 
 type getMapActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : getMapResult ;
+   getMapActionResult_status : Actionlib_msgs.goalStatus ;
+   getMapActionResult_result : getMapResult ;
 }
 
 type getMapAction = {

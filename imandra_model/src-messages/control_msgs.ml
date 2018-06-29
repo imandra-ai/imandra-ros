@@ -1,51 +1,51 @@
 open Basic_types;;
 
 type singleJointPositionFeedback = {
-   position : float64 ;
-   velocity : float64 ;
-   error : float64 ;
+   singleJointPositionFeedback_position : float64 ;
+   singleJointPositionFeedback_velocity : float64 ;
+   singleJointPositionFeedback_error : float64 ;
 }
 
 type pidState = {
-   timestep : duration ;
-   error : float64 ;
-   error_dot : float64 ;
-   p_error : float64 ;
-   i_error : float64 ;
-   d_error : float64 ;
-   p_term : float64 ;
-   i_term : float64 ;
-   d_term : float64 ;
-   i_max : float64 ;
-   i_min : float64 ;
-   output : float64 ;
+   pidState_timestep : duration ;
+   pidState_error : float64 ;
+   pidState_error_dot : float64 ;
+   pidState_p_error : float64 ;
+   pidState_i_error : float64 ;
+   pidState_d_error : float64 ;
+   pidState_p_term : float64 ;
+   pidState_i_term : float64 ;
+   pidState_d_term : float64 ;
+   pidState_i_max : float64 ;
+   pidState_i_min : float64 ;
+   pidState_output : float64 ;
 }
 
 type singleJointPositionActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : singleJointPositionFeedback ;
+   singleJointPositionActionFeedback_status : Actionlib_msgs.goalStatus ;
+   singleJointPositionActionFeedback_feedback : singleJointPositionFeedback ;
 }
 
 type jointTrajectoryControllerState = {
-   joint_names : string list ;
-   desired : Trajectory_msgs.jointTrajectoryPoint ;
-   actual : Trajectory_msgs.jointTrajectoryPoint ;
-   error : Trajectory_msgs.jointTrajectoryPoint ;
+   jointTrajectoryControllerState_joint_names : string list ;
+   jointTrajectoryControllerState_desired : Trajectory_msgs.jointTrajectoryPoint ;
+   jointTrajectoryControllerState_actual : Trajectory_msgs.jointTrajectoryPoint ;
+   jointTrajectoryControllerState_error : Trajectory_msgs.jointTrajectoryPoint ;
 }
 
 type gripperCommand = {
-   position : float64 ;
-   max_effort : float64 ;
+   gripperCommand_position : float64 ;
+   gripperCommand_max_effort : float64 ;
 }
 
 type jointTrajectoryGoal = {
-   trajectory : Trajectory_msgs.jointTrajectory ;
+   jointTrajectoryGoal_trajectory : Trajectory_msgs.jointTrajectory ;
 }
 
 type singleJointPositionGoal = {
-   position : float64 ;
-   min_duration : duration ;
-   max_velocity : float64 ;
+   singleJointPositionGoal_position : float64 ;
+   singleJointPositionGoal_min_duration : duration ;
+   singleJointPositionGoal_max_velocity : float64 ;
 }
 
 type pointHeadFeedback = {
@@ -53,18 +53,18 @@ type pointHeadFeedback = {
 }
 
 type pointHeadGoal = {
-   target : Geometry_msgs.pointStamped ;
-   pointing_axis : Geometry_msgs.vector3 ;
-   pointing_frame : string ;
-   min_duration : duration ;
-   max_velocity : float64 ;
+   pointHeadGoal_target : Geometry_msgs.pointStamped ;
+   pointHeadGoal_pointing_axis : Geometry_msgs.vector3 ;
+   pointHeadGoal_pointing_frame : string ;
+   pointHeadGoal_min_duration : duration ;
+   pointHeadGoal_max_velocity : float64 ;
 }
 
 type jointTolerance = {
-   name : string ;
-   position : float64 ;
-   velocity : float64 ;
-   acceleration : float64 ;
+   jointTolerance_name : string ;
+   jointTolerance_position : float64 ;
+   jointTolerance_velocity : float64 ;
+   jointTolerance_acceleration : float64 ;
 }
 
 type followJointTrajectoryResult = {
@@ -73,156 +73,156 @@ type followJointTrajectoryResult = {
 }
 
 type gripperCommandResult = {
-   position : float64 ;
-   effort : float64 ;
-   stalled : bool ;
-   reached_goal : bool ;
+   gripperCommandResult_position : float64 ;
+   gripperCommandResult_effort : float64 ;
+   gripperCommandResult_stalled : bool ;
+   gripperCommandResult_reached_goal : bool ;
 }
 
 type singleJointPositionResult = ()
 
 type jointControllerState = {
-   set_point : float64 ;
-   process_value : float64 ;
-   process_value_dot : float64 ;
-   error : float64 ;
-   time_step : float64 ;
-   command : float64 ;
-   p : float64 ;
-   i : float64 ;
-   d : float64 ;
-   i_clamp : float64 ;
-   antiwindup : bool ;
+   jointControllerState_set_point : float64 ;
+   jointControllerState_process_value : float64 ;
+   jointControllerState_process_value_dot : float64 ;
+   jointControllerState_error : float64 ;
+   jointControllerState_time_step : float64 ;
+   jointControllerState_command : float64 ;
+   jointControllerState_p : float64 ;
+   jointControllerState_i : float64 ;
+   jointControllerState_d : float64 ;
+   jointControllerState_i_clamp : float64 ;
+   jointControllerState_antiwindup : bool ;
 }
 
 type singleJointPositionActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : singleJointPositionResult ;
+   singleJointPositionActionResult_status : Actionlib_msgs.goalStatus ;
+   singleJointPositionActionResult_result : singleJointPositionResult ;
 }
 
 type pointHeadResult = ()
 
 type followJointTrajectoryFeedback = {
-   joint_names : string list ;
-   desired : Trajectory_msgs.jointTrajectoryPoint ;
-   actual : Trajectory_msgs.jointTrajectoryPoint ;
-   error : Trajectory_msgs.jointTrajectoryPoint ;
+   followJointTrajectoryFeedback_joint_names : string list ;
+   followJointTrajectoryFeedback_desired : Trajectory_msgs.jointTrajectoryPoint ;
+   followJointTrajectoryFeedback_actual : Trajectory_msgs.jointTrajectoryPoint ;
+   followJointTrajectoryFeedback_error : Trajectory_msgs.jointTrajectoryPoint ;
 }
 
 type gripperCommandFeedback = {
-   position : float64 ;
-   effort : float64 ;
-   stalled : bool ;
-   reached_goal : bool ;
+   gripperCommandFeedback_position : float64 ;
+   gripperCommandFeedback_effort : float64 ;
+   gripperCommandFeedback_stalled : bool ;
+   gripperCommandFeedback_reached_goal : bool ;
 }
 
 type jointTrajectoryFeedback = ()
 
 type jointTrajectoryActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : jointTrajectoryGoal ;
+   jointTrajectoryActionGoal_goal_id : Actionlib_msgs.goalID ;
+   jointTrajectoryActionGoal_goal : jointTrajectoryGoal ;
 }
 
 type singleJointPositionActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : singleJointPositionGoal ;
+   singleJointPositionActionGoal_goal_id : Actionlib_msgs.goalID ;
+   singleJointPositionActionGoal_goal : singleJointPositionGoal ;
 }
 
 type followJointTrajectoryActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : followJointTrajectoryResult ;
+   followJointTrajectoryActionResult_status : Actionlib_msgs.goalStatus ;
+   followJointTrajectoryActionResult_result : followJointTrajectoryResult ;
 }
 
 type jointTrajectoryResult = ()
 
 type followJointTrajectoryGoal = {
-   trajectory : Trajectory_msgs.jointTrajectory ;
-   path_tolerance : jointTolerance list ;
-   goal_tolerance : jointTolerance list ;
-   goal_time_tolerance : duration ;
+   followJointTrajectoryGoal_trajectory : Trajectory_msgs.jointTrajectory ;
+   followJointTrajectoryGoal_path_tolerance : jointTolerance list ;
+   followJointTrajectoryGoal_goal_tolerance : jointTolerance list ;
+   followJointTrajectoryGoal_goal_time_tolerance : duration ;
 }
 
 type gripperCommandGoal = {
-   command : gripperCommand ;
+   gripperCommandGoal_command : gripperCommand ;
 }
 
 type pointHeadActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : pointHeadGoal ;
+   pointHeadActionGoal_goal_id : Actionlib_msgs.goalID ;
+   pointHeadActionGoal_goal : pointHeadGoal ;
 }
 
 type followJointTrajectoryActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : followJointTrajectoryGoal ;
+   followJointTrajectoryActionGoal_goal_id : Actionlib_msgs.goalID ;
+   followJointTrajectoryActionGoal_goal : followJointTrajectoryGoal ;
 }
 
 type pointHeadActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : pointHeadFeedback ;
+   pointHeadActionFeedback_status : Actionlib_msgs.goalStatus ;
+   pointHeadActionFeedback_feedback : pointHeadFeedback ;
 }
 
 type pointHeadActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : pointHeadResult ;
+   pointHeadActionResult_status : Actionlib_msgs.goalStatus ;
+   pointHeadActionResult_result : pointHeadResult ;
 }
 
 type gripperCommandActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : gripperCommandFeedback ;
+   gripperCommandActionFeedback_status : Actionlib_msgs.goalStatus ;
+   gripperCommandActionFeedback_feedback : gripperCommandFeedback ;
 }
 
 type gripperCommandActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : gripperCommandGoal ;
+   gripperCommandActionGoal_goal_id : Actionlib_msgs.goalID ;
+   gripperCommandActionGoal_goal : gripperCommandGoal ;
 }
 
 type jointTrajectoryActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : jointTrajectoryFeedback ;
+   jointTrajectoryActionFeedback_status : Actionlib_msgs.goalStatus ;
+   jointTrajectoryActionFeedback_feedback : jointTrajectoryFeedback ;
 }
 
 type followJointTrajectoryActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : followJointTrajectoryFeedback ;
+   followJointTrajectoryActionFeedback_status : Actionlib_msgs.goalStatus ;
+   followJointTrajectoryActionFeedback_feedback : followJointTrajectoryFeedback ;
 }
 
 type gripperCommandActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : gripperCommandResult ;
+   gripperCommandActionResult_status : Actionlib_msgs.goalStatus ;
+   gripperCommandActionResult_result : gripperCommandResult ;
 }
 
 type singleJointPositionAction = {
-   action_goal : singleJointPositionActionGoal ;
-   action_result : singleJointPositionActionResult ;
-   action_feedback : singleJointPositionActionFeedback ;
+   singleJointPositionAction_action_goal : singleJointPositionActionGoal ;
+   singleJointPositionAction_action_result : singleJointPositionActionResult ;
+   singleJointPositionAction_action_feedback : singleJointPositionActionFeedback ;
 }
 
 type jointTrajectoryActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : jointTrajectoryResult ;
+   jointTrajectoryActionResult_status : Actionlib_msgs.goalStatus ;
+   jointTrajectoryActionResult_result : jointTrajectoryResult ;
 }
 
 type pointHeadAction = {
-   action_goal : pointHeadActionGoal ;
-   action_result : pointHeadActionResult ;
-   action_feedback : pointHeadActionFeedback ;
+   pointHeadAction_action_goal : pointHeadActionGoal ;
+   pointHeadAction_action_result : pointHeadActionResult ;
+   pointHeadAction_action_feedback : pointHeadActionFeedback ;
 }
 
 type gripperCommandAction = {
-   action_goal : gripperCommandActionGoal ;
-   action_result : gripperCommandActionResult ;
-   action_feedback : gripperCommandActionFeedback ;
+   gripperCommandAction_action_goal : gripperCommandActionGoal ;
+   gripperCommandAction_action_result : gripperCommandActionResult ;
+   gripperCommandAction_action_feedback : gripperCommandActionFeedback ;
 }
 
 type followJointTrajectoryAction = {
-   action_goal : followJointTrajectoryActionGoal ;
-   action_result : followJointTrajectoryActionResult ;
-   action_feedback : followJointTrajectoryActionFeedback ;
+   followJointTrajectoryAction_action_goal : followJointTrajectoryActionGoal ;
+   followJointTrajectoryAction_action_result : followJointTrajectoryActionResult ;
+   followJointTrajectoryAction_action_feedback : followJointTrajectoryActionFeedback ;
 }
 
 type jointTrajectoryAction = {
-   action_goal : jointTrajectoryActionGoal ;
-   action_result : jointTrajectoryActionResult ;
-   action_feedback : jointTrajectoryActionFeedback ;
+   jointTrajectoryAction_action_goal : jointTrajectoryActionGoal ;
+   jointTrajectoryAction_action_result : jointTrajectoryActionResult ;
+   jointTrajectoryAction_action_feedback : jointTrajectoryActionFeedback ;
 }
 

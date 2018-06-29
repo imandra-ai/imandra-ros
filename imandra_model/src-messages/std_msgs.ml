@@ -1,7 +1,7 @@
 open Basic_types;;
 
 type char = {
-   data : char ;
+   char_data : char ;
 }
 
 type header = {
@@ -11,43 +11,43 @@ type header = {
 }
 
 type uInt16 = {
-   data : uint16 ;
+   uInt16_data : uint16 ;
 }
 
 type duration = {
-   data : duration ;
+   duration_data : duration ;
 }
 
 type uInt32 = {
-   data : uint32 ;
+   uInt32_data : uint32 ;
 }
 
 type uInt8 = {
-   data : uint8 ;
+   uInt8_data : uint8 ;
 }
 
 type bool = {
-   data : bool ;
+   bool_data : bool ;
 }
 
 type float32 = {
-   data : float32 ;
+   float32_data : float32 ;
 }
 
 type uInt64 = {
-   data : uint64 ;
+   uInt64_data : uint64 ;
 }
 
 type int32 = {
-   data : int32 ;
+   int32_data : int32 ;
 }
 
 type int16 = {
-   data : int16 ;
+   int16_data : int16 ;
 }
 
 type string = {
-   data : string ;
+   string_data : string ;
 }
 
 type colorRGBA = {
@@ -58,15 +58,15 @@ type colorRGBA = {
 }
 
 type byte = {
-   data : byte ;
+   byte_data : byte ;
 }
 
 type int8 = {
-   data : int8 ;
+   int8_data : int8 ;
 }
 
 type float64 = {
-   data : float64 ;
+   float64_data : float64 ;
 }
 
 type multiArrayDimension = {
@@ -76,13 +76,13 @@ type multiArrayDimension = {
 }
 
 type int64 = {
-   data : int64 ;
+   int64_data : int64 ;
 }
 
 type empty = ()
 
 type time = {
-   data : time ;
+   time_data : time ;
 }
 
 type multiArrayLayout = {
@@ -91,57 +91,57 @@ type multiArrayLayout = {
 }
 
 type int32MultiArray = {
-   layout : multiArrayLayout ;
-   data : int32 list ;
+   int32MultiArray_layout : multiArrayLayout ;
+   int32MultiArray_data : int32 list ;
 }
 
 type int16MultiArray = {
-   layout : multiArrayLayout ;
-   data : int16 list ;
+   int16MultiArray_layout : multiArrayLayout ;
+   int16MultiArray_data : int16 list ;
 }
 
 type float64MultiArray = {
-   layout : multiArrayLayout ;
-   data : float64 list ;
+   float64MultiArray_layout : multiArrayLayout ;
+   float64MultiArray_data : float64 list ;
 }
 
 type uInt64MultiArray = {
-   layout : multiArrayLayout ;
-   data : uint64 list ;
+   uInt64MultiArray_layout : multiArrayLayout ;
+   uInt64MultiArray_data : uint64 list ;
 }
 
 type int64MultiArray = {
-   layout : multiArrayLayout ;
-   data : int64 list ;
+   int64MultiArray_layout : multiArrayLayout ;
+   int64MultiArray_data : int64 list ;
 }
 
 type uInt16MultiArray = {
-   layout : multiArrayLayout ;
-   data : uint16 list ;
+   uInt16MultiArray_layout : multiArrayLayout ;
+   uInt16MultiArray_data : uint16 list ;
 }
 
 type float32MultiArray = {
-   layout : multiArrayLayout ;
-   data : float32 list ;
+   float32MultiArray_layout : multiArrayLayout ;
+   float32MultiArray_data : float32 list ;
 }
 
 type uInt32MultiArray = {
-   layout : multiArrayLayout ;
-   data : uint32 list ;
+   uInt32MultiArray_layout : multiArrayLayout ;
+   uInt32MultiArray_data : uint32 list ;
 }
 
 type uInt8MultiArray = {
-   layout : multiArrayLayout ;
-   data : uint8 list ;
+   uInt8MultiArray_layout : multiArrayLayout ;
+   uInt8MultiArray_data : uint8 list ;
 }
 
 type int8MultiArray = {
-   layout : multiArrayLayout ;
-   data : int8 list ;
+   int8MultiArray_layout : multiArrayLayout ;
+   int8MultiArray_data : int8 list ;
 }
 
 type byteMultiArray = {
-   layout : multiArrayLayout ;
-   data : byte list ;
+   byteMultiArray_layout : multiArrayLayout ;
+   byteMultiArray_data : byte list ;
 }
 

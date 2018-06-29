@@ -1,10 +1,10 @@
 open Basic_types;;
 
 type headerString = {
-   data : string ;
+   headerString_data : string ;
 }
 
 type floats = {
-   data : float32 list ;
+   floats_data : float32 list ;
 }
 

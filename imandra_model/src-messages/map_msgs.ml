@@ -1,27 +1,27 @@
 open Basic_types;;
 
 type projectedMap = {
-   map : Nav_msgs.occupancyGrid ;
-   min_z : float64 ;
-   max_z : float64 ;
+   projectedMap_map : Nav_msgs.occupancyGrid ;
+   projectedMap_min_z : float64 ;
+   projectedMap_max_z : float64 ;
 }
 
 type occupancyGridUpdate = {
-   x : int32 ;
-   y : int32 ;
-   width : uint32 ;
-   height : uint32 ;
-   data : int8 list ;
+   occupancyGridUpdate_x : int32 ;
+   occupancyGridUpdate_y : int32 ;
+   occupancyGridUpdate_width : uint32 ;
+   occupancyGridUpdate_height : uint32 ;
+   occupancyGridUpdate_data : int8 list ;
 }
 
 type projectedMapInfo = {
-   frame_id : string ;
-   x : float64 ;
-   y : float64 ;
-   width : float64 ;
-   height : float64 ;
-   min_z : float64 ;
-   max_z : float64 ;
+   projectedMapInfo_frame_id : string ;
+   projectedMapInfo_x : float64 ;
+   projectedMapInfo_y : float64 ;
+   projectedMapInfo_width : float64 ;
+   projectedMapInfo_height : float64 ;
+   projectedMapInfo_min_z : float64 ;
+   projectedMapInfo_max_z : float64 ;
 }
 
 type pointCloud2Update = {

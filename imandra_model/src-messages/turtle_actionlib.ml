@@ -13,13 +13,13 @@ type shapeGoal = {
 }
 
 type shapeActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : shapeFeedback ;
+   shapeActionFeedback_status : Actionlib_msgs.goalStatus ;
+   shapeActionFeedback_feedback : shapeFeedback ;
 }
 
 type shapeActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : shapeResult ;
+   shapeActionResult_status : Actionlib_msgs.goalStatus ;
+   shapeActionResult_result : shapeResult ;
 }
 
 type velocity = {

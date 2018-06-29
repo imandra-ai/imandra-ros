@@ -22,23 +22,23 @@ type lookupTransformActionGoal = {
 }
 
 type tF2Error = {
-   error : uint8 ;
-   error_string : string ;
+   tF2Error_error : uint8 ;
+   tF2Error_error_string : string ;
 }
 
 type lookupTransformActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : lookupTransformFeedback ;
+   lookupTransformActionFeedback_status : Actionlib_msgs.goalStatus ;
+   lookupTransformActionFeedback_feedback : lookupTransformFeedback ;
 }
 
 type lookupTransformResult = {
-   transform : Geometry_msgs.transformStamped ;
-   error : tF2Error ;
+   lookupTransformResult_transform : Geometry_msgs.transformStamped ;
+   lookupTransformResult_error : tF2Error ;
 }
 
 type lookupTransformActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : lookupTransformResult ;
+   lookupTransformActionResult_status : Actionlib_msgs.goalStatus ;
+   lookupTransformActionResult_result : lookupTransformResult ;
 }
 
 type lookupTransformAction = {

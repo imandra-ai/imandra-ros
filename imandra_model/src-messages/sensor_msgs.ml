@@ -7,12 +7,12 @@ type joyFeedback = {
 }
 
 type image = {
-   height : uint32 ;
-   width : uint32 ;
-   encoding : string ;
-   is_bigendian : uint8 ;
-   step : uint32 ;
-   data : uint8 list ;
+   image_height : uint32 ;
+   image_width : uint32 ;
+   image_encoding : string ;
+   image_is_bigendian : uint8 ;
+   image_step : uint32 ;
+   image_data : uint8 list ;
 }
 
 type magneticField = {
@@ -21,29 +21,29 @@ type magneticField = {
 }
 
 type pointField = {
-   name : string ;
-   offset : uint32 ;
-   datatype : uint8 ;
-   count : uint32 ;
+   pointField_name : string ;
+   pointField_offset : uint32 ;
+   pointField_datatype : uint8 ;
+   pointField_count : uint32 ;
 }
 
 type laserScan = {
-   angle_min : float32 ;
-   angle_max : float32 ;
-   angle_increment : float32 ;
-   time_increment : float32 ;
-   scan_time : float32 ;
-   range_min : float32 ;
-   range_max : float32 ;
-   ranges : float32 list ;
-   intensities : float32 list ;
+   laserScan_angle_min : float32 ;
+   laserScan_angle_max : float32 ;
+   laserScan_angle_increment : float32 ;
+   laserScan_time_increment : float32 ;
+   laserScan_scan_time : float32 ;
+   laserScan_range_min : float32 ;
+   laserScan_range_max : float32 ;
+   laserScan_ranges : float32 list ;
+   laserScan_intensities : float32 list ;
 }
 
 type jointState = {
-   name : string list ;
-   position : float64 list ;
-   velocity : float64 list ;
-   effort : float64 list ;
+   jointState_name : string list ;
+   jointState_position : float64 list ;
+   jointState_velocity : float64 list ;
+   jointState_effort : float64 list ;
 }
 
 type batteryState = {
@@ -63,18 +63,18 @@ type batteryState = {
 }
 
 type compressedImage = {
-   format : string ;
-   data : uint8 list ;
+   compressedImage_format : string ;
+   compressedImage_data : uint8 list ;
 }
 
 type temperature = {
-   temperature : float64 ;
-   variance : float64 ;
+   temperature_temperature : float64 ;
+   temperature_variance : float64 ;
 }
 
 type fluidPressure = {
-   fluid_pressure : float64 ;
-   variance : float64 ;
+   fluidPressure_fluid_pressure : float64 ;
+   fluidPressure_variance : float64 ;
 }
 
 type range = {
@@ -90,16 +90,16 @@ type laserEcho = {
 }
 
 type illuminance = {
-   illuminance : float64 ;
-   variance : float64 ;
+   illuminance_illuminance : float64 ;
+   illuminance_variance : float64 ;
 }
 
 type regionOfInterest = {
-   x_offset : uint32 ;
-   y_offset : uint32 ;
-   height : uint32 ;
-   width : uint32 ;
-   do_rectify : bool ;
+   regionOfInterest_x_offset : uint32 ;
+   regionOfInterest_y_offset : uint32 ;
+   regionOfInterest_height : uint32 ;
+   regionOfInterest_width : uint32 ;
+   regionOfInterest_do_rectify : bool ;
 }
 
 type joyFeedbackArray = {
@@ -116,18 +116,18 @@ type imu = {
 }
 
 type relativeHumidity = {
-   relative_humidity : float64 ;
-   variance : float64 ;
+   relativeHumidity_relative_humidity : float64 ;
+   relativeHumidity_variance : float64 ;
 }
 
 type navSatStatus = {
-   status : int8 ;
-   service : uint16 ;
+   navSatStatus_status : int8 ;
+   navSatStatus_service : uint16 ;
 }
 
 type channelFloat32 = {
-   name : string ;
-   values : float32 list ;
+   channelFloat32_name : string ;
+   channelFloat32_values : float32 list ;
 }
 
 type joy = {
@@ -141,14 +141,14 @@ type timeReference = {
 }
 
 type pointCloud2 = {
-   height : uint32 ;
-   width : uint32 ;
-   fields : pointField list ;
-   is_bigendian : bool ;
-   point_step : uint32 ;
-   row_step : uint32 ;
-   data : uint8 list ;
-   is_dense : bool ;
+   pointCloud2_height : uint32 ;
+   pointCloud2_width : uint32 ;
+   pointCloud2_fields : pointField list ;
+   pointCloud2_is_bigendian : bool ;
+   pointCloud2_point_step : uint32 ;
+   pointCloud2_row_step : uint32 ;
+   pointCloud2_data : uint8 list ;
+   pointCloud2_is_dense : bool ;
 }
 
 type multiDOFJointState = {
@@ -159,28 +159,28 @@ type multiDOFJointState = {
 }
 
 type cameraInfo = {
-   height : uint32 ;
-   width : uint32 ;
-   distortion_model : string ;
-   d : float64 list ;
-   k : float64 list ;
-   r : float64 list ;
-   p : float64 list ;
-   binning_x : uint32 ;
-   binning_y : uint32 ;
-   roi : regionOfInterest ;
+   cameraInfo_height : uint32 ;
+   cameraInfo_width : uint32 ;
+   cameraInfo_distortion_model : string ;
+   cameraInfo_d : float64 list ;
+   cameraInfo_k : float64 list ;
+   cameraInfo_r : float64 list ;
+   cameraInfo_p : float64 list ;
+   cameraInfo_binning_x : uint32 ;
+   cameraInfo_binning_y : uint32 ;
+   cameraInfo_roi : regionOfInterest ;
 }
 
 type multiEchoLaserScan = {
-   angle_min : float32 ;
-   angle_max : float32 ;
-   angle_increment : float32 ;
-   time_increment : float32 ;
-   scan_time : float32 ;
-   range_min : float32 ;
-   range_max : float32 ;
-   ranges : laserEcho list ;
-   intensities : laserEcho list ;
+   multiEchoLaserScan_angle_min : float32 ;
+   multiEchoLaserScan_angle_max : float32 ;
+   multiEchoLaserScan_angle_increment : float32 ;
+   multiEchoLaserScan_time_increment : float32 ;
+   multiEchoLaserScan_scan_time : float32 ;
+   multiEchoLaserScan_range_min : float32 ;
+   multiEchoLaserScan_range_max : float32 ;
+   multiEchoLaserScan_ranges : laserEcho list ;
+   multiEchoLaserScan_intensities : laserEcho list ;
 }
 
 type pointCloud = {
@@ -189,11 +189,11 @@ type pointCloud = {
 }
 
 type navSatFix = {
-   status : navSatStatus ;
-   latitude : float64 ;
-   longitude : float64 ;
-   altitude : float64 ;
-   position_covariance : float64 list ;
-   position_covariance_type : uint8 ;
+   navSatFix_status : navSatStatus ;
+   navSatFix_latitude : float64 ;
+   navSatFix_longitude : float64 ;
+   navSatFix_altitude : float64 ;
+   navSatFix_position_covariance : float64 list ;
+   navSatFix_position_covariance_type : uint8 ;
 }
 

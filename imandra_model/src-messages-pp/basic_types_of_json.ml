@@ -16,6 +16,13 @@ let json_to_uint64_opt  = JU.to_int_option
 let json_to_float32_opt = JU.to_int_option  
 let json_to_float64_opt = JU.to_int_option  
 
+let json_to_string_opt  = JU.to_string_option  
+let json_to_bool_opt    = JU.to_bool_option  
+
+let json_to_char_opt json = 
+  match JU.to_string_option json with None -> None
+  | Some str -> Some (String.get str 0)
+
 let json_to_time_opt json =
   jreq json "seconds"     JU.to_int_option @@ fun seconds     -> 
   jreq json "nanoseconds" JU.to_int_option @@ fun nanoseconds -> 

@@ -1,6 +1,7 @@
 module J  = Yojson.Basic
 module JU = Yojson.Basic.Util 
 
+
 let jreq json key parser f =
   let v = JU.member key json in
   if v == `Null then None else
@@ -19,8 +20,9 @@ let jlist parser ( json : J.json) =
   match json with
   | `List lst -> lst |> List.map parser |> scan
   | _ -> None
+  
 
 let assoc_filter_nulls l : J.json =
-  `Assoc ( List.filter (function ( _, `Null ) -> false | _ -> true ) l )
-;;
+  `Assoc ( List.filter (function ( _ , `Null ) -> false | _ -> true ) l )
+
 

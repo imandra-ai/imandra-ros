@@ -1,32 +1,32 @@
 open Basic_types;;
 
 type testRequestResult = {
-   the_result : int32 ;
-   is_simple_server : bool ;
+   testRequestResult_the_result : int32 ;
+   testRequestResult_is_simple_server : bool ;
 }
 
 type testResult = {
-   result : int32 ;
+   testResult_result : int32 ;
 }
 
 type twoIntsFeedback = ()
 
 type testFeedback = {
-   feedback : int32 ;
+   testFeedback_feedback : int32 ;
 }
 
 type twoIntsActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : twoIntsFeedback ;
+   twoIntsActionFeedback_status : Actionlib_msgs.goalStatus ;
+   twoIntsActionFeedback_feedback : twoIntsFeedback ;
 }
 
 type testActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : testResult ;
+   testActionResult_status : Actionlib_msgs.goalStatus ;
+   testActionResult_result : testResult ;
 }
 
 type testGoal = {
-   goal : int32 ;
+   testGoal_goal : int32 ;
 }
 
 type twoIntsResult = {
@@ -34,8 +34,8 @@ type twoIntsResult = {
 }
 
 type testRequestActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : testRequestResult ;
+   testRequestActionResult_status : Actionlib_msgs.goalStatus ;
+   testRequestActionResult_result : testRequestResult ;
 }
 
 type twoIntsGoal = {
@@ -46,61 +46,61 @@ type twoIntsGoal = {
 type testRequestFeedback = ()
 
 type testRequestGoal = {
-   terminate_status : int32 ;
-   ignore_cancel : bool ;
-   result_text : string ;
-   the_result : int32 ;
-   is_simple_client : bool ;
-   delay_accept : duration ;
-   delay_terminate : duration ;
-   pause_status : duration ;
+   testRequestGoal_terminate_status : int32 ;
+   testRequestGoal_ignore_cancel : bool ;
+   testRequestGoal_result_text : string ;
+   testRequestGoal_the_result : int32 ;
+   testRequestGoal_is_simple_client : bool ;
+   testRequestGoal_delay_accept : duration ;
+   testRequestGoal_delay_terminate : duration ;
+   testRequestGoal_pause_status : duration ;
 }
 
 type testRequestActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : testRequestGoal ;
+   testRequestActionGoal_goal_id : Actionlib_msgs.goalID ;
+   testRequestActionGoal_goal : testRequestGoal ;
 }
 
 type testActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : testFeedback ;
+   testActionFeedback_status : Actionlib_msgs.goalStatus ;
+   testActionFeedback_feedback : testFeedback ;
 }
 
 type twoIntsActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : twoIntsGoal ;
+   twoIntsActionGoal_goal_id : Actionlib_msgs.goalID ;
+   twoIntsActionGoal_goal : twoIntsGoal ;
 }
 
 type testActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : testGoal ;
+   testActionGoal_goal_id : Actionlib_msgs.goalID ;
+   testActionGoal_goal : testGoal ;
 }
 
 type twoIntsActionResult = {
-   status : Actionlib_msgs.goalStatus ;
-   result : twoIntsResult ;
+   twoIntsActionResult_status : Actionlib_msgs.goalStatus ;
+   twoIntsActionResult_result : twoIntsResult ;
 }
 
 type twoIntsAction = {
-   action_goal : twoIntsActionGoal ;
-   action_result : twoIntsActionResult ;
-   action_feedback : twoIntsActionFeedback ;
+   twoIntsAction_action_goal : twoIntsActionGoal ;
+   twoIntsAction_action_result : twoIntsActionResult ;
+   twoIntsAction_action_feedback : twoIntsActionFeedback ;
 }
 
 type testRequestActionFeedback = {
-   status : Actionlib_msgs.goalStatus ;
-   feedback : testRequestFeedback ;
+   testRequestActionFeedback_status : Actionlib_msgs.goalStatus ;
+   testRequestActionFeedback_feedback : testRequestFeedback ;
 }
 
 type testRequestAction = {
-   action_goal : testRequestActionGoal ;
-   action_result : testRequestActionResult ;
-   action_feedback : testRequestActionFeedback ;
+   testRequestAction_action_goal : testRequestActionGoal ;
+   testRequestAction_action_result : testRequestActionResult ;
+   testRequestAction_action_feedback : testRequestActionFeedback ;
 }
 
 type testAction = {
-   action_goal : testActionGoal ;
-   action_result : testActionResult ;
-   action_feedback : testActionFeedback ;
+   testAction_action_goal : testActionGoal ;
+   testAction_action_result : testActionResult ;
+   testAction_action_feedback : testActionFeedback ;
 }
 
