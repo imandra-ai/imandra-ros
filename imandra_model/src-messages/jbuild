@@ -3,11 +3,7 @@
 (library
   ( (name        ros_messages)
     (public_name ros_messages)
-    (wrapped     false)
-    ( libraries 
-      ( yojson 
-      ) 
-    )
+    (wrapped     true)
   )
 )
 
