@@ -32,6 +32,14 @@ def format_type(tinfo, current_module=None):
         tdecl += ' list'
     return tdecl
 
+def get_type_parser(tinfo, current_module=None):
+    tdecl = "json_to_" + kw(tinfo['name']) + "_opt"
+    if 'module' in tinfo and tinfo['module'] != current_module:
+        tdecl = "{0}_of_json.{1}".format( tinfo['module'] , tdecl )
+    if tinfo.get('list', False):
+        tdecl = "(jlist {})".format(tdecl)
+    return tdecl
+
 class MsgInfo(object):
     
     def _process_raw(self):
@@ -75,6 +83,19 @@ class MsgInfo(object):
             etype = format_type(entry['type'], self.module)
             code.append("   {0} : {1} ;".format(entry['name'], etype))
         code += ["}"]
+        return "\n".join(code)
+
+    def gen_json_reader(self):
+        if self.entries == []:
+            return "let json_to_{0}_opt json : {0} option = Some ()".format(self.name)
+        code = ["let json_to_{}_opt json = ".format(self.name)]
+        for entry in self.entries:
+            etype = get_type_parser(entry['type'], self.module)
+            code.append("    jreq json \"{0}\" {1} @@ fun {0} ->".format(entry['name'], etype))
+        code += ["    Some {"]
+        for entry in self.entries:
+            code.append("    {0};".format(entry['name']))
+        code += ["    }"]
         return "\n".join(code)
 
     def get_local_dependencies(self):
