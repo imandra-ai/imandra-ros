@@ -22,6 +22,9 @@ let jlist parser ( json : J.json) =
   | _ -> None
   
 
+let mklist writer lst =
+  `List (lst |> List.map writer)
+
 let assoc_filter_nulls l : J.json =
   `Assoc ( List.filter (function ( _ , `Null ) -> false | _ -> true ) l )
 
