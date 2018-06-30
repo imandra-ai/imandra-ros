@@ -20,7 +20,7 @@ let string_to_json  x : J.json = `String x
 let bool_to_json    x : J.json = `Bool x  
 
 let char_to_json (x : char) : J.json = 
-  `String ( String.make 1 x )
+  `String ( x |> Char.chr |> String.make 1 )
 
 let time_to_json ( x : time ) : J.json =
   [ ( "seconds"     , `Int x.seconds     ) 

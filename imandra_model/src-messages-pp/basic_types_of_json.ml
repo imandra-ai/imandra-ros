@@ -21,7 +21,7 @@ let json_to_bool_opt    = JU.to_bool_option
 
 let json_to_char_opt json = 
   match JU.to_string_option json with None -> None
-  | Some str -> Some (String.get str 0)
+  | Some str -> Some (String.get str 0 |> Char.code)
 
 let json_to_time_opt json =
   jreq json "seconds"     JU.to_int_option @@ fun seconds     -> 

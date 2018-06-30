@@ -16,3 +16,7 @@ type uint32  = int (*  *)
 type uint64  = int (*  *)
 type float32 = int (*  *)
 type float64 = int (*  *)
+
+
+(* char is not in logic either*)
+type char    = int 
