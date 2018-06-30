@@ -2,8 +2,8 @@ open Json_utils;;
 open Basic_types_to_json;;
 open Ros_messages.Std_msgs;;
 
-let char_to_json x = [
-    ( "char_data" , x.char_data |> char_to_json );
+let std_bool_to_json x = [
+    ( "bool_data" , x.bool_data |> bool_to_json );
     ] |> assoc_filter_nulls
 
 let header_to_json x = [
@@ -16,40 +16,46 @@ let uInt16_to_json x = [
     ( "uInt16_data" , x.uInt16_data |> uint16_to_json );
     ] |> assoc_filter_nulls
 
-let duration_to_json x = [
-    ( "duration_data" , x.duration_data |> duration_to_json );
-    ] |> assoc_filter_nulls
-
 let uInt32_to_json x = [
     ( "uInt32_data" , x.uInt32_data |> uint32_to_json );
+    ] |> assoc_filter_nulls
+
+let std_time_to_json x = [
+    ( "time_data" , x.time_data |> time_to_json );
     ] |> assoc_filter_nulls
 
 let uInt8_to_json x = [
     ( "uInt8_data" , x.uInt8_data |> uint8_to_json );
     ] |> assoc_filter_nulls
 
-let bool_to_json x = [
-    ( "bool_data" , x.bool_data |> bool_to_json );
-    ] |> assoc_filter_nulls
-
-let float32_to_json x = [
+let std_float32_to_json x = [
     ( "float32_data" , x.float32_data |> float32_to_json );
     ] |> assoc_filter_nulls
+
+let std_duration_to_json x = [
+    ( "duration_data" , x.duration_data |> duration_to_json );
+    ] |> assoc_filter_nulls
+
+let std_int64_to_json x = [
+    ( "int64_data" , x.int64_data |> int64_to_json );
+    ] |> assoc_filter_nulls
+
+let empty_to_json x = `Assoc []
 
 let uInt64_to_json x = [
     ( "uInt64_data" , x.uInt64_data |> uint64_to_json );
     ] |> assoc_filter_nulls
 
-let int32_to_json x = [
-    ( "int32_data" , x.int32_data |> int32_to_json );
+let std_string_to_json x = [
+    ( "string_data" , x.string_data |> string_to_json );
     ] |> assoc_filter_nulls
 
-let int16_to_json x = [
+let std_int16_to_json x = [
     ( "int16_data" , x.int16_data |> int16_to_json );
     ] |> assoc_filter_nulls
 
-let string_to_json x = [
-    ( "string_data" , x.string_data |> string_to_json );
+let std_int32_to_json x = [
+    ( "int32_data" , x.int32_data |> int32_to_json );
     ] |> assoc_filter_nulls
 
 let colorRGBA_to_json x = [
@@ -59,16 +65,16 @@ let colorRGBA_to_json x = [
     ( "a" , x.a |> float32_to_json );
     ] |> assoc_filter_nulls
 
-let byte_to_json x = [
-    ( "byte_data" , x.byte_data |> byte_to_json );
+let std_char_to_json x = [
+    ( "char_data" , x.char_data |> char_to_json );
     ] |> assoc_filter_nulls
 
-let int8_to_json x = [
-    ( "int8_data" , x.int8_data |> int8_to_json );
-    ] |> assoc_filter_nulls
-
-let float64_to_json x = [
+let std_float64_to_json x = [
     ( "float64_data" , x.float64_data |> float64_to_json );
+    ] |> assoc_filter_nulls
+
+let std_byte_to_json x = [
+    ( "byte_data" , x.byte_data |> byte_to_json );
     ] |> assoc_filter_nulls
 
 let multiArrayDimension_to_json x = [
@@ -77,14 +83,8 @@ let multiArrayDimension_to_json x = [
     ( "stride" , x.stride |> uint32_to_json );
     ] |> assoc_filter_nulls
 
-let int64_to_json x = [
-    ( "int64_data" , x.int64_data |> int64_to_json );
-    ] |> assoc_filter_nulls
-
-let empty_to_json x = `Assoc []
-
-let time_to_json x = [
-    ( "time_data" , x.time_data |> time_to_json );
+let std_int8_to_json x = [
+    ( "int8_data" , x.int8_data |> int8_to_json );
     ] |> assoc_filter_nulls
 
 let multiArrayLayout_to_json x = [
@@ -92,14 +92,14 @@ let multiArrayLayout_to_json x = [
     ( "data_offset" , x.data_offset |> uint32_to_json );
     ] |> assoc_filter_nulls
 
-let int32MultiArray_to_json x = [
-    ( "int32MultiArray_layout" , x.int32MultiArray_layout |> multiArrayLayout_to_json );
-    ( "int32MultiArray_data" , x.int32MultiArray_data |> (mklist int32_to_json) );
-    ] |> assoc_filter_nulls
-
 let int16MultiArray_to_json x = [
     ( "int16MultiArray_layout" , x.int16MultiArray_layout |> multiArrayLayout_to_json );
     ( "int16MultiArray_data" , x.int16MultiArray_data |> (mklist int16_to_json) );
+    ] |> assoc_filter_nulls
+
+let int32MultiArray_to_json x = [
+    ( "int32MultiArray_layout" , x.int32MultiArray_layout |> multiArrayLayout_to_json );
+    ( "int32MultiArray_data" , x.int32MultiArray_data |> (mklist int32_to_json) );
     ] |> assoc_filter_nulls
 
 let float64MultiArray_to_json x = [

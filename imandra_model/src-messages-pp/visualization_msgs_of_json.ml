@@ -3,9 +3,11 @@ open Basic_types_of_json;;
 open Ros_messages.Visualization_msgs;;
 
 let json_to_interactiveMarkerPose_opt json = 
+    jreq json "interactiveMarkerPose_header" Std_msgs_of_json.json_to_header_opt @@ fun interactiveMarkerPose_header ->
     jreq json "interactiveMarkerPose_pose" Geometry_msgs_of_json.json_to_pose_opt @@ fun interactiveMarkerPose_pose ->
     jreq json "interactiveMarkerPose_name" json_to_string_opt @@ fun interactiveMarkerPose_name ->
     Some {
+    interactiveMarkerPose_header;
     interactiveMarkerPose_pose;
     interactiveMarkerPose_name;
     }
@@ -25,6 +27,7 @@ let json_to_menuEntry_opt json =
     }
 
 let json_to_interactiveMarkerFeedback_opt json = 
+    jreq json "interactiveMarkerFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun interactiveMarkerFeedback_header ->
     jreq json "interactiveMarkerFeedback_client_id" json_to_string_opt @@ fun interactiveMarkerFeedback_client_id ->
     jreq json "interactiveMarkerFeedback_marker_name" json_to_string_opt @@ fun interactiveMarkerFeedback_marker_name ->
     jreq json "interactiveMarkerFeedback_control_name" json_to_string_opt @@ fun interactiveMarkerFeedback_control_name ->
@@ -34,6 +37,7 @@ let json_to_interactiveMarkerFeedback_opt json =
     jreq json "interactiveMarkerFeedback_mouse_point" Geometry_msgs_of_json.json_to_point_opt @@ fun interactiveMarkerFeedback_mouse_point ->
     jreq json "interactiveMarkerFeedback_mouse_point_valid" json_to_bool_opt @@ fun interactiveMarkerFeedback_mouse_point_valid ->
     Some {
+    interactiveMarkerFeedback_header;
     interactiveMarkerFeedback_client_id;
     interactiveMarkerFeedback_marker_name;
     interactiveMarkerFeedback_control_name;
@@ -45,6 +49,7 @@ let json_to_interactiveMarkerFeedback_opt json =
     }
 
 let json_to_marker_opt json = 
+    jreq json "marker_header" Std_msgs_of_json.json_to_header_opt @@ fun marker_header ->
     jreq json "marker_ns" json_to_string_opt @@ fun marker_ns ->
     jreq json "marker_id" json_to_int32_opt @@ fun marker_id ->
     jreq json "marker_ros_type" json_to_int32_opt @@ fun marker_ros_type ->
@@ -60,6 +65,7 @@ let json_to_marker_opt json =
     jreq json "marker_mesh_resource" json_to_string_opt @@ fun marker_mesh_resource ->
     jreq json "marker_mesh_use_embedded_materials" json_to_bool_opt @@ fun marker_mesh_use_embedded_materials ->
     Some {
+    marker_header;
     marker_ns;
     marker_id;
     marker_ros_type;
@@ -77,6 +83,7 @@ let json_to_marker_opt json =
     }
 
 let json_to_imageMarker_opt json = 
+    jreq json "imageMarker_header" Std_msgs_of_json.json_to_header_opt @@ fun imageMarker_header ->
     jreq json "imageMarker_ns" json_to_string_opt @@ fun imageMarker_ns ->
     jreq json "imageMarker_id" json_to_int32_opt @@ fun imageMarker_id ->
     jreq json "imageMarker_ros_type" json_to_int32_opt @@ fun imageMarker_ros_type ->
@@ -90,6 +97,7 @@ let json_to_imageMarker_opt json =
     jreq json "imageMarker_points" (jlist Geometry_msgs_of_json.json_to_point_opt) @@ fun imageMarker_points ->
     jreq json "imageMarker_outline_colors" (jlist Std_msgs_of_json.json_to_colorRGBA_opt) @@ fun imageMarker_outline_colors ->
     Some {
+    imageMarker_header;
     imageMarker_ns;
     imageMarker_id;
     imageMarker_ros_type;
@@ -131,6 +139,7 @@ let json_to_interactiveMarkerControl_opt json =
     }
 
 let json_to_interactiveMarker_opt json = 
+    jreq json "interactiveMarker_header" Std_msgs_of_json.json_to_header_opt @@ fun interactiveMarker_header ->
     jreq json "interactiveMarker_pose" Geometry_msgs_of_json.json_to_pose_opt @@ fun interactiveMarker_pose ->
     jreq json "interactiveMarker_name" json_to_string_opt @@ fun interactiveMarker_name ->
     jreq json "interactiveMarker_description" json_to_string_opt @@ fun interactiveMarker_description ->
@@ -138,6 +147,7 @@ let json_to_interactiveMarker_opt json =
     jreq json "interactiveMarker_menu_entries" (jlist json_to_menuEntry_opt) @@ fun interactiveMarker_menu_entries ->
     jreq json "interactiveMarker_controls" (jlist json_to_interactiveMarkerControl_opt) @@ fun interactiveMarker_controls ->
     Some {
+    interactiveMarker_header;
     interactiveMarker_pose;
     interactiveMarker_name;
     interactiveMarker_description;

@@ -3,12 +3,14 @@ open Basic_types_to_json;;
 open Ros_messages.Control_msgs;;
 
 let singleJointPositionFeedback_to_json x = [
+    ( "singleJointPositionFeedback_header" , x.singleJointPositionFeedback_header |> Std_msgs_to_json.header_to_json );
     ( "singleJointPositionFeedback_position" , x.singleJointPositionFeedback_position |> float64_to_json );
     ( "singleJointPositionFeedback_velocity" , x.singleJointPositionFeedback_velocity |> float64_to_json );
     ( "singleJointPositionFeedback_error" , x.singleJointPositionFeedback_error |> float64_to_json );
     ] |> assoc_filter_nulls
 
 let pidState_to_json x = [
+    ( "pidState_header" , x.pidState_header |> Std_msgs_to_json.header_to_json );
     ( "pidState_timestep" , x.pidState_timestep |> duration_to_json );
     ( "pidState_error" , x.pidState_error |> float64_to_json );
     ( "pidState_error_dot" , x.pidState_error_dot |> float64_to_json );
@@ -24,11 +26,13 @@ let pidState_to_json x = [
     ] |> assoc_filter_nulls
 
 let singleJointPositionActionFeedback_to_json x = [
+    ( "singleJointPositionActionFeedback_header" , x.singleJointPositionActionFeedback_header |> Std_msgs_to_json.header_to_json );
     ( "singleJointPositionActionFeedback_status" , x.singleJointPositionActionFeedback_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "singleJointPositionActionFeedback_feedback" , x.singleJointPositionActionFeedback_feedback |> singleJointPositionFeedback_to_json );
     ] |> assoc_filter_nulls
 
 let jointTrajectoryControllerState_to_json x = [
+    ( "jointTrajectoryControllerState_header" , x.jointTrajectoryControllerState_header |> Std_msgs_to_json.header_to_json );
     ( "jointTrajectoryControllerState_joint_names" , x.jointTrajectoryControllerState_joint_names |> (mklist string_to_json) );
     ( "jointTrajectoryControllerState_desired" , x.jointTrajectoryControllerState_desired |> Trajectory_msgs_to_json.jointTrajectoryPoint_to_json );
     ( "jointTrajectoryControllerState_actual" , x.jointTrajectoryControllerState_actual |> Trajectory_msgs_to_json.jointTrajectoryPoint_to_json );
@@ -84,6 +88,7 @@ let gripperCommandResult_to_json x = [
 let singleJointPositionResult_to_json x = `Assoc []
 
 let jointControllerState_to_json x = [
+    ( "jointControllerState_header" , x.jointControllerState_header |> Std_msgs_to_json.header_to_json );
     ( "jointControllerState_set_point" , x.jointControllerState_set_point |> float64_to_json );
     ( "jointControllerState_process_value" , x.jointControllerState_process_value |> float64_to_json );
     ( "jointControllerState_process_value_dot" , x.jointControllerState_process_value_dot |> float64_to_json );
@@ -98,6 +103,7 @@ let jointControllerState_to_json x = [
     ] |> assoc_filter_nulls
 
 let singleJointPositionActionResult_to_json x = [
+    ( "singleJointPositionActionResult_header" , x.singleJointPositionActionResult_header |> Std_msgs_to_json.header_to_json );
     ( "singleJointPositionActionResult_status" , x.singleJointPositionActionResult_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "singleJointPositionActionResult_result" , x.singleJointPositionActionResult_result |> singleJointPositionResult_to_json );
     ] |> assoc_filter_nulls
@@ -105,6 +111,7 @@ let singleJointPositionActionResult_to_json x = [
 let pointHeadResult_to_json x = `Assoc []
 
 let followJointTrajectoryFeedback_to_json x = [
+    ( "followJointTrajectoryFeedback_header" , x.followJointTrajectoryFeedback_header |> Std_msgs_to_json.header_to_json );
     ( "followJointTrajectoryFeedback_joint_names" , x.followJointTrajectoryFeedback_joint_names |> (mklist string_to_json) );
     ( "followJointTrajectoryFeedback_desired" , x.followJointTrajectoryFeedback_desired |> Trajectory_msgs_to_json.jointTrajectoryPoint_to_json );
     ( "followJointTrajectoryFeedback_actual" , x.followJointTrajectoryFeedback_actual |> Trajectory_msgs_to_json.jointTrajectoryPoint_to_json );
@@ -121,16 +128,19 @@ let gripperCommandFeedback_to_json x = [
 let jointTrajectoryFeedback_to_json x = `Assoc []
 
 let jointTrajectoryActionGoal_to_json x = [
+    ( "jointTrajectoryActionGoal_header" , x.jointTrajectoryActionGoal_header |> Std_msgs_to_json.header_to_json );
     ( "jointTrajectoryActionGoal_goal_id" , x.jointTrajectoryActionGoal_goal_id |> Actionlib_msgs_to_json.goalID_to_json );
     ( "jointTrajectoryActionGoal_goal" , x.jointTrajectoryActionGoal_goal |> jointTrajectoryGoal_to_json );
     ] |> assoc_filter_nulls
 
 let singleJointPositionActionGoal_to_json x = [
+    ( "singleJointPositionActionGoal_header" , x.singleJointPositionActionGoal_header |> Std_msgs_to_json.header_to_json );
     ( "singleJointPositionActionGoal_goal_id" , x.singleJointPositionActionGoal_goal_id |> Actionlib_msgs_to_json.goalID_to_json );
     ( "singleJointPositionActionGoal_goal" , x.singleJointPositionActionGoal_goal |> singleJointPositionGoal_to_json );
     ] |> assoc_filter_nulls
 
 let followJointTrajectoryActionResult_to_json x = [
+    ( "followJointTrajectoryActionResult_header" , x.followJointTrajectoryActionResult_header |> Std_msgs_to_json.header_to_json );
     ( "followJointTrajectoryActionResult_status" , x.followJointTrajectoryActionResult_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "followJointTrajectoryActionResult_result" , x.followJointTrajectoryActionResult_result |> followJointTrajectoryResult_to_json );
     ] |> assoc_filter_nulls
@@ -149,46 +159,55 @@ let gripperCommandGoal_to_json x = [
     ] |> assoc_filter_nulls
 
 let pointHeadActionGoal_to_json x = [
+    ( "pointHeadActionGoal_header" , x.pointHeadActionGoal_header |> Std_msgs_to_json.header_to_json );
     ( "pointHeadActionGoal_goal_id" , x.pointHeadActionGoal_goal_id |> Actionlib_msgs_to_json.goalID_to_json );
     ( "pointHeadActionGoal_goal" , x.pointHeadActionGoal_goal |> pointHeadGoal_to_json );
     ] |> assoc_filter_nulls
 
 let followJointTrajectoryActionGoal_to_json x = [
+    ( "followJointTrajectoryActionGoal_header" , x.followJointTrajectoryActionGoal_header |> Std_msgs_to_json.header_to_json );
     ( "followJointTrajectoryActionGoal_goal_id" , x.followJointTrajectoryActionGoal_goal_id |> Actionlib_msgs_to_json.goalID_to_json );
     ( "followJointTrajectoryActionGoal_goal" , x.followJointTrajectoryActionGoal_goal |> followJointTrajectoryGoal_to_json );
     ] |> assoc_filter_nulls
 
 let pointHeadActionFeedback_to_json x = [
+    ( "pointHeadActionFeedback_header" , x.pointHeadActionFeedback_header |> Std_msgs_to_json.header_to_json );
     ( "pointHeadActionFeedback_status" , x.pointHeadActionFeedback_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "pointHeadActionFeedback_feedback" , x.pointHeadActionFeedback_feedback |> pointHeadFeedback_to_json );
     ] |> assoc_filter_nulls
 
 let pointHeadActionResult_to_json x = [
+    ( "pointHeadActionResult_header" , x.pointHeadActionResult_header |> Std_msgs_to_json.header_to_json );
     ( "pointHeadActionResult_status" , x.pointHeadActionResult_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "pointHeadActionResult_result" , x.pointHeadActionResult_result |> pointHeadResult_to_json );
     ] |> assoc_filter_nulls
 
 let gripperCommandActionFeedback_to_json x = [
+    ( "gripperCommandActionFeedback_header" , x.gripperCommandActionFeedback_header |> Std_msgs_to_json.header_to_json );
     ( "gripperCommandActionFeedback_status" , x.gripperCommandActionFeedback_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "gripperCommandActionFeedback_feedback" , x.gripperCommandActionFeedback_feedback |> gripperCommandFeedback_to_json );
     ] |> assoc_filter_nulls
 
 let gripperCommandActionGoal_to_json x = [
+    ( "gripperCommandActionGoal_header" , x.gripperCommandActionGoal_header |> Std_msgs_to_json.header_to_json );
     ( "gripperCommandActionGoal_goal_id" , x.gripperCommandActionGoal_goal_id |> Actionlib_msgs_to_json.goalID_to_json );
     ( "gripperCommandActionGoal_goal" , x.gripperCommandActionGoal_goal |> gripperCommandGoal_to_json );
     ] |> assoc_filter_nulls
 
 let jointTrajectoryActionFeedback_to_json x = [
+    ( "jointTrajectoryActionFeedback_header" , x.jointTrajectoryActionFeedback_header |> Std_msgs_to_json.header_to_json );
     ( "jointTrajectoryActionFeedback_status" , x.jointTrajectoryActionFeedback_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "jointTrajectoryActionFeedback_feedback" , x.jointTrajectoryActionFeedback_feedback |> jointTrajectoryFeedback_to_json );
     ] |> assoc_filter_nulls
 
 let followJointTrajectoryActionFeedback_to_json x = [
+    ( "followJointTrajectoryActionFeedback_header" , x.followJointTrajectoryActionFeedback_header |> Std_msgs_to_json.header_to_json );
     ( "followJointTrajectoryActionFeedback_status" , x.followJointTrajectoryActionFeedback_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "followJointTrajectoryActionFeedback_feedback" , x.followJointTrajectoryActionFeedback_feedback |> followJointTrajectoryFeedback_to_json );
     ] |> assoc_filter_nulls
 
 let gripperCommandActionResult_to_json x = [
+    ( "gripperCommandActionResult_header" , x.gripperCommandActionResult_header |> Std_msgs_to_json.header_to_json );
     ( "gripperCommandActionResult_status" , x.gripperCommandActionResult_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "gripperCommandActionResult_result" , x.gripperCommandActionResult_result |> gripperCommandResult_to_json );
     ] |> assoc_filter_nulls
@@ -200,6 +219,7 @@ let singleJointPositionAction_to_json x = [
     ] |> assoc_filter_nulls
 
 let jointTrajectoryActionResult_to_json x = [
+    ( "jointTrajectoryActionResult_header" , x.jointTrajectoryActionResult_header |> Std_msgs_to_json.header_to_json );
     ( "jointTrajectoryActionResult_status" , x.jointTrajectoryActionResult_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "jointTrajectoryActionResult_result" , x.jointTrajectoryActionResult_result |> jointTrajectoryResult_to_json );
     ] |> assoc_filter_nulls

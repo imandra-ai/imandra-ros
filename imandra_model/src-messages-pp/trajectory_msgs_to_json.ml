@@ -10,6 +10,7 @@ let multiDOFJointTrajectoryPoint_to_json x = [
     ] |> assoc_filter_nulls
 
 let multiDOFJointTrajectory_to_json x = [
+    ( "multiDOFJointTrajectory_header" , x.multiDOFJointTrajectory_header |> Std_msgs_to_json.header_to_json );
     ( "multiDOFJointTrajectory_joint_names" , x.multiDOFJointTrajectory_joint_names |> (mklist string_to_json) );
     ( "multiDOFJointTrajectory_points" , x.multiDOFJointTrajectory_points |> (mklist multiDOFJointTrajectoryPoint_to_json) );
     ] |> assoc_filter_nulls
@@ -23,6 +24,7 @@ let jointTrajectoryPoint_to_json x = [
     ] |> assoc_filter_nulls
 
 let jointTrajectory_to_json x = [
+    ( "jointTrajectory_header" , x.jointTrajectory_header |> Std_msgs_to_json.header_to_json );
     ( "jointTrajectory_joint_names" , x.jointTrajectory_joint_names |> (mklist string_to_json) );
     ( "jointTrajectory_points" , x.jointTrajectory_points |> (mklist jointTrajectoryPoint_to_json) );
     ] |> assoc_filter_nulls

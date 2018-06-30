@@ -14,6 +14,7 @@ type diagnosticStatus = {
 }
 
 type diagnosticArray = {
+   header : Std_msgs.header ;
    status : diagnosticStatus list ;
 }
 

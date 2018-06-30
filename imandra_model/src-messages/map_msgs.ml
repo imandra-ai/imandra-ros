@@ -7,6 +7,7 @@ type projectedMap = {
 }
 
 type occupancyGridUpdate = {
+   occupancyGridUpdate_header : Std_msgs.header ;
    occupancyGridUpdate_x : int32 ;
    occupancyGridUpdate_y : int32 ;
    occupancyGridUpdate_width : uint32 ;
@@ -25,7 +26,8 @@ type projectedMapInfo = {
 }
 
 type pointCloud2Update = {
-   ros_type : uint32 ;
-   points : Sensor_msgs.pointCloud2 ;
+   pointCloud2Update_header : Std_msgs.header ;
+   pointCloud2Update_ros_type : uint32 ;
+   pointCloud2Update_points : Sensor_msgs.pointCloud2 ;
 }
 

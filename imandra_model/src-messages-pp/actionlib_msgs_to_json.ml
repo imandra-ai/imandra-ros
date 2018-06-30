@@ -14,6 +14,7 @@ let goalStatus_to_json x = [
     ] |> assoc_filter_nulls
 
 let goalStatusArray_to_json x = [
+    ( "header" , x.header |> Std_msgs_to_json.header_to_json );
     ( "status_list" , x.status_list |> (mklist goalStatus_to_json) );
     ] |> assoc_filter_nulls
 

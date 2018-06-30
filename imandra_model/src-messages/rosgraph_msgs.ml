@@ -18,6 +18,7 @@ type topicStatistics = {
 }
 
 type log = {
+   header : Std_msgs.header ;
    level : byte ;
    name : string ;
    msg : string ;

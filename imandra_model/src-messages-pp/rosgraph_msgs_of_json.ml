@@ -35,6 +35,7 @@ let json_to_topicStatistics_opt json =
     }
 
 let json_to_log_opt json = 
+    jreq json "header" Std_msgs_of_json.json_to_header_opt @@ fun header ->
     jreq json "level" json_to_byte_opt @@ fun level ->
     jreq json "name" json_to_string_opt @@ fun name ->
     jreq json "msg" json_to_string_opt @@ fun msg ->
@@ -43,6 +44,7 @@ let json_to_log_opt json =
     jreq json "line" json_to_uint32_opt @@ fun line ->
     jreq json "topics" (jlist json_to_string_opt) @@ fun topics ->
     Some {
+    header;
     level;
     name;
     msg;

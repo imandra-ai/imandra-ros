@@ -22,9 +22,12 @@ let bool_to_json    x : J.json = `Bool x
 let char_to_json (x : char) : J.json = 
   `String ( String.make 1 x )
 
-let time_to_json x =
+let time_to_json ( x : time ) : J.json =
   [ ( "seconds"     , `Int x.seconds     ) 
   ; ( "nanoseconds" , `Int x.nanoseconds ) 
   ] |> assoc_filter_nulls
 
-let duration_to_json = time_to_json  
+let duration_to_json ( x : duration ) : J.json =   
+  [ ( "seconds"     , `Int x.seconds     ) 
+  ; ( "nanoseconds" , `Int x.nanoseconds ) 
+  ] |> assoc_filter_nulls

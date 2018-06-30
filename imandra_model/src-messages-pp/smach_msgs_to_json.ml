@@ -3,6 +3,7 @@ open Basic_types_to_json;;
 open Ros_messages.Smach_msgs;;
 
 let smachContainerStatus_to_json x = [
+    ( "smachContainerStatus_header" , x.smachContainerStatus_header |> Std_msgs_to_json.header_to_json );
     ( "smachContainerStatus_path" , x.smachContainerStatus_path |> string_to_json );
     ( "smachContainerStatus_initial_states" , x.smachContainerStatus_initial_states |> (mklist string_to_json) );
     ( "smachContainerStatus_active_states" , x.smachContainerStatus_active_states |> (mklist string_to_json) );
@@ -17,6 +18,7 @@ let smachContainerInitialStatusCmd_to_json x = [
     ] |> assoc_filter_nulls
 
 let smachContainerStructure_to_json x = [
+    ( "smachContainerStructure_header" , x.smachContainerStructure_header |> Std_msgs_to_json.header_to_json );
     ( "smachContainerStructure_path" , x.smachContainerStructure_path |> string_to_json );
     ( "smachContainerStructure_children" , x.smachContainerStructure_children |> (mklist string_to_json) );
     ( "smachContainerStructure_internal_outcomes" , x.smachContainerStructure_internal_outcomes |> (mklist string_to_json) );

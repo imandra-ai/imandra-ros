@@ -37,7 +37,8 @@ type pose2D = {
 }
 
 type pointStamped = {
-   point : point ;
+   pointStamped_header : Std_msgs.header ;
+   pointStamped_point : point ;
 }
 
 type point32 = {
@@ -47,7 +48,8 @@ type point32 = {
 }
 
 type quaternionStamped = {
-   quaternion : quaternion ;
+   quaternionStamped_header : Std_msgs.header ;
+   quaternionStamped_quaternion : quaternion ;
 }
 
 type transform = {
@@ -71,7 +73,8 @@ type wrench = {
 }
 
 type wrenchStamped = {
-   wrench : wrench ;
+   wrenchStamped_header : Std_msgs.header ;
+   wrenchStamped_wrench : wrench ;
 }
 
 type pose = {
@@ -85,23 +88,28 @@ type twist = {
 }
 
 type vector3Stamped = {
-   vector : vector3 ;
+   vector3Stamped_header : Std_msgs.header ;
+   vector3Stamped_vector : vector3 ;
 }
 
 type inertiaStamped = {
-   inertia : inertia ;
+   inertiaStamped_header : Std_msgs.header ;
+   inertiaStamped_inertia : inertia ;
 }
 
 type twistStamped = {
+   twistStamped_header : Std_msgs.header ;
    twistStamped_twist : twist ;
 }
 
 type transformStamped = {
-   child_frame_id : string ;
-   transform : transform ;
+   transformStamped_header : Std_msgs.header ;
+   transformStamped_child_frame_id : string ;
+   transformStamped_transform : transform ;
 }
 
 type poseStamped = {
+   poseStamped_header : Std_msgs.header ;
    poseStamped_pose : pose ;
 }
 
@@ -110,10 +118,12 @@ type polygon = {
 }
 
 type accelStamped = {
+   accelStamped_header : Std_msgs.header ;
    accelStamped_accel : accel ;
 }
 
 type accelWithCovarianceStamped = {
+   accelWithCovarianceStamped_header : Std_msgs.header ;
    accelWithCovarianceStamped_accel : accelWithCovariance ;
 }
 
@@ -123,11 +133,13 @@ type poseWithCovariance = {
 }
 
 type poseArray = {
-   poses : pose list ;
+   poseArray_header : Std_msgs.header ;
+   poseArray_poses : pose list ;
 }
 
 type polygonStamped = {
-   polygon : polygon ;
+   polygonStamped_header : Std_msgs.header ;
+   polygonStamped_polygon : polygon ;
 }
 
 type twistWithCovariance = {
@@ -136,10 +148,12 @@ type twistWithCovariance = {
 }
 
 type poseWithCovarianceStamped = {
+   poseWithCovarianceStamped_header : Std_msgs.header ;
    poseWithCovarianceStamped_pose : poseWithCovariance ;
 }
 
 type twistWithCovarianceStamped = {
+   twistWithCovarianceStamped_header : Std_msgs.header ;
    twistWithCovarianceStamped_twist : twistWithCovariance ;
 }
 

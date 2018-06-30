@@ -21,8 +21,10 @@ let json_to_goalStatus_opt json =
     }
 
 let json_to_goalStatusArray_opt json = 
+    jreq json "header" Std_msgs_of_json.json_to_header_opt @@ fun header ->
     jreq json "status_list" (jlist json_to_goalStatus_opt) @@ fun status_list ->
     Some {
+    header;
     status_list;
     }
 

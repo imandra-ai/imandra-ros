@@ -3,6 +3,7 @@ open Basic_types_to_json;;
 open Ros_messages.Bond;;
 
 let status_to_json x = [
+    ( "header" , x.header |> Std_msgs_to_json.header_to_json );
     ( "id" , x.id |> string_to_json );
     ( "instance_id" , x.instance_id |> string_to_json );
     ( "active" , x.active |> bool_to_json );

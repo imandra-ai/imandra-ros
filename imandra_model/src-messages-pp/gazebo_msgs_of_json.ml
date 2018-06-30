@@ -115,11 +115,13 @@ let json_to_contactState_opt json =
     }
 
 let json_to_worldState_opt json = 
+    jreq json "worldState_header" Std_msgs_of_json.json_to_header_opt @@ fun worldState_header ->
     jreq json "worldState_name" (jlist json_to_string_opt) @@ fun worldState_name ->
     jreq json "worldState_pose" (jlist Geometry_msgs_of_json.json_to_pose_opt) @@ fun worldState_pose ->
     jreq json "worldState_twist" (jlist Geometry_msgs_of_json.json_to_twist_opt) @@ fun worldState_twist ->
     jreq json "worldState_wrench" (jlist Geometry_msgs_of_json.json_to_wrench_opt) @@ fun worldState_wrench ->
     Some {
+    worldState_header;
     worldState_name;
     worldState_pose;
     worldState_twist;
@@ -127,8 +129,10 @@ let json_to_worldState_opt json =
     }
 
 let json_to_contactsState_opt json = 
-    jreq json "states" (jlist json_to_contactState_opt) @@ fun states ->
+    jreq json "contactsState_header" Std_msgs_of_json.json_to_header_opt @@ fun contactsState_header ->
+    jreq json "contactsState_states" (jlist json_to_contactState_opt) @@ fun contactsState_states ->
     Some {
-    states;
+    contactsState_header;
+    contactsState_states;
     }
 

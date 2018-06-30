@@ -2,10 +2,10 @@ open Json_utils;;
 open Basic_types_of_json;;
 open Ros_messages.Std_msgs;;
 
-let json_to_char_opt json = 
-    jreq json "char_data" json_to_char_opt @@ fun char_data ->
+let json_to_std_bool_opt json = 
+    jreq json "bool_data" json_to_bool_opt @@ fun bool_data ->
     Some {
-    char_data;
+    bool_data;
     }
 
 let json_to_header_opt json = 
@@ -24,16 +24,16 @@ let json_to_uInt16_opt json =
     uInt16_data;
     }
 
-let json_to_duration_opt json = 
-    jreq json "duration_data" json_to_duration_opt @@ fun duration_data ->
-    Some {
-    duration_data;
-    }
-
 let json_to_uInt32_opt json = 
     jreq json "uInt32_data" json_to_uint32_opt @@ fun uInt32_data ->
     Some {
     uInt32_data;
+    }
+
+let json_to_std_time_opt json = 
+    jreq json "time_data" json_to_time_opt @@ fun time_data ->
+    Some {
+    time_data;
     }
 
 let json_to_uInt8_opt json = 
@@ -42,17 +42,25 @@ let json_to_uInt8_opt json =
     uInt8_data;
     }
 
-let json_to_bool_opt json = 
-    jreq json "bool_data" json_to_bool_opt @@ fun bool_data ->
-    Some {
-    bool_data;
-    }
-
-let json_to_float32_opt json = 
+let json_to_std_float32_opt json = 
     jreq json "float32_data" json_to_float32_opt @@ fun float32_data ->
     Some {
     float32_data;
     }
+
+let json_to_std_duration_opt json = 
+    jreq json "duration_data" json_to_duration_opt @@ fun duration_data ->
+    Some {
+    duration_data;
+    }
+
+let json_to_std_int64_opt json = 
+    jreq json "int64_data" json_to_int64_opt @@ fun int64_data ->
+    Some {
+    int64_data;
+    }
+
+let json_to_empty_opt json : empty option = Some ()
 
 let json_to_uInt64_opt json = 
     jreq json "uInt64_data" json_to_uint64_opt @@ fun uInt64_data ->
@@ -60,22 +68,22 @@ let json_to_uInt64_opt json =
     uInt64_data;
     }
 
-let json_to_int32_opt json = 
-    jreq json "int32_data" json_to_int32_opt @@ fun int32_data ->
+let json_to_std_string_opt json = 
+    jreq json "string_data" json_to_string_opt @@ fun string_data ->
     Some {
-    int32_data;
+    string_data;
     }
 
-let json_to_int16_opt json = 
+let json_to_std_int16_opt json = 
     jreq json "int16_data" json_to_int16_opt @@ fun int16_data ->
     Some {
     int16_data;
     }
 
-let json_to_string_opt json = 
-    jreq json "string_data" json_to_string_opt @@ fun string_data ->
+let json_to_std_int32_opt json = 
+    jreq json "int32_data" json_to_int32_opt @@ fun int32_data ->
     Some {
-    string_data;
+    int32_data;
     }
 
 let json_to_colorRGBA_opt json = 
@@ -90,22 +98,22 @@ let json_to_colorRGBA_opt json =
     a;
     }
 
-let json_to_byte_opt json = 
-    jreq json "byte_data" json_to_byte_opt @@ fun byte_data ->
+let json_to_std_char_opt json = 
+    jreq json "char_data" json_to_char_opt @@ fun char_data ->
     Some {
-    byte_data;
+    char_data;
     }
 
-let json_to_int8_opt json = 
-    jreq json "int8_data" json_to_int8_opt @@ fun int8_data ->
-    Some {
-    int8_data;
-    }
-
-let json_to_float64_opt json = 
+let json_to_std_float64_opt json = 
     jreq json "float64_data" json_to_float64_opt @@ fun float64_data ->
     Some {
     float64_data;
+    }
+
+let json_to_std_byte_opt json = 
+    jreq json "byte_data" json_to_byte_opt @@ fun byte_data ->
+    Some {
+    byte_data;
     }
 
 let json_to_multiArrayDimension_opt json = 
@@ -118,18 +126,10 @@ let json_to_multiArrayDimension_opt json =
     stride;
     }
 
-let json_to_int64_opt json = 
-    jreq json "int64_data" json_to_int64_opt @@ fun int64_data ->
+let json_to_std_int8_opt json = 
+    jreq json "int8_data" json_to_int8_opt @@ fun int8_data ->
     Some {
-    int64_data;
-    }
-
-let json_to_empty_opt json : empty option = Some ()
-
-let json_to_time_opt json = 
-    jreq json "time_data" json_to_time_opt @@ fun time_data ->
-    Some {
-    time_data;
+    int8_data;
     }
 
 let json_to_multiArrayLayout_opt json = 
@@ -140,20 +140,20 @@ let json_to_multiArrayLayout_opt json =
     data_offset;
     }
 
-let json_to_int32MultiArray_opt json = 
-    jreq json "int32MultiArray_layout" json_to_multiArrayLayout_opt @@ fun int32MultiArray_layout ->
-    jreq json "int32MultiArray_data" (jlist json_to_int32_opt) @@ fun int32MultiArray_data ->
-    Some {
-    int32MultiArray_layout;
-    int32MultiArray_data;
-    }
-
 let json_to_int16MultiArray_opt json = 
     jreq json "int16MultiArray_layout" json_to_multiArrayLayout_opt @@ fun int16MultiArray_layout ->
     jreq json "int16MultiArray_data" (jlist json_to_int16_opt) @@ fun int16MultiArray_data ->
     Some {
     int16MultiArray_layout;
     int16MultiArray_data;
+    }
+
+let json_to_int32MultiArray_opt json = 
+    jreq json "int32MultiArray_layout" json_to_multiArrayLayout_opt @@ fun int32MultiArray_layout ->
+    jreq json "int32MultiArray_data" (jlist json_to_int32_opt) @@ fun int32MultiArray_data ->
+    Some {
+    int32MultiArray_layout;
+    int32MultiArray_data;
     }
 
 let json_to_float64MultiArray_opt json = 

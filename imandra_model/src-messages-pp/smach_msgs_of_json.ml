@@ -3,12 +3,14 @@ open Basic_types_of_json;;
 open Ros_messages.Smach_msgs;;
 
 let json_to_smachContainerStatus_opt json = 
+    jreq json "smachContainerStatus_header" Std_msgs_of_json.json_to_header_opt @@ fun smachContainerStatus_header ->
     jreq json "smachContainerStatus_path" json_to_string_opt @@ fun smachContainerStatus_path ->
     jreq json "smachContainerStatus_initial_states" (jlist json_to_string_opt) @@ fun smachContainerStatus_initial_states ->
     jreq json "smachContainerStatus_active_states" (jlist json_to_string_opt) @@ fun smachContainerStatus_active_states ->
     jreq json "smachContainerStatus_local_data" json_to_string_opt @@ fun smachContainerStatus_local_data ->
     jreq json "smachContainerStatus_info" json_to_string_opt @@ fun smachContainerStatus_info ->
     Some {
+    smachContainerStatus_header;
     smachContainerStatus_path;
     smachContainerStatus_initial_states;
     smachContainerStatus_active_states;
@@ -27,6 +29,7 @@ let json_to_smachContainerInitialStatusCmd_opt json =
     }
 
 let json_to_smachContainerStructure_opt json = 
+    jreq json "smachContainerStructure_header" Std_msgs_of_json.json_to_header_opt @@ fun smachContainerStructure_header ->
     jreq json "smachContainerStructure_path" json_to_string_opt @@ fun smachContainerStructure_path ->
     jreq json "smachContainerStructure_children" (jlist json_to_string_opt) @@ fun smachContainerStructure_children ->
     jreq json "smachContainerStructure_internal_outcomes" (jlist json_to_string_opt) @@ fun smachContainerStructure_internal_outcomes ->
@@ -34,6 +37,7 @@ let json_to_smachContainerStructure_opt json =
     jreq json "smachContainerStructure_outcomes_to" (jlist json_to_string_opt) @@ fun smachContainerStructure_outcomes_to ->
     jreq json "smachContainerStructure_container_outcomes" (jlist json_to_string_opt) @@ fun smachContainerStructure_container_outcomes ->
     Some {
+    smachContainerStructure_header;
     smachContainerStructure_path;
     smachContainerStructure_children;
     smachContainerStructure_internal_outcomes;

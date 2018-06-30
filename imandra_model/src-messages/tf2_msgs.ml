@@ -17,8 +17,9 @@ type lookupTransformGoal = {
 }
 
 type lookupTransformActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : lookupTransformGoal ;
+   lookupTransformActionGoal_header : Std_msgs.header ;
+   lookupTransformActionGoal_goal_id : Actionlib_msgs.goalID ;
+   lookupTransformActionGoal_goal : lookupTransformGoal ;
 }
 
 type tF2Error = {
@@ -27,6 +28,7 @@ type tF2Error = {
 }
 
 type lookupTransformActionFeedback = {
+   lookupTransformActionFeedback_header : Std_msgs.header ;
    lookupTransformActionFeedback_status : Actionlib_msgs.goalStatus ;
    lookupTransformActionFeedback_feedback : lookupTransformFeedback ;
 }
@@ -37,6 +39,7 @@ type lookupTransformResult = {
 }
 
 type lookupTransformActionResult = {
+   lookupTransformActionResult_header : Std_msgs.header ;
    lookupTransformActionResult_status : Actionlib_msgs.goalStatus ;
    lookupTransformActionResult_result : lookupTransformResult ;
 }

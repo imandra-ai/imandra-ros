@@ -13,11 +13,13 @@ type shapeGoal = {
 }
 
 type shapeActionFeedback = {
+   shapeActionFeedback_header : Std_msgs.header ;
    shapeActionFeedback_status : Actionlib_msgs.goalStatus ;
    shapeActionFeedback_feedback : shapeFeedback ;
 }
 
 type shapeActionResult = {
+   shapeActionResult_header : Std_msgs.header ;
    shapeActionResult_status : Actionlib_msgs.goalStatus ;
    shapeActionResult_result : shapeResult ;
 }
@@ -28,8 +30,9 @@ type velocity = {
 }
 
 type shapeActionGoal = {
-   goal_id : Actionlib_msgs.goalID ;
-   goal : shapeGoal ;
+   shapeActionGoal_header : Std_msgs.header ;
+   shapeActionGoal_goal_id : Actionlib_msgs.goalID ;
+   shapeActionGoal_goal : shapeGoal ;
 }
 
 type shapeAction = {

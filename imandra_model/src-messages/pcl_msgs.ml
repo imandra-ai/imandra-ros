@@ -1,11 +1,13 @@
 open Basic_types;;
 
 type modelCoefficients = {
-   values : float32 list ;
+   modelCoefficients_header : Std_msgs.header ;
+   modelCoefficients_values : float32 list ;
 }
 
 type pointIndices = {
-   indices : int32 list ;
+   pointIndices_header : Std_msgs.header ;
+   pointIndices_indices : int32 list ;
 }
 
 type vertices = {
@@ -13,7 +15,8 @@ type vertices = {
 }
 
 type polygonMesh = {
-   cloud : Sensor_msgs.pointCloud2 ;
-   polygons : vertices list ;
+   polygonMesh_header : Std_msgs.header ;
+   polygonMesh_cloud : Sensor_msgs.pointCloud2 ;
+   polygonMesh_polygons : vertices list ;
 }
 

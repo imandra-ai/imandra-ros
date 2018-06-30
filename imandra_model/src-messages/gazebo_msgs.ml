@@ -64,6 +64,7 @@ type contactState = {
 }
 
 type worldState = {
+   worldState_header : Std_msgs.header ;
    worldState_name : string list ;
    worldState_pose : Geometry_msgs.pose list ;
    worldState_twist : Geometry_msgs.twist list ;
@@ -71,6 +72,7 @@ type worldState = {
 }
 
 type contactsState = {
-   states : contactState list ;
+   contactsState_header : Std_msgs.header ;
+   contactsState_states : contactState list ;
 }
 

@@ -13,12 +13,14 @@ let json_to_projectedMap_opt json =
     }
 
 let json_to_occupancyGridUpdate_opt json = 
+    jreq json "occupancyGridUpdate_header" Std_msgs_of_json.json_to_header_opt @@ fun occupancyGridUpdate_header ->
     jreq json "occupancyGridUpdate_x" json_to_int32_opt @@ fun occupancyGridUpdate_x ->
     jreq json "occupancyGridUpdate_y" json_to_int32_opt @@ fun occupancyGridUpdate_y ->
     jreq json "occupancyGridUpdate_width" json_to_uint32_opt @@ fun occupancyGridUpdate_width ->
     jreq json "occupancyGridUpdate_height" json_to_uint32_opt @@ fun occupancyGridUpdate_height ->
     jreq json "occupancyGridUpdate_data" (jlist json_to_int8_opt) @@ fun occupancyGridUpdate_data ->
     Some {
+    occupancyGridUpdate_header;
     occupancyGridUpdate_x;
     occupancyGridUpdate_y;
     occupancyGridUpdate_width;
@@ -45,10 +47,12 @@ let json_to_projectedMapInfo_opt json =
     }
 
 let json_to_pointCloud2Update_opt json = 
-    jreq json "ros_type" json_to_uint32_opt @@ fun ros_type ->
-    jreq json "points" Sensor_msgs_of_json.json_to_pointCloud2_opt @@ fun points ->
+    jreq json "pointCloud2Update_header" Std_msgs_of_json.json_to_header_opt @@ fun pointCloud2Update_header ->
+    jreq json "pointCloud2Update_ros_type" json_to_uint32_opt @@ fun pointCloud2Update_ros_type ->
+    jreq json "pointCloud2Update_points" Sensor_msgs_of_json.json_to_pointCloud2_opt @@ fun pointCloud2Update_points ->
     Some {
-    ros_type;
-    points;
+    pointCloud2Update_header;
+    pointCloud2Update_ros_type;
+    pointCloud2Update_points;
     }
 

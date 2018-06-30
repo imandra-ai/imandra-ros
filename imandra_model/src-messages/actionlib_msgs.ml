@@ -12,6 +12,7 @@ type goalStatus = {
 }
 
 type goalStatusArray = {
+   header : Std_msgs.header ;
    status_list : goalStatus list ;
 }
 

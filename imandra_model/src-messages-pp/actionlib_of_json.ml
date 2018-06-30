@@ -25,17 +25,21 @@ let json_to_testFeedback_opt json =
     }
 
 let json_to_twoIntsActionFeedback_opt json = 
+    jreq json "twoIntsActionFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun twoIntsActionFeedback_header ->
     jreq json "twoIntsActionFeedback_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun twoIntsActionFeedback_status ->
     jreq json "twoIntsActionFeedback_feedback" json_to_twoIntsFeedback_opt @@ fun twoIntsActionFeedback_feedback ->
     Some {
+    twoIntsActionFeedback_header;
     twoIntsActionFeedback_status;
     twoIntsActionFeedback_feedback;
     }
 
 let json_to_testActionResult_opt json = 
+    jreq json "testActionResult_header" Std_msgs_of_json.json_to_header_opt @@ fun testActionResult_header ->
     jreq json "testActionResult_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun testActionResult_status ->
     jreq json "testActionResult_result" json_to_testResult_opt @@ fun testActionResult_result ->
     Some {
+    testActionResult_header;
     testActionResult_status;
     testActionResult_result;
     }
@@ -53,9 +57,11 @@ let json_to_twoIntsResult_opt json =
     }
 
 let json_to_testRequestActionResult_opt json = 
+    jreq json "testRequestActionResult_header" Std_msgs_of_json.json_to_header_opt @@ fun testRequestActionResult_header ->
     jreq json "testRequestActionResult_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun testRequestActionResult_status ->
     jreq json "testRequestActionResult_result" json_to_testRequestResult_opt @@ fun testRequestActionResult_result ->
     Some {
+    testRequestActionResult_header;
     testRequestActionResult_status;
     testRequestActionResult_result;
     }
@@ -91,41 +97,51 @@ let json_to_testRequestGoal_opt json =
     }
 
 let json_to_testRequestActionGoal_opt json = 
+    jreq json "testRequestActionGoal_header" Std_msgs_of_json.json_to_header_opt @@ fun testRequestActionGoal_header ->
     jreq json "testRequestActionGoal_goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun testRequestActionGoal_goal_id ->
     jreq json "testRequestActionGoal_goal" json_to_testRequestGoal_opt @@ fun testRequestActionGoal_goal ->
     Some {
+    testRequestActionGoal_header;
     testRequestActionGoal_goal_id;
     testRequestActionGoal_goal;
     }
 
 let json_to_testActionFeedback_opt json = 
+    jreq json "testActionFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun testActionFeedback_header ->
     jreq json "testActionFeedback_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun testActionFeedback_status ->
     jreq json "testActionFeedback_feedback" json_to_testFeedback_opt @@ fun testActionFeedback_feedback ->
     Some {
+    testActionFeedback_header;
     testActionFeedback_status;
     testActionFeedback_feedback;
     }
 
 let json_to_twoIntsActionGoal_opt json = 
+    jreq json "twoIntsActionGoal_header" Std_msgs_of_json.json_to_header_opt @@ fun twoIntsActionGoal_header ->
     jreq json "twoIntsActionGoal_goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun twoIntsActionGoal_goal_id ->
     jreq json "twoIntsActionGoal_goal" json_to_twoIntsGoal_opt @@ fun twoIntsActionGoal_goal ->
     Some {
+    twoIntsActionGoal_header;
     twoIntsActionGoal_goal_id;
     twoIntsActionGoal_goal;
     }
 
 let json_to_testActionGoal_opt json = 
+    jreq json "testActionGoal_header" Std_msgs_of_json.json_to_header_opt @@ fun testActionGoal_header ->
     jreq json "testActionGoal_goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun testActionGoal_goal_id ->
     jreq json "testActionGoal_goal" json_to_testGoal_opt @@ fun testActionGoal_goal ->
     Some {
+    testActionGoal_header;
     testActionGoal_goal_id;
     testActionGoal_goal;
     }
 
 let json_to_twoIntsActionResult_opt json = 
+    jreq json "twoIntsActionResult_header" Std_msgs_of_json.json_to_header_opt @@ fun twoIntsActionResult_header ->
     jreq json "twoIntsActionResult_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun twoIntsActionResult_status ->
     jreq json "twoIntsActionResult_result" json_to_twoIntsResult_opt @@ fun twoIntsActionResult_result ->
     Some {
+    twoIntsActionResult_header;
     twoIntsActionResult_status;
     twoIntsActionResult_result;
     }
@@ -141,9 +157,11 @@ let json_to_twoIntsAction_opt json =
     }
 
 let json_to_testRequestActionFeedback_opt json = 
+    jreq json "testRequestActionFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun testRequestActionFeedback_header ->
     jreq json "testRequestActionFeedback_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun testRequestActionFeedback_status ->
     jreq json "testRequestActionFeedback_feedback" json_to_testRequestFeedback_opt @@ fun testRequestActionFeedback_feedback ->
     Some {
+    testRequestActionFeedback_header;
     testRequestActionFeedback_status;
     testRequestActionFeedback_feedback;
     }

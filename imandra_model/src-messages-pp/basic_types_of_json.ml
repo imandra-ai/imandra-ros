@@ -28,5 +28,9 @@ let json_to_time_opt json =
   jreq json "nanoseconds" JU.to_int_option @@ fun nanoseconds -> 
   Some { seconds ; nanoseconds }
 
-let json_to_duration_opt = json_to_time_opt  
+let json_to_duration_opt (json : J.json) : duration option =
+  jreq json "seconds"     JU.to_int_option @@ fun seconds     -> 
+  jreq json "nanoseconds" JU.to_int_option @@ fun nanoseconds -> 
+  Some { seconds ; nanoseconds }
+
 

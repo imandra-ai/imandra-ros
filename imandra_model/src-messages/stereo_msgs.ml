@@ -1,6 +1,7 @@
 open Basic_types;;
 
 type disparityImage = {
+   header : Std_msgs.header ;
    image : Sensor_msgs.image ;
    f : float32 ;
    t : float32 ;

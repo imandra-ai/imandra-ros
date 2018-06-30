@@ -22,6 +22,7 @@ let averagingFeedback_to_json x = [
     ] |> assoc_filter_nulls
 
 let fibonacciActionFeedback_to_json x = [
+    ( "fibonacciActionFeedback_header" , x.fibonacciActionFeedback_header |> Std_msgs_to_json.header_to_json );
     ( "fibonacciActionFeedback_status" , x.fibonacciActionFeedback_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "fibonacciActionFeedback_feedback" , x.fibonacciActionFeedback_feedback |> fibonacciFeedback_to_json );
     ] |> assoc_filter_nulls
@@ -36,26 +37,31 @@ let averagingResult_to_json x = [
     ] |> assoc_filter_nulls
 
 let fibonacciActionGoal_to_json x = [
+    ( "fibonacciActionGoal_header" , x.fibonacciActionGoal_header |> Std_msgs_to_json.header_to_json );
     ( "fibonacciActionGoal_goal_id" , x.fibonacciActionGoal_goal_id |> Actionlib_msgs_to_json.goalID_to_json );
     ( "fibonacciActionGoal_goal" , x.fibonacciActionGoal_goal |> fibonacciGoal_to_json );
     ] |> assoc_filter_nulls
 
 let fibonacciActionResult_to_json x = [
+    ( "fibonacciActionResult_header" , x.fibonacciActionResult_header |> Std_msgs_to_json.header_to_json );
     ( "fibonacciActionResult_status" , x.fibonacciActionResult_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "fibonacciActionResult_result" , x.fibonacciActionResult_result |> fibonacciResult_to_json );
     ] |> assoc_filter_nulls
 
 let averagingActionGoal_to_json x = [
+    ( "averagingActionGoal_header" , x.averagingActionGoal_header |> Std_msgs_to_json.header_to_json );
     ( "averagingActionGoal_goal_id" , x.averagingActionGoal_goal_id |> Actionlib_msgs_to_json.goalID_to_json );
     ( "averagingActionGoal_goal" , x.averagingActionGoal_goal |> averagingGoal_to_json );
     ] |> assoc_filter_nulls
 
 let averagingActionFeedback_to_json x = [
+    ( "averagingActionFeedback_header" , x.averagingActionFeedback_header |> Std_msgs_to_json.header_to_json );
     ( "averagingActionFeedback_status" , x.averagingActionFeedback_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "averagingActionFeedback_feedback" , x.averagingActionFeedback_feedback |> averagingFeedback_to_json );
     ] |> assoc_filter_nulls
 
 let averagingActionResult_to_json x = [
+    ( "averagingActionResult_header" , x.averagingActionResult_header |> Std_msgs_to_json.header_to_json );
     ( "averagingActionResult_status" , x.averagingActionResult_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "averagingActionResult_result" , x.averagingActionResult_result |> averagingResult_to_json );
     ] |> assoc_filter_nulls

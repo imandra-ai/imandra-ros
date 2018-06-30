@@ -15,9 +15,11 @@ let json_to_multiDOFJointTrajectoryPoint_opt json =
     }
 
 let json_to_multiDOFJointTrajectory_opt json = 
+    jreq json "multiDOFJointTrajectory_header" Std_msgs_of_json.json_to_header_opt @@ fun multiDOFJointTrajectory_header ->
     jreq json "multiDOFJointTrajectory_joint_names" (jlist json_to_string_opt) @@ fun multiDOFJointTrajectory_joint_names ->
     jreq json "multiDOFJointTrajectory_points" (jlist json_to_multiDOFJointTrajectoryPoint_opt) @@ fun multiDOFJointTrajectory_points ->
     Some {
+    multiDOFJointTrajectory_header;
     multiDOFJointTrajectory_joint_names;
     multiDOFJointTrajectory_points;
     }
@@ -37,9 +39,11 @@ let json_to_jointTrajectoryPoint_opt json =
     }
 
 let json_to_jointTrajectory_opt json = 
+    jreq json "jointTrajectory_header" Std_msgs_of_json.json_to_header_opt @@ fun jointTrajectory_header ->
     jreq json "jointTrajectory_joint_names" (jlist json_to_string_opt) @@ fun jointTrajectory_joint_names ->
     jreq json "jointTrajectory_points" (jlist json_to_jointTrajectoryPoint_opt) @@ fun jointTrajectory_points ->
     Some {
+    jointTrajectory_header;
     jointTrajectory_joint_names;
     jointTrajectory_points;
     }

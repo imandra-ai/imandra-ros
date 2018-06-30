@@ -3,6 +3,7 @@ open Basic_types_to_json;;
 open Ros_messages.Visualization_msgs;;
 
 let interactiveMarkerPose_to_json x = [
+    ( "interactiveMarkerPose_header" , x.interactiveMarkerPose_header |> Std_msgs_to_json.header_to_json );
     ( "interactiveMarkerPose_pose" , x.interactiveMarkerPose_pose |> Geometry_msgs_to_json.pose_to_json );
     ( "interactiveMarkerPose_name" , x.interactiveMarkerPose_name |> string_to_json );
     ] |> assoc_filter_nulls
@@ -16,6 +17,7 @@ let menuEntry_to_json x = [
     ] |> assoc_filter_nulls
 
 let interactiveMarkerFeedback_to_json x = [
+    ( "interactiveMarkerFeedback_header" , x.interactiveMarkerFeedback_header |> Std_msgs_to_json.header_to_json );
     ( "interactiveMarkerFeedback_client_id" , x.interactiveMarkerFeedback_client_id |> string_to_json );
     ( "interactiveMarkerFeedback_marker_name" , x.interactiveMarkerFeedback_marker_name |> string_to_json );
     ( "interactiveMarkerFeedback_control_name" , x.interactiveMarkerFeedback_control_name |> string_to_json );
@@ -27,6 +29,7 @@ let interactiveMarkerFeedback_to_json x = [
     ] |> assoc_filter_nulls
 
 let marker_to_json x = [
+    ( "marker_header" , x.marker_header |> Std_msgs_to_json.header_to_json );
     ( "marker_ns" , x.marker_ns |> string_to_json );
     ( "marker_id" , x.marker_id |> int32_to_json );
     ( "marker_ros_type" , x.marker_ros_type |> int32_to_json );
@@ -44,6 +47,7 @@ let marker_to_json x = [
     ] |> assoc_filter_nulls
 
 let imageMarker_to_json x = [
+    ( "imageMarker_header" , x.imageMarker_header |> Std_msgs_to_json.header_to_json );
     ( "imageMarker_ns" , x.imageMarker_ns |> string_to_json );
     ( "imageMarker_id" , x.imageMarker_id |> int32_to_json );
     ( "imageMarker_ros_type" , x.imageMarker_ros_type |> int32_to_json );
@@ -74,6 +78,7 @@ let interactiveMarkerControl_to_json x = [
     ] |> assoc_filter_nulls
 
 let interactiveMarker_to_json x = [
+    ( "interactiveMarker_header" , x.interactiveMarker_header |> Std_msgs_to_json.header_to_json );
     ( "interactiveMarker_pose" , x.interactiveMarker_pose |> Geometry_msgs_to_json.pose_to_json );
     ( "interactiveMarker_name" , x.interactiveMarker_name |> string_to_json );
     ( "interactiveMarker_description" , x.interactiveMarker_description |> string_to_json );

@@ -33,8 +33,10 @@ let json_to_hardwareInterfaceResources_opt json =
     }
 
 let json_to_controllersStatistics_opt json = 
+    jreq json "header" Std_msgs_of_json.json_to_header_opt @@ fun header ->
     jreq json "controller" (jlist json_to_controllerStatistics_opt) @@ fun controller ->
     Some {
+    header;
     controller;
     }
 

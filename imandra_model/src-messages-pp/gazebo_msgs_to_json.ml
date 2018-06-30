@@ -66,6 +66,7 @@ let contactState_to_json x = [
     ] |> assoc_filter_nulls
 
 let worldState_to_json x = [
+    ( "worldState_header" , x.worldState_header |> Std_msgs_to_json.header_to_json );
     ( "worldState_name" , x.worldState_name |> (mklist string_to_json) );
     ( "worldState_pose" , x.worldState_pose |> (mklist Geometry_msgs_to_json.pose_to_json) );
     ( "worldState_twist" , x.worldState_twist |> (mklist Geometry_msgs_to_json.twist_to_json) );
@@ -73,6 +74,7 @@ let worldState_to_json x = [
     ] |> assoc_filter_nulls
 
 let contactsState_to_json x = [
-    ( "states" , x.states |> (mklist contactState_to_json) );
+    ( "contactsState_header" , x.contactsState_header |> Std_msgs_to_json.header_to_json );
+    ( "contactsState_states" , x.contactsState_states |> (mklist contactState_to_json) );
     ] |> assoc_filter_nulls
 

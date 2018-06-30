@@ -8,6 +8,7 @@ type multiDOFJointTrajectoryPoint = {
 }
 
 type multiDOFJointTrajectory = {
+   multiDOFJointTrajectory_header : Std_msgs.header ;
    multiDOFJointTrajectory_joint_names : string list ;
    multiDOFJointTrajectory_points : multiDOFJointTrajectoryPoint list ;
 }
@@ -21,6 +22,7 @@ type jointTrajectoryPoint = {
 }
 
 type jointTrajectory = {
+   jointTrajectory_header : Std_msgs.header ;
    jointTrajectory_joint_names : string list ;
    jointTrajectory_points : jointTrajectoryPoint list ;
 }

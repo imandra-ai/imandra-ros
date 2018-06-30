@@ -3,16 +3,19 @@ open Basic_types_of_json;;
 open Ros_messages.Control_msgs;;
 
 let json_to_singleJointPositionFeedback_opt json = 
+    jreq json "singleJointPositionFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun singleJointPositionFeedback_header ->
     jreq json "singleJointPositionFeedback_position" json_to_float64_opt @@ fun singleJointPositionFeedback_position ->
     jreq json "singleJointPositionFeedback_velocity" json_to_float64_opt @@ fun singleJointPositionFeedback_velocity ->
     jreq json "singleJointPositionFeedback_error" json_to_float64_opt @@ fun singleJointPositionFeedback_error ->
     Some {
+    singleJointPositionFeedback_header;
     singleJointPositionFeedback_position;
     singleJointPositionFeedback_velocity;
     singleJointPositionFeedback_error;
     }
 
 let json_to_pidState_opt json = 
+    jreq json "pidState_header" Std_msgs_of_json.json_to_header_opt @@ fun pidState_header ->
     jreq json "pidState_timestep" json_to_duration_opt @@ fun pidState_timestep ->
     jreq json "pidState_error" json_to_float64_opt @@ fun pidState_error ->
     jreq json "pidState_error_dot" json_to_float64_opt @@ fun pidState_error_dot ->
@@ -26,6 +29,7 @@ let json_to_pidState_opt json =
     jreq json "pidState_i_min" json_to_float64_opt @@ fun pidState_i_min ->
     jreq json "pidState_output" json_to_float64_opt @@ fun pidState_output ->
     Some {
+    pidState_header;
     pidState_timestep;
     pidState_error;
     pidState_error_dot;
@@ -41,19 +45,23 @@ let json_to_pidState_opt json =
     }
 
 let json_to_singleJointPositionActionFeedback_opt json = 
+    jreq json "singleJointPositionActionFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun singleJointPositionActionFeedback_header ->
     jreq json "singleJointPositionActionFeedback_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun singleJointPositionActionFeedback_status ->
     jreq json "singleJointPositionActionFeedback_feedback" json_to_singleJointPositionFeedback_opt @@ fun singleJointPositionActionFeedback_feedback ->
     Some {
+    singleJointPositionActionFeedback_header;
     singleJointPositionActionFeedback_status;
     singleJointPositionActionFeedback_feedback;
     }
 
 let json_to_jointTrajectoryControllerState_opt json = 
+    jreq json "jointTrajectoryControllerState_header" Std_msgs_of_json.json_to_header_opt @@ fun jointTrajectoryControllerState_header ->
     jreq json "jointTrajectoryControllerState_joint_names" (jlist json_to_string_opt) @@ fun jointTrajectoryControllerState_joint_names ->
     jreq json "jointTrajectoryControllerState_desired" Trajectory_msgs_of_json.json_to_jointTrajectoryPoint_opt @@ fun jointTrajectoryControllerState_desired ->
     jreq json "jointTrajectoryControllerState_actual" Trajectory_msgs_of_json.json_to_jointTrajectoryPoint_opt @@ fun jointTrajectoryControllerState_actual ->
     jreq json "jointTrajectoryControllerState_error" Trajectory_msgs_of_json.json_to_jointTrajectoryPoint_opt @@ fun jointTrajectoryControllerState_error ->
     Some {
+    jointTrajectoryControllerState_header;
     jointTrajectoryControllerState_joint_names;
     jointTrajectoryControllerState_desired;
     jointTrajectoryControllerState_actual;
@@ -139,6 +147,7 @@ let json_to_gripperCommandResult_opt json =
 let json_to_singleJointPositionResult_opt json : singleJointPositionResult option = Some ()
 
 let json_to_jointControllerState_opt json = 
+    jreq json "jointControllerState_header" Std_msgs_of_json.json_to_header_opt @@ fun jointControllerState_header ->
     jreq json "jointControllerState_set_point" json_to_float64_opt @@ fun jointControllerState_set_point ->
     jreq json "jointControllerState_process_value" json_to_float64_opt @@ fun jointControllerState_process_value ->
     jreq json "jointControllerState_process_value_dot" json_to_float64_opt @@ fun jointControllerState_process_value_dot ->
@@ -151,6 +160,7 @@ let json_to_jointControllerState_opt json =
     jreq json "jointControllerState_i_clamp" json_to_float64_opt @@ fun jointControllerState_i_clamp ->
     jreq json "jointControllerState_antiwindup" json_to_bool_opt @@ fun jointControllerState_antiwindup ->
     Some {
+    jointControllerState_header;
     jointControllerState_set_point;
     jointControllerState_process_value;
     jointControllerState_process_value_dot;
@@ -165,9 +175,11 @@ let json_to_jointControllerState_opt json =
     }
 
 let json_to_singleJointPositionActionResult_opt json = 
+    jreq json "singleJointPositionActionResult_header" Std_msgs_of_json.json_to_header_opt @@ fun singleJointPositionActionResult_header ->
     jreq json "singleJointPositionActionResult_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun singleJointPositionActionResult_status ->
     jreq json "singleJointPositionActionResult_result" json_to_singleJointPositionResult_opt @@ fun singleJointPositionActionResult_result ->
     Some {
+    singleJointPositionActionResult_header;
     singleJointPositionActionResult_status;
     singleJointPositionActionResult_result;
     }
@@ -175,11 +187,13 @@ let json_to_singleJointPositionActionResult_opt json =
 let json_to_pointHeadResult_opt json : pointHeadResult option = Some ()
 
 let json_to_followJointTrajectoryFeedback_opt json = 
+    jreq json "followJointTrajectoryFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun followJointTrajectoryFeedback_header ->
     jreq json "followJointTrajectoryFeedback_joint_names" (jlist json_to_string_opt) @@ fun followJointTrajectoryFeedback_joint_names ->
     jreq json "followJointTrajectoryFeedback_desired" Trajectory_msgs_of_json.json_to_jointTrajectoryPoint_opt @@ fun followJointTrajectoryFeedback_desired ->
     jreq json "followJointTrajectoryFeedback_actual" Trajectory_msgs_of_json.json_to_jointTrajectoryPoint_opt @@ fun followJointTrajectoryFeedback_actual ->
     jreq json "followJointTrajectoryFeedback_error" Trajectory_msgs_of_json.json_to_jointTrajectoryPoint_opt @@ fun followJointTrajectoryFeedback_error ->
     Some {
+    followJointTrajectoryFeedback_header;
     followJointTrajectoryFeedback_joint_names;
     followJointTrajectoryFeedback_desired;
     followJointTrajectoryFeedback_actual;
@@ -201,25 +215,31 @@ let json_to_gripperCommandFeedback_opt json =
 let json_to_jointTrajectoryFeedback_opt json : jointTrajectoryFeedback option = Some ()
 
 let json_to_jointTrajectoryActionGoal_opt json = 
+    jreq json "jointTrajectoryActionGoal_header" Std_msgs_of_json.json_to_header_opt @@ fun jointTrajectoryActionGoal_header ->
     jreq json "jointTrajectoryActionGoal_goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun jointTrajectoryActionGoal_goal_id ->
     jreq json "jointTrajectoryActionGoal_goal" json_to_jointTrajectoryGoal_opt @@ fun jointTrajectoryActionGoal_goal ->
     Some {
+    jointTrajectoryActionGoal_header;
     jointTrajectoryActionGoal_goal_id;
     jointTrajectoryActionGoal_goal;
     }
 
 let json_to_singleJointPositionActionGoal_opt json = 
+    jreq json "singleJointPositionActionGoal_header" Std_msgs_of_json.json_to_header_opt @@ fun singleJointPositionActionGoal_header ->
     jreq json "singleJointPositionActionGoal_goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun singleJointPositionActionGoal_goal_id ->
     jreq json "singleJointPositionActionGoal_goal" json_to_singleJointPositionGoal_opt @@ fun singleJointPositionActionGoal_goal ->
     Some {
+    singleJointPositionActionGoal_header;
     singleJointPositionActionGoal_goal_id;
     singleJointPositionActionGoal_goal;
     }
 
 let json_to_followJointTrajectoryActionResult_opt json = 
+    jreq json "followJointTrajectoryActionResult_header" Std_msgs_of_json.json_to_header_opt @@ fun followJointTrajectoryActionResult_header ->
     jreq json "followJointTrajectoryActionResult_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun followJointTrajectoryActionResult_status ->
     jreq json "followJointTrajectoryActionResult_result" json_to_followJointTrajectoryResult_opt @@ fun followJointTrajectoryActionResult_result ->
     Some {
+    followJointTrajectoryActionResult_header;
     followJointTrajectoryActionResult_status;
     followJointTrajectoryActionResult_result;
     }
@@ -245,73 +265,91 @@ let json_to_gripperCommandGoal_opt json =
     }
 
 let json_to_pointHeadActionGoal_opt json = 
+    jreq json "pointHeadActionGoal_header" Std_msgs_of_json.json_to_header_opt @@ fun pointHeadActionGoal_header ->
     jreq json "pointHeadActionGoal_goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun pointHeadActionGoal_goal_id ->
     jreq json "pointHeadActionGoal_goal" json_to_pointHeadGoal_opt @@ fun pointHeadActionGoal_goal ->
     Some {
+    pointHeadActionGoal_header;
     pointHeadActionGoal_goal_id;
     pointHeadActionGoal_goal;
     }
 
 let json_to_followJointTrajectoryActionGoal_opt json = 
+    jreq json "followJointTrajectoryActionGoal_header" Std_msgs_of_json.json_to_header_opt @@ fun followJointTrajectoryActionGoal_header ->
     jreq json "followJointTrajectoryActionGoal_goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun followJointTrajectoryActionGoal_goal_id ->
     jreq json "followJointTrajectoryActionGoal_goal" json_to_followJointTrajectoryGoal_opt @@ fun followJointTrajectoryActionGoal_goal ->
     Some {
+    followJointTrajectoryActionGoal_header;
     followJointTrajectoryActionGoal_goal_id;
     followJointTrajectoryActionGoal_goal;
     }
 
 let json_to_pointHeadActionFeedback_opt json = 
+    jreq json "pointHeadActionFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun pointHeadActionFeedback_header ->
     jreq json "pointHeadActionFeedback_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun pointHeadActionFeedback_status ->
     jreq json "pointHeadActionFeedback_feedback" json_to_pointHeadFeedback_opt @@ fun pointHeadActionFeedback_feedback ->
     Some {
+    pointHeadActionFeedback_header;
     pointHeadActionFeedback_status;
     pointHeadActionFeedback_feedback;
     }
 
 let json_to_pointHeadActionResult_opt json = 
+    jreq json "pointHeadActionResult_header" Std_msgs_of_json.json_to_header_opt @@ fun pointHeadActionResult_header ->
     jreq json "pointHeadActionResult_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun pointHeadActionResult_status ->
     jreq json "pointHeadActionResult_result" json_to_pointHeadResult_opt @@ fun pointHeadActionResult_result ->
     Some {
+    pointHeadActionResult_header;
     pointHeadActionResult_status;
     pointHeadActionResult_result;
     }
 
 let json_to_gripperCommandActionFeedback_opt json = 
+    jreq json "gripperCommandActionFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun gripperCommandActionFeedback_header ->
     jreq json "gripperCommandActionFeedback_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun gripperCommandActionFeedback_status ->
     jreq json "gripperCommandActionFeedback_feedback" json_to_gripperCommandFeedback_opt @@ fun gripperCommandActionFeedback_feedback ->
     Some {
+    gripperCommandActionFeedback_header;
     gripperCommandActionFeedback_status;
     gripperCommandActionFeedback_feedback;
     }
 
 let json_to_gripperCommandActionGoal_opt json = 
+    jreq json "gripperCommandActionGoal_header" Std_msgs_of_json.json_to_header_opt @@ fun gripperCommandActionGoal_header ->
     jreq json "gripperCommandActionGoal_goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun gripperCommandActionGoal_goal_id ->
     jreq json "gripperCommandActionGoal_goal" json_to_gripperCommandGoal_opt @@ fun gripperCommandActionGoal_goal ->
     Some {
+    gripperCommandActionGoal_header;
     gripperCommandActionGoal_goal_id;
     gripperCommandActionGoal_goal;
     }
 
 let json_to_jointTrajectoryActionFeedback_opt json = 
+    jreq json "jointTrajectoryActionFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun jointTrajectoryActionFeedback_header ->
     jreq json "jointTrajectoryActionFeedback_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun jointTrajectoryActionFeedback_status ->
     jreq json "jointTrajectoryActionFeedback_feedback" json_to_jointTrajectoryFeedback_opt @@ fun jointTrajectoryActionFeedback_feedback ->
     Some {
+    jointTrajectoryActionFeedback_header;
     jointTrajectoryActionFeedback_status;
     jointTrajectoryActionFeedback_feedback;
     }
 
 let json_to_followJointTrajectoryActionFeedback_opt json = 
+    jreq json "followJointTrajectoryActionFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun followJointTrajectoryActionFeedback_header ->
     jreq json "followJointTrajectoryActionFeedback_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun followJointTrajectoryActionFeedback_status ->
     jreq json "followJointTrajectoryActionFeedback_feedback" json_to_followJointTrajectoryFeedback_opt @@ fun followJointTrajectoryActionFeedback_feedback ->
     Some {
+    followJointTrajectoryActionFeedback_header;
     followJointTrajectoryActionFeedback_status;
     followJointTrajectoryActionFeedback_feedback;
     }
 
 let json_to_gripperCommandActionResult_opt json = 
+    jreq json "gripperCommandActionResult_header" Std_msgs_of_json.json_to_header_opt @@ fun gripperCommandActionResult_header ->
     jreq json "gripperCommandActionResult_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun gripperCommandActionResult_status ->
     jreq json "gripperCommandActionResult_result" json_to_gripperCommandResult_opt @@ fun gripperCommandActionResult_result ->
     Some {
+    gripperCommandActionResult_header;
     gripperCommandActionResult_status;
     gripperCommandActionResult_result;
     }
@@ -327,9 +365,11 @@ let json_to_singleJointPositionAction_opt json =
     }
 
 let json_to_jointTrajectoryActionResult_opt json = 
+    jreq json "jointTrajectoryActionResult_header" Std_msgs_of_json.json_to_header_opt @@ fun jointTrajectoryActionResult_header ->
     jreq json "jointTrajectoryActionResult_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun jointTrajectoryActionResult_status ->
     jreq json "jointTrajectoryActionResult_result" json_to_jointTrajectoryResult_opt @@ fun jointTrajectoryActionResult_result ->
     Some {
+    jointTrajectoryActionResult_header;
     jointTrajectoryActionResult_status;
     jointTrajectoryActionResult_result;
     }

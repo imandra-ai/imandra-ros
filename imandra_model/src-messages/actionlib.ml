@@ -16,11 +16,13 @@ type testFeedback = {
 }
 
 type twoIntsActionFeedback = {
+   twoIntsActionFeedback_header : Std_msgs.header ;
    twoIntsActionFeedback_status : Actionlib_msgs.goalStatus ;
    twoIntsActionFeedback_feedback : twoIntsFeedback ;
 }
 
 type testActionResult = {
+   testActionResult_header : Std_msgs.header ;
    testActionResult_status : Actionlib_msgs.goalStatus ;
    testActionResult_result : testResult ;
 }
@@ -34,6 +36,7 @@ type twoIntsResult = {
 }
 
 type testRequestActionResult = {
+   testRequestActionResult_header : Std_msgs.header ;
    testRequestActionResult_status : Actionlib_msgs.goalStatus ;
    testRequestActionResult_result : testRequestResult ;
 }
@@ -57,26 +60,31 @@ type testRequestGoal = {
 }
 
 type testRequestActionGoal = {
+   testRequestActionGoal_header : Std_msgs.header ;
    testRequestActionGoal_goal_id : Actionlib_msgs.goalID ;
    testRequestActionGoal_goal : testRequestGoal ;
 }
 
 type testActionFeedback = {
+   testActionFeedback_header : Std_msgs.header ;
    testActionFeedback_status : Actionlib_msgs.goalStatus ;
    testActionFeedback_feedback : testFeedback ;
 }
 
 type twoIntsActionGoal = {
+   twoIntsActionGoal_header : Std_msgs.header ;
    twoIntsActionGoal_goal_id : Actionlib_msgs.goalID ;
    twoIntsActionGoal_goal : twoIntsGoal ;
 }
 
 type testActionGoal = {
+   testActionGoal_header : Std_msgs.header ;
    testActionGoal_goal_id : Actionlib_msgs.goalID ;
    testActionGoal_goal : testGoal ;
 }
 
 type twoIntsActionResult = {
+   twoIntsActionResult_header : Std_msgs.header ;
    twoIntsActionResult_status : Actionlib_msgs.goalStatus ;
    twoIntsActionResult_result : twoIntsResult ;
 }
@@ -88,6 +96,7 @@ type twoIntsAction = {
 }
 
 type testRequestActionFeedback = {
+   testRequestActionFeedback_header : Std_msgs.header ;
    testRequestActionFeedback_status : Actionlib_msgs.goalStatus ;
    testRequestActionFeedback_feedback : testRequestFeedback ;
 }

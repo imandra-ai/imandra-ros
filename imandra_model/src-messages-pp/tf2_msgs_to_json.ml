@@ -19,8 +19,9 @@ let lookupTransformGoal_to_json x = [
     ] |> assoc_filter_nulls
 
 let lookupTransformActionGoal_to_json x = [
-    ( "goal_id" , x.goal_id |> Actionlib_msgs_to_json.goalID_to_json );
-    ( "goal" , x.goal |> lookupTransformGoal_to_json );
+    ( "lookupTransformActionGoal_header" , x.lookupTransformActionGoal_header |> Std_msgs_to_json.header_to_json );
+    ( "lookupTransformActionGoal_goal_id" , x.lookupTransformActionGoal_goal_id |> Actionlib_msgs_to_json.goalID_to_json );
+    ( "lookupTransformActionGoal_goal" , x.lookupTransformActionGoal_goal |> lookupTransformGoal_to_json );
     ] |> assoc_filter_nulls
 
 let tF2Error_to_json x = [
@@ -29,6 +30,7 @@ let tF2Error_to_json x = [
     ] |> assoc_filter_nulls
 
 let lookupTransformActionFeedback_to_json x = [
+    ( "lookupTransformActionFeedback_header" , x.lookupTransformActionFeedback_header |> Std_msgs_to_json.header_to_json );
     ( "lookupTransformActionFeedback_status" , x.lookupTransformActionFeedback_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "lookupTransformActionFeedback_feedback" , x.lookupTransformActionFeedback_feedback |> lookupTransformFeedback_to_json );
     ] |> assoc_filter_nulls
@@ -39,6 +41,7 @@ let lookupTransformResult_to_json x = [
     ] |> assoc_filter_nulls
 
 let lookupTransformActionResult_to_json x = [
+    ( "lookupTransformActionResult_header" , x.lookupTransformActionResult_header |> Std_msgs_to_json.header_to_json );
     ( "lookupTransformActionResult_status" , x.lookupTransformActionResult_status |> Actionlib_msgs_to_json.goalStatus_to_json );
     ( "lookupTransformActionResult_result" , x.lookupTransformActionResult_result |> lookupTransformResult_to_json );
     ] |> assoc_filter_nulls

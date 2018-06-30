@@ -9,6 +9,7 @@ let projectedMap_to_json x = [
     ] |> assoc_filter_nulls
 
 let occupancyGridUpdate_to_json x = [
+    ( "occupancyGridUpdate_header" , x.occupancyGridUpdate_header |> Std_msgs_to_json.header_to_json );
     ( "occupancyGridUpdate_x" , x.occupancyGridUpdate_x |> int32_to_json );
     ( "occupancyGridUpdate_y" , x.occupancyGridUpdate_y |> int32_to_json );
     ( "occupancyGridUpdate_width" , x.occupancyGridUpdate_width |> uint32_to_json );
@@ -27,7 +28,8 @@ let projectedMapInfo_to_json x = [
     ] |> assoc_filter_nulls
 
 let pointCloud2Update_to_json x = [
-    ( "ros_type" , x.ros_type |> uint32_to_json );
-    ( "points" , x.points |> Sensor_msgs_to_json.pointCloud2_to_json );
+    ( "pointCloud2Update_header" , x.pointCloud2Update_header |> Std_msgs_to_json.header_to_json );
+    ( "pointCloud2Update_ros_type" , x.pointCloud2Update_ros_type |> uint32_to_json );
+    ( "pointCloud2Update_points" , x.pointCloud2Update_points |> Sensor_msgs_to_json.pointCloud2_to_json );
     ] |> assoc_filter_nulls
 

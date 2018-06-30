@@ -65,9 +65,11 @@ let json_to_pose2D_opt json =
     }
 
 let json_to_pointStamped_opt json = 
-    jreq json "point" json_to_point_opt @@ fun point ->
+    jreq json "pointStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun pointStamped_header ->
+    jreq json "pointStamped_point" json_to_point_opt @@ fun pointStamped_point ->
     Some {
-    point;
+    pointStamped_header;
+    pointStamped_point;
     }
 
 let json_to_point32_opt json = 
@@ -81,9 +83,11 @@ let json_to_point32_opt json =
     }
 
 let json_to_quaternionStamped_opt json = 
-    jreq json "quaternion" json_to_quaternion_opt @@ fun quaternion ->
+    jreq json "quaternionStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun quaternionStamped_header ->
+    jreq json "quaternionStamped_quaternion" json_to_quaternion_opt @@ fun quaternionStamped_quaternion ->
     Some {
-    quaternion;
+    quaternionStamped_header;
+    quaternionStamped_quaternion;
     }
 
 let json_to_transform_opt json = 
@@ -119,9 +123,11 @@ let json_to_wrench_opt json =
     }
 
 let json_to_wrenchStamped_opt json = 
-    jreq json "wrench" json_to_wrench_opt @@ fun wrench ->
+    jreq json "wrenchStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun wrenchStamped_header ->
+    jreq json "wrenchStamped_wrench" json_to_wrench_opt @@ fun wrenchStamped_wrench ->
     Some {
-    wrench;
+    wrenchStamped_header;
+    wrenchStamped_wrench;
     }
 
 let json_to_pose_opt json = 
@@ -141,34 +147,44 @@ let json_to_twist_opt json =
     }
 
 let json_to_vector3Stamped_opt json = 
-    jreq json "vector" json_to_vector3_opt @@ fun vector ->
+    jreq json "vector3Stamped_header" Std_msgs_of_json.json_to_header_opt @@ fun vector3Stamped_header ->
+    jreq json "vector3Stamped_vector" json_to_vector3_opt @@ fun vector3Stamped_vector ->
     Some {
-    vector;
+    vector3Stamped_header;
+    vector3Stamped_vector;
     }
 
 let json_to_inertiaStamped_opt json = 
-    jreq json "inertia" json_to_inertia_opt @@ fun inertia ->
+    jreq json "inertiaStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun inertiaStamped_header ->
+    jreq json "inertiaStamped_inertia" json_to_inertia_opt @@ fun inertiaStamped_inertia ->
     Some {
-    inertia;
+    inertiaStamped_header;
+    inertiaStamped_inertia;
     }
 
 let json_to_twistStamped_opt json = 
+    jreq json "twistStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun twistStamped_header ->
     jreq json "twistStamped_twist" json_to_twist_opt @@ fun twistStamped_twist ->
     Some {
+    twistStamped_header;
     twistStamped_twist;
     }
 
 let json_to_transformStamped_opt json = 
-    jreq json "child_frame_id" json_to_string_opt @@ fun child_frame_id ->
-    jreq json "transform" json_to_transform_opt @@ fun transform ->
+    jreq json "transformStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun transformStamped_header ->
+    jreq json "transformStamped_child_frame_id" json_to_string_opt @@ fun transformStamped_child_frame_id ->
+    jreq json "transformStamped_transform" json_to_transform_opt @@ fun transformStamped_transform ->
     Some {
-    child_frame_id;
-    transform;
+    transformStamped_header;
+    transformStamped_child_frame_id;
+    transformStamped_transform;
     }
 
 let json_to_poseStamped_opt json = 
+    jreq json "poseStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun poseStamped_header ->
     jreq json "poseStamped_pose" json_to_pose_opt @@ fun poseStamped_pose ->
     Some {
+    poseStamped_header;
     poseStamped_pose;
     }
 
@@ -179,14 +195,18 @@ let json_to_polygon_opt json =
     }
 
 let json_to_accelStamped_opt json = 
+    jreq json "accelStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun accelStamped_header ->
     jreq json "accelStamped_accel" json_to_accel_opt @@ fun accelStamped_accel ->
     Some {
+    accelStamped_header;
     accelStamped_accel;
     }
 
 let json_to_accelWithCovarianceStamped_opt json = 
+    jreq json "accelWithCovarianceStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun accelWithCovarianceStamped_header ->
     jreq json "accelWithCovarianceStamped_accel" json_to_accelWithCovariance_opt @@ fun accelWithCovarianceStamped_accel ->
     Some {
+    accelWithCovarianceStamped_header;
     accelWithCovarianceStamped_accel;
     }
 
@@ -199,15 +219,19 @@ let json_to_poseWithCovariance_opt json =
     }
 
 let json_to_poseArray_opt json = 
-    jreq json "poses" (jlist json_to_pose_opt) @@ fun poses ->
+    jreq json "poseArray_header" Std_msgs_of_json.json_to_header_opt @@ fun poseArray_header ->
+    jreq json "poseArray_poses" (jlist json_to_pose_opt) @@ fun poseArray_poses ->
     Some {
-    poses;
+    poseArray_header;
+    poseArray_poses;
     }
 
 let json_to_polygonStamped_opt json = 
-    jreq json "polygon" json_to_polygon_opt @@ fun polygon ->
+    jreq json "polygonStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun polygonStamped_header ->
+    jreq json "polygonStamped_polygon" json_to_polygon_opt @@ fun polygonStamped_polygon ->
     Some {
-    polygon;
+    polygonStamped_header;
+    polygonStamped_polygon;
     }
 
 let json_to_twistWithCovariance_opt json = 
@@ -219,14 +243,18 @@ let json_to_twistWithCovariance_opt json =
     }
 
 let json_to_poseWithCovarianceStamped_opt json = 
+    jreq json "poseWithCovarianceStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun poseWithCovarianceStamped_header ->
     jreq json "poseWithCovarianceStamped_pose" json_to_poseWithCovariance_opt @@ fun poseWithCovarianceStamped_pose ->
     Some {
+    poseWithCovarianceStamped_header;
     poseWithCovarianceStamped_pose;
     }
 
 let json_to_twistWithCovarianceStamped_opt json = 
+    jreq json "twistWithCovarianceStamped_header" Std_msgs_of_json.json_to_header_opt @@ fun twistWithCovarianceStamped_header ->
     jreq json "twistWithCovarianceStamped_twist" json_to_twistWithCovariance_opt @@ fun twistWithCovarianceStamped_twist ->
     Some {
+    twistWithCovarianceStamped_header;
     twistWithCovarianceStamped_twist;
     }
 

@@ -1,6 +1,7 @@
 open Basic_types;;
 
 type interactiveMarkerPose = {
+   interactiveMarkerPose_header : Std_msgs.header ;
    interactiveMarkerPose_pose : Geometry_msgs.pose ;
    interactiveMarkerPose_name : string ;
 }
@@ -14,6 +15,7 @@ type menuEntry = {
 }
 
 type interactiveMarkerFeedback = {
+   interactiveMarkerFeedback_header : Std_msgs.header ;
    interactiveMarkerFeedback_client_id : string ;
    interactiveMarkerFeedback_marker_name : string ;
    interactiveMarkerFeedback_control_name : string ;
@@ -25,6 +27,7 @@ type interactiveMarkerFeedback = {
 }
 
 type marker = {
+   marker_header : Std_msgs.header ;
    marker_ns : string ;
    marker_id : int32 ;
    marker_ros_type : int32 ;
@@ -42,6 +45,7 @@ type marker = {
 }
 
 type imageMarker = {
+   imageMarker_header : Std_msgs.header ;
    imageMarker_ns : string ;
    imageMarker_id : int32 ;
    imageMarker_ros_type : int32 ;
@@ -72,6 +76,7 @@ type interactiveMarkerControl = {
 }
 
 type interactiveMarker = {
+   interactiveMarker_header : Std_msgs.header ;
    interactiveMarker_pose : Geometry_msgs.pose ;
    interactiveMarker_name : string ;
    interactiveMarker_description : string ;

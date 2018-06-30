@@ -1,6 +1,7 @@
 open Basic_types;;
 
 type smachContainerStatus = {
+   smachContainerStatus_header : Std_msgs.header ;
    smachContainerStatus_path : string ;
    smachContainerStatus_initial_states : string list ;
    smachContainerStatus_active_states : string list ;
@@ -15,6 +16,7 @@ type smachContainerInitialStatusCmd = {
 }
 
 type smachContainerStructure = {
+   smachContainerStructure_header : Std_msgs.header ;
    smachContainerStructure_path : string ;
    smachContainerStructure_children : string list ;
    smachContainerStructure_internal_outcomes : string list ;

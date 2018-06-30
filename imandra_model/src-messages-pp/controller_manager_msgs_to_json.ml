@@ -20,6 +20,7 @@ let hardwareInterfaceResources_to_json x = [
     ] |> assoc_filter_nulls
 
 let controllersStatistics_to_json x = [
+    ( "header" , x.header |> Std_msgs_to_json.header_to_json );
     ( "controller" , x.controller |> (mklist controllerStatistics_to_json) );
     ] |> assoc_filter_nulls
 

@@ -20,6 +20,7 @@ let topicStatistics_to_json x = [
     ] |> assoc_filter_nulls
 
 let log_to_json x = [
+    ( "header" , x.header |> Std_msgs_to_json.header_to_json );
     ( "level" , x.level |> byte_to_json );
     ( "name" , x.name |> string_to_json );
     ( "msg" , x.msg |> string_to_json );

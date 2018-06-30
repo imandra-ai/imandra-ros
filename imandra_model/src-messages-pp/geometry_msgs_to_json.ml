@@ -39,7 +39,8 @@ let pose2D_to_json x = [
     ] |> assoc_filter_nulls
 
 let pointStamped_to_json x = [
-    ( "point" , x.point |> point_to_json );
+    ( "pointStamped_header" , x.pointStamped_header |> Std_msgs_to_json.header_to_json );
+    ( "pointStamped_point" , x.pointStamped_point |> point_to_json );
     ] |> assoc_filter_nulls
 
 let point32_to_json x = [
@@ -49,7 +50,8 @@ let point32_to_json x = [
     ] |> assoc_filter_nulls
 
 let quaternionStamped_to_json x = [
-    ( "quaternion" , x.quaternion |> quaternion_to_json );
+    ( "quaternionStamped_header" , x.quaternionStamped_header |> Std_msgs_to_json.header_to_json );
+    ( "quaternionStamped_quaternion" , x.quaternionStamped_quaternion |> quaternion_to_json );
     ] |> assoc_filter_nulls
 
 let transform_to_json x = [
@@ -73,7 +75,8 @@ let wrench_to_json x = [
     ] |> assoc_filter_nulls
 
 let wrenchStamped_to_json x = [
-    ( "wrench" , x.wrench |> wrench_to_json );
+    ( "wrenchStamped_header" , x.wrenchStamped_header |> Std_msgs_to_json.header_to_json );
+    ( "wrenchStamped_wrench" , x.wrenchStamped_wrench |> wrench_to_json );
     ] |> assoc_filter_nulls
 
 let pose_to_json x = [
@@ -87,23 +90,28 @@ let twist_to_json x = [
     ] |> assoc_filter_nulls
 
 let vector3Stamped_to_json x = [
-    ( "vector" , x.vector |> vector3_to_json );
+    ( "vector3Stamped_header" , x.vector3Stamped_header |> Std_msgs_to_json.header_to_json );
+    ( "vector3Stamped_vector" , x.vector3Stamped_vector |> vector3_to_json );
     ] |> assoc_filter_nulls
 
 let inertiaStamped_to_json x = [
-    ( "inertia" , x.inertia |> inertia_to_json );
+    ( "inertiaStamped_header" , x.inertiaStamped_header |> Std_msgs_to_json.header_to_json );
+    ( "inertiaStamped_inertia" , x.inertiaStamped_inertia |> inertia_to_json );
     ] |> assoc_filter_nulls
 
 let twistStamped_to_json x = [
+    ( "twistStamped_header" , x.twistStamped_header |> Std_msgs_to_json.header_to_json );
     ( "twistStamped_twist" , x.twistStamped_twist |> twist_to_json );
     ] |> assoc_filter_nulls
 
 let transformStamped_to_json x = [
-    ( "child_frame_id" , x.child_frame_id |> string_to_json );
-    ( "transform" , x.transform |> transform_to_json );
+    ( "transformStamped_header" , x.transformStamped_header |> Std_msgs_to_json.header_to_json );
+    ( "transformStamped_child_frame_id" , x.transformStamped_child_frame_id |> string_to_json );
+    ( "transformStamped_transform" , x.transformStamped_transform |> transform_to_json );
     ] |> assoc_filter_nulls
 
 let poseStamped_to_json x = [
+    ( "poseStamped_header" , x.poseStamped_header |> Std_msgs_to_json.header_to_json );
     ( "poseStamped_pose" , x.poseStamped_pose |> pose_to_json );
     ] |> assoc_filter_nulls
 
@@ -112,10 +120,12 @@ let polygon_to_json x = [
     ] |> assoc_filter_nulls
 
 let accelStamped_to_json x = [
+    ( "accelStamped_header" , x.accelStamped_header |> Std_msgs_to_json.header_to_json );
     ( "accelStamped_accel" , x.accelStamped_accel |> accel_to_json );
     ] |> assoc_filter_nulls
 
 let accelWithCovarianceStamped_to_json x = [
+    ( "accelWithCovarianceStamped_header" , x.accelWithCovarianceStamped_header |> Std_msgs_to_json.header_to_json );
     ( "accelWithCovarianceStamped_accel" , x.accelWithCovarianceStamped_accel |> accelWithCovariance_to_json );
     ] |> assoc_filter_nulls
 
@@ -125,11 +135,13 @@ let poseWithCovariance_to_json x = [
     ] |> assoc_filter_nulls
 
 let poseArray_to_json x = [
-    ( "poses" , x.poses |> (mklist pose_to_json) );
+    ( "poseArray_header" , x.poseArray_header |> Std_msgs_to_json.header_to_json );
+    ( "poseArray_poses" , x.poseArray_poses |> (mklist pose_to_json) );
     ] |> assoc_filter_nulls
 
 let polygonStamped_to_json x = [
-    ( "polygon" , x.polygon |> polygon_to_json );
+    ( "polygonStamped_header" , x.polygonStamped_header |> Std_msgs_to_json.header_to_json );
+    ( "polygonStamped_polygon" , x.polygonStamped_polygon |> polygon_to_json );
     ] |> assoc_filter_nulls
 
 let twistWithCovariance_to_json x = [
@@ -138,10 +150,12 @@ let twistWithCovariance_to_json x = [
     ] |> assoc_filter_nulls
 
 let poseWithCovarianceStamped_to_json x = [
+    ( "poseWithCovarianceStamped_header" , x.poseWithCovarianceStamped_header |> Std_msgs_to_json.header_to_json );
     ( "poseWithCovarianceStamped_pose" , x.poseWithCovarianceStamped_pose |> poseWithCovariance_to_json );
     ] |> assoc_filter_nulls
 
 let twistWithCovarianceStamped_to_json x = [
+    ( "twistWithCovarianceStamped_header" , x.twistWithCovarianceStamped_header |> Std_msgs_to_json.header_to_json );
     ( "twistWithCovarianceStamped_twist" , x.twistWithCovarianceStamped_twist |> twistWithCovariance_to_json );
     ] |> assoc_filter_nulls
 

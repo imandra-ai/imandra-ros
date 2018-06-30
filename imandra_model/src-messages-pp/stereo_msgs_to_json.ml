@@ -3,6 +3,7 @@ open Basic_types_to_json;;
 open Ros_messages.Stereo_msgs;;
 
 let disparityImage_to_json x = [
+    ( "header" , x.header |> Std_msgs_to_json.header_to_json );
     ( "image" , x.image |> Sensor_msgs_to_json.image_to_json );
     ( "f" , x.f |> float32_to_json );
     ( "t" , x.t |> float32_to_json );

@@ -1,6 +1,7 @@
 open Basic_types;;
 
 type status = {
+   header : Std_msgs.header ;
    id : string ;
    instance_id : string ;
    active : bool ;

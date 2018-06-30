@@ -29,11 +29,13 @@ let json_to_lookupTransformGoal_opt json =
     }
 
 let json_to_lookupTransformActionGoal_opt json = 
-    jreq json "goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun goal_id ->
-    jreq json "goal" json_to_lookupTransformGoal_opt @@ fun goal ->
+    jreq json "lookupTransformActionGoal_header" Std_msgs_of_json.json_to_header_opt @@ fun lookupTransformActionGoal_header ->
+    jreq json "lookupTransformActionGoal_goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun lookupTransformActionGoal_goal_id ->
+    jreq json "lookupTransformActionGoal_goal" json_to_lookupTransformGoal_opt @@ fun lookupTransformActionGoal_goal ->
     Some {
-    goal_id;
-    goal;
+    lookupTransformActionGoal_header;
+    lookupTransformActionGoal_goal_id;
+    lookupTransformActionGoal_goal;
     }
 
 let json_to_tF2Error_opt json = 
@@ -45,9 +47,11 @@ let json_to_tF2Error_opt json =
     }
 
 let json_to_lookupTransformActionFeedback_opt json = 
+    jreq json "lookupTransformActionFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun lookupTransformActionFeedback_header ->
     jreq json "lookupTransformActionFeedback_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun lookupTransformActionFeedback_status ->
     jreq json "lookupTransformActionFeedback_feedback" json_to_lookupTransformFeedback_opt @@ fun lookupTransformActionFeedback_feedback ->
     Some {
+    lookupTransformActionFeedback_header;
     lookupTransformActionFeedback_status;
     lookupTransformActionFeedback_feedback;
     }
@@ -61,9 +65,11 @@ let json_to_lookupTransformResult_opt json =
     }
 
 let json_to_lookupTransformActionResult_opt json = 
+    jreq json "lookupTransformActionResult_header" Std_msgs_of_json.json_to_header_opt @@ fun lookupTransformActionResult_header ->
     jreq json "lookupTransformActionResult_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun lookupTransformActionResult_status ->
     jreq json "lookupTransformActionResult_result" json_to_lookupTransformResult_opt @@ fun lookupTransformActionResult_result ->
     Some {
+    lookupTransformActionResult_header;
     lookupTransformActionResult_status;
     lookupTransformActionResult_result;
     }

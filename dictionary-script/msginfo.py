@@ -69,7 +69,6 @@ class MsgInfo(object):
         
         info = info.splitlines()
         info = filter(lambda x : not x.startswith(' '), info)
-        info = filter(lambda x : x != 'std_msgs/Header header', info)
         info = filter(lambda x : x, info)
         
         self.raw = info

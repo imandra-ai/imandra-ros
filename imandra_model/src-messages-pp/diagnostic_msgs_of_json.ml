@@ -25,8 +25,10 @@ let json_to_diagnosticStatus_opt json =
     }
 
 let json_to_diagnosticArray_opt json = 
+    jreq json "header" Std_msgs_of_json.json_to_header_opt @@ fun header ->
     jreq json "status" (jlist json_to_diagnosticStatus_opt) @@ fun status ->
     Some {
+    header;
     status;
     }
 

@@ -18,6 +18,7 @@ type hardwareInterfaceResources = {
 }
 
 type controllersStatistics = {
+   header : Std_msgs.header ;
    controller : controllerStatistics list ;
 }
 

@@ -21,17 +21,21 @@ let json_to_shapeGoal_opt json =
     }
 
 let json_to_shapeActionFeedback_opt json = 
+    jreq json "shapeActionFeedback_header" Std_msgs_of_json.json_to_header_opt @@ fun shapeActionFeedback_header ->
     jreq json "shapeActionFeedback_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun shapeActionFeedback_status ->
     jreq json "shapeActionFeedback_feedback" json_to_shapeFeedback_opt @@ fun shapeActionFeedback_feedback ->
     Some {
+    shapeActionFeedback_header;
     shapeActionFeedback_status;
     shapeActionFeedback_feedback;
     }
 
 let json_to_shapeActionResult_opt json = 
+    jreq json "shapeActionResult_header" Std_msgs_of_json.json_to_header_opt @@ fun shapeActionResult_header ->
     jreq json "shapeActionResult_status" Actionlib_msgs_of_json.json_to_goalStatus_opt @@ fun shapeActionResult_status ->
     jreq json "shapeActionResult_result" json_to_shapeResult_opt @@ fun shapeActionResult_result ->
     Some {
+    shapeActionResult_header;
     shapeActionResult_status;
     shapeActionResult_result;
     }
@@ -45,11 +49,13 @@ let json_to_velocity_opt json =
     }
 
 let json_to_shapeActionGoal_opt json = 
-    jreq json "goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun goal_id ->
-    jreq json "goal" json_to_shapeGoal_opt @@ fun goal ->
+    jreq json "shapeActionGoal_header" Std_msgs_of_json.json_to_header_opt @@ fun shapeActionGoal_header ->
+    jreq json "shapeActionGoal_goal_id" Actionlib_msgs_of_json.json_to_goalID_opt @@ fun shapeActionGoal_goal_id ->
+    jreq json "shapeActionGoal_goal" json_to_shapeGoal_opt @@ fun shapeActionGoal_goal ->
     Some {
-    goal_id;
-    goal;
+    shapeActionGoal_header;
+    shapeActionGoal_goal_id;
+    shapeActionGoal_goal;
     }
 
 let json_to_shapeAction_opt json = 

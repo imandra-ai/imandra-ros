@@ -16,6 +16,7 @@ let diagnosticStatus_to_json x = [
     ] |> assoc_filter_nulls
 
 let diagnosticArray_to_json x = [
+    ( "header" , x.header |> Std_msgs_to_json.header_to_json );
     ( "status" , x.status |> (mklist diagnosticStatus_to_json) );
     ] |> assoc_filter_nulls
 

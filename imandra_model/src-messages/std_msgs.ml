@@ -1,7 +1,7 @@
 open Basic_types;;
 
-type char = {
-   char_data : char ;
+type std_bool = {
+   bool_data : bool ;
 }
 
 type header = {
@@ -14,40 +14,46 @@ type uInt16 = {
    uInt16_data : uint16 ;
 }
 
-type duration = {
-   duration_data : duration ;
-}
-
 type uInt32 = {
    uInt32_data : uint32 ;
+}
+
+type std_time = {
+   time_data : time ;
 }
 
 type uInt8 = {
    uInt8_data : uint8 ;
 }
 
-type bool = {
-   bool_data : bool ;
-}
-
-type float32 = {
+type std_float32 = {
    float32_data : float32 ;
 }
+
+type std_duration = {
+   duration_data : duration ;
+}
+
+type std_int64 = {
+   int64_data : int64 ;
+}
+
+type empty = ()
 
 type uInt64 = {
    uInt64_data : uint64 ;
 }
 
-type int32 = {
-   int32_data : int32 ;
+type std_string = {
+   string_data : string ;
 }
 
-type int16 = {
+type std_int16 = {
    int16_data : int16 ;
 }
 
-type string = {
-   string_data : string ;
+type std_int32 = {
+   int32_data : int32 ;
 }
 
 type colorRGBA = {
@@ -57,16 +63,16 @@ type colorRGBA = {
    a : float32 ;
 }
 
-type byte = {
-   byte_data : byte ;
+type std_char = {
+   char_data : char ;
 }
 
-type int8 = {
-   int8_data : int8 ;
-}
-
-type float64 = {
+type std_float64 = {
    float64_data : float64 ;
+}
+
+type std_byte = {
+   byte_data : byte ;
 }
 
 type multiArrayDimension = {
@@ -75,14 +81,8 @@ type multiArrayDimension = {
    stride : uint32 ;
 }
 
-type int64 = {
-   int64_data : int64 ;
-}
-
-type empty = ()
-
-type time = {
-   time_data : time ;
+type std_int8 = {
+   int8_data : int8 ;
 }
 
 type multiArrayLayout = {
@@ -90,14 +90,14 @@ type multiArrayLayout = {
    data_offset : uint32 ;
 }
 
-type int32MultiArray = {
-   int32MultiArray_layout : multiArrayLayout ;
-   int32MultiArray_data : int32 list ;
-}
-
 type int16MultiArray = {
    int16MultiArray_layout : multiArrayLayout ;
    int16MultiArray_data : int16 list ;
+}
+
+type int32MultiArray = {
+   int32MultiArray_layout : multiArrayLayout ;
+   int32MultiArray_data : int32 list ;
 }
 
 type float64MultiArray = {
