@@ -6,6 +6,7 @@
     (wrapped     false)
     (libraries 
       ( ros_messages 
+        ros_messages_pp
         imandra_utils
         yojson
       ) 

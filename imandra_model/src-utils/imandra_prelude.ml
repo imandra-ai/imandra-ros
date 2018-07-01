@@ -13,5 +13,6 @@ module List = struct
     let map     = List.map 
     let for_all = List.for_all
     let exists  = List.exists
+    let fold_left = List.fold_left
     let nth i lst = try Some ( List.nth lst i ) with _ -> None
 end

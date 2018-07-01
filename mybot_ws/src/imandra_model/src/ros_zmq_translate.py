@@ -15,20 +15,38 @@ def float_to_number(max):
             return int(max * 1000)
     return f
 
+def time_to_dict(time):
+    data = \
+        { "seconds"     : time.secs    
+        , "nanoseconds" : time.nsecs
+        }
+    return data
+
+
+def header_to_dict(header):
+    data = \
+        { "seq"      : header.seq
+        , "stamp"    : time_to_dict(header.stamp)
+        , "frame_id" : header.frame_id
+        }
+    return data
+
+
 def laser_scan_to_json(msg):
     convf = float_to_number(msg.range_max)
     data = \
         { "tag"  : "laser_scan"
         , "data" : \
-            { "Angle_min"       : convf ( msg.angle_min       ) 
-            , "Angle_max"       : convf ( msg.angle_max       ) 
-            , "Angle_increment" : convf ( msg.angle_increment ) 
-            , "Time_increment"  : convf ( msg.time_increment  ) 
-            , "Scan_time"       : convf ( msg.scan_time       ) 
-            , "Range_min"       : convf ( msg.range_min       ) 
-            , "Range_max"       : convf ( msg.range_max       ) 
-            , "Ranges"          : map ( convf , msg.ranges      ) 
-            , "Intensities"     : map ( convf , msg.intensities ) 
+            { "laserScan_header"          : header_to_dict( msg.header )
+            , "laserScan_angle_min"       : convf ( msg.angle_min       ) 
+            , "laserScan_angle_max"       : convf ( msg.angle_max       ) 
+            , "laserScan_angle_increment" : convf ( msg.angle_increment ) 
+            , "laserScan_time_increment"  : convf ( msg.time_increment  ) 
+            , "laserScan_scan_time"       : convf ( msg.scan_time       ) 
+            , "laserScan_range_min"       : convf ( msg.range_min       ) 
+            , "laserScan_range_max"       : convf ( msg.range_max       ) 
+            , "laserScan_ranges"          : map ( convf , msg.ranges      ) 
+            , "laserScan_intensities"     : map ( convf , msg.intensities ) 
             }
         }
     return json.dumps(data)
@@ -38,23 +56,19 @@ def clock_to_json(msg):
     data = \
         { "tag"  : "clock"
         , "data" : \
-            { "Clock" : \
-               { "seconds"      : msg.clock.secs
-               , "milliseconds" : msg.clock.nsecs
-               }
-            }
+            { "clock" : time_to_dict(msg.clock) }
         }
     return json.dumps(data)
 
 
 def dict_to_twist(data):
     msg = Twist()
-    msg.linear.x  = float(data["Linear"]["x"] ) / 1000
-    msg.linear.y  = float(data["Linear"]["y"] ) / 1000
-    msg.linear.z  = float(data["Linear"]["z"] ) / 1000
-    msg.angular.x = float(data["Angular"]["x"]) / 1000
-    msg.angular.y = float(data["Angular"]["y"]) / 1000
-    msg.angular.z = float(data["Angular"]["z"]) / 1000
+    msg.linear.x  = float(data["twist_linear"]["vector3_x"] ) / 1000
+    msg.linear.y  = float(data["twist_linear"]["vector3_y"] ) / 1000
+    msg.linear.z  = float(data["twist_linear"]["vector3_z"] ) / 1000
+    msg.angular.x = float(data["twist_angular"]["vector3_x"]) / 1000
+    msg.angular.y = float(data["twist_angular"]["vector3_y"]) / 1000
+    msg.angular.z = float(data["twist_angular"]["vector3_z"]) / 1000
     return msg
 
 ##### Initializing ZMQ
