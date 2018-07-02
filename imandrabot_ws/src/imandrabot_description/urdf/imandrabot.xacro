@@ -1,0 +1,148 @@
+<?xml version='1.0'?>
+
+<robot name="imandrabot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="cameraSize" value="0.05"/>
+  <xacro:property name="cameraMass" value="0.1"/>
+
+  <xacro:include filename="$(find imandrabot_description)/urdf/imandrabot.gazebo" />
+  <xacro:include filename="$(find imandrabot_description)/urdf/materials.xacro" />
+  <xacro:include filename="$(find imandrabot_description)/urdf/macros.xacro" />
+
+  <!-- "Spherical wheel" macros -->
+
+  <xacro:macro name="big_sphere">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry> <sphere radius="0.03"/> </geometry>
+  </xacro:macro>
+
+  <xacro:macro name="big_wheel">
+    <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+    <geometry> <cylinder radius="0.035" length="0.005"/> </geometry>
+  </xacro:macro>
+
+  <xacro:macro name="sphere_wheel" params="name">
+    <link name="${name}">
+      <visual>    <xacro:big_sphere/> </visual>
+      <collision> <xacro:big_sphere/> </collision>
+      <material name="White"/>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.01"/>
+        <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+      </inertial>
+    </link>
+    <link name="${name}_wheel">
+      <visual>    <xacro:big_wheel/> </visual>
+      <collision> <xacro:big_wheel/> </collision>
+      <material name="Black"/>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.01"/>
+        <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+      </inertial>
+    </link>
+    <joint type="continuous" name="${name}_hinge">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${name}"/>
+      <child link="${name}_wheel"/>
+      <axis xyz="0 1 0" rpy="0 0 0"/>
+      <limit effort="10" velocity="1"/>
+      <joint_properties damping="0.0" friction="0.0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="ball_bearing" params="offset">
+    <visual> 
+      <origin xyz="${offset} 0 -0.03" rpy="0 0 0"/>
+      <geometry> <sphere radius="0.002"/> </geometry> 
+    </visual>
+    <collision> 
+      <origin xyz="${offset} 0 -0.03" rpy="0 0 0"/>
+      <geometry> <sphere radius="0.002"/> </geometry> 
+      <surface>
+        <friction>
+          <ode>
+            <mu>0</mu>
+            <mu2>0</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+  </xacro:macro>
+
+  <link name="base">
+    <visual>    <geometry><box size="0.12 0.02 0.06"/></geometry> </visual>
+    <collision> <geometry><box size="0.12 0.02 0.06"/></geometry> </collision>
+    <xacro:ball_bearing offset="-0.057"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia 
+        ixx="${( 1.0 / 12.0 ) * (0.02 * 0.02 + 0.06 * 0.06) }" ixy="0.0" ixz="0.0" 
+        iyy="${( 1.0 / 12.0 ) * (0.06 * 0.06 + 0.06 * 0.06) }" iyz="0.0" 
+        izz="${( 1.0 / 12.0 ) * (0.02 * 0.02 + 0.06 * 0.06) }"/>
+    </inertial>
+  </link>
+
+  <link name="strut">
+    <visual>    <geometry><box size="0.01 0.12 0.005"/></geometry> </visual>
+    <collision> <geometry><box size="0.01 0.12 0.005"/></geometry> </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia 
+        ixx="${( 0.01 / 12.0 ) * (0.12 * 0.12 + 0.005 * 0.005) }" ixy="0.0" ixz="0.0" 
+        iyy="${( 0.01 / 12.0 ) * (0.01 * 0.01 + 0.005 * 0.005) }" iyz="0.0" 
+        izz="${( 0.01 / 12.0 ) * (0.01 * 0.01 + 0.12 * 0.12) }"/>
+    </inertial>
+  </link>
+
+  <joint type="fixed" name="strut_joint">
+    <origin xyz="0.03 0 0" rpy="0 0 0"/>
+    <parent link="base"/>
+    <child link="strut"/>
+  </joint>
+
+  <xacro:sphere_wheel name= "leftwheel"/> 
+  <xacro:sphere_wheel name="rightwheel"/> 
+
+  <joint type="fixed" name="strut_left_joint">
+    <origin xyz="0  0.08 0" rpy="0 0 0"/>
+    <parent link="strut"/>
+    <child link="leftwheel"/>
+  </joint>
+
+  <joint type="fixed" name="strut_right_joint">
+    <origin xyz="0 -0.08 0" rpy="0 0 0"/>
+    <parent link="strut"/>
+    <child link="rightwheel"/>
+  </joint>
+
+
+  <!--  Scanner -->
+
+  <link name="scanner">
+    <visual name="scanner_vis">
+      <geometry> <sphere radius=".002" /> </geometry>
+      <material name="Black"/>
+    </visual>
+    <inertial>
+      <mass value="0.000001" />
+      <inertia ixx="0.00000001" ixy="0.0" ixz="0.0"
+        iyy="0.0000001" iyz="0.0"
+        izz="0.0000001" />
+    </inertial>
+  </link>
+
+  <joint type="fixed" name="scanner joint">
+    <origin xyz="0.06 0 0" rpy="0 0 0"/>
+    <parent link="base"/>
+    <child link="scanner"/>
+  </joint>
+
+</robot>
+
+

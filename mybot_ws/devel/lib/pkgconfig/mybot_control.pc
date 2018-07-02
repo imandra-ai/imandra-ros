@@ -1,8 +1,0 @@
-prefix=/home/kanishev/Programming/AestheticIntegration/ROS_Tutorials/imandra-ros/mybot_ws/devel
-
-Name: mybot_control
-Description: Description of mybot_control
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/kanishev/Programming/AestheticIntegration/ROS_Tutorials/imandra-ros/mybot_ws/devel/lib 
-Requires: 

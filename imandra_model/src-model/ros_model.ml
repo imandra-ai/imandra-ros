@@ -40,7 +40,7 @@ let one_step state =
     { state with min_range = Some (get_min_range laserScan) }
   | Clock  _ -> begin
     match state.min_range with None -> state | Some min_range ->
-    if min_range < 500 
-    then { state with outgoing = Some (make_twist_message 0 100) } 
-    else { state with outgoing = Some (make_twist_message 100 0) }
+    if min_range < 50000
+    then { state with outgoing = Some (make_twist_message 0 10000) } 
+    else { state with outgoing = Some (make_twist_message 10000 0) }
   end

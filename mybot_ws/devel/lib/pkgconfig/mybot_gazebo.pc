@@ -1,8 +1,0 @@
-prefix=/home/kanishev/Programming/AestheticIntegration/ROS_Tutorials/imandra-ros/mybot_ws/devel
-
-Name: mybot_gazebo
-Description: Description of mybot_gazebo
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/kanishev/Programming/AestheticIntegration/ROS_Tutorials/imandra-ros/mybot_ws/devel/lib 
-Requires: 
