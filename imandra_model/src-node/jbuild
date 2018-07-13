@@ -21,6 +21,7 @@
     (modules (rosnode))
     (libraries 
       ( ros_model 
+        ros_messages 
         yojson
         lwt.unix
         lwt-zmq

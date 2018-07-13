@@ -1,3 +1,6 @@
+open Ros_messages;; 
+open Imandra_prelude;;
+
 type incoming =
   | Clock  of Rosgraph_msgs.clock
   | Sensor of Sensor_msgs.laserScan

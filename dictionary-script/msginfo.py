@@ -1,3 +1,10 @@
+#    ROS-messaging OCaml codegenerator tool
+
+#    Aesthetic Integration Limited
+#    Copyright (c) 2014 - 2018
+
+
+
 def get_module_name(msg):
     if '/' not in msg: 
         return None
