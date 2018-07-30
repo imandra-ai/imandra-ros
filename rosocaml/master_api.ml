@@ -152,8 +152,50 @@ let rpc t call =
   | _ -> 
     Lwt_io.printl "Request error" >>= Lwt_io.flush_all >>= fun () ->
     Lwt.return @@ Rpc.failure @@ Rpc.rpc_of_unit ()
-  
 
+let x : result
+
+let registerService t service service_api caller_api =
+  Client.registerService ( rpc t ) t.caller_id service service_api caller_api 
+  |> Rpc_lwt.M.lwt >>= function Error e -> Lwt.fail
+
+
+  let registerSubscriber t topic topic_type api  
+  let registerPublisher t topic topic_type api
+  let unregisterService t service service_api
+  let unregisterSubscriber t topic api  
+  let unregisterPublisher t topic api
+
+  (* Name service and system state *)  
+
+  let lookupNode = R.declare "lookupNode"
+    [ "Get the XML-RPC URI of the node with the associated name/caller_id. "
+    ^ "This API is for looking information about publishers and subscribers. "
+    ^ "Use lookupService instead to lookup ROS-RPC URIs."]
+    ( str_p @-> str_p @-> returning lookup_result_p err)
+
+  let getPublishedTopics = R.declare "getPublishedTopics"
+    [ "Get list of topics that can be subscribed to. "
+    ^ "This does not return topics that have no publishers. "
+    ^ "See getSystemState() to get more comprehensive list."]
+    ( str_p @-> str_p @-> returning published_topics_p err)
+
+  let getTopicTypes = R.declare "getTopicTypes"
+    [ "Retrieve list topic names and their types."]
+    ( str_p @-> returning topic_types_p err)
+
+  let getSystemState = R.declare "getSystemState"
+    ["Retrieve list representation of system state (i.e. publishers, subscribers, and services)."]
+    (str_p @-> returning system_state_p err)
+
+  let getUri = R.declare "getUri"
+    ["Get the URI of the master."]
+    (str_p @-> returning system_state_p err)
+
+  let lookupService = R.declare "lookupService"
+    ["Lookup all provider of a particular service."]
+    (str_p @-> str_p @-> returning lookup_result_p err)
+ 
 
 
 
