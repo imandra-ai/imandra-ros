@@ -4,6 +4,7 @@
   ( (name        ros_messages)
     (public_name ros_messages)
     (wrapped     true)
+    (flags (:standard -warn-error -a-33))
   )
 )
 

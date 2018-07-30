@@ -9,6 +9,7 @@
         yojson
       )
     )
+    (flags (:standard -warn-error -a-27))
   )
 )
 

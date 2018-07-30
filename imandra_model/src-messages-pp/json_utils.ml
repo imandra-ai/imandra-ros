@@ -14,7 +14,7 @@ let jlist parser ( json : J.json) =
   let rec scan = function
     | Some x :: tl ->
       ( match scan tl with None -> None | Some tl -> Some ( x :: tl ) )
-    | None :: tl -> None
+    | None :: _ -> None
     | [] -> Some []
     in
   match json with

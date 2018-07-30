@@ -71,11 +71,6 @@ let process_clock_message state =
   end
 
 let process_sensor_message state min_range min_direction =
-  print_state state;
-  let () = match min_direction with
-    |  CW -> print_endline ( " CW " ^ string_of_int min_range )
-    | CCW -> print_endline ( "CCW " ^ string_of_int min_range )
-    in 
   match state.mode , state.min_range with 
   | Driving , _    ->
     if min_range < 20000 then 
