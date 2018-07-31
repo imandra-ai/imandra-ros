@@ -3,7 +3,7 @@
 
 *From self-driving cars to medical surgeons, robots have become ubiquitous. Ensuring they operate safely and correctly is evermore important. The most popular middleware for robotics is the open-sourced Robot OS. We are work on developing an Imandra/OCaml interface to Robot OS, opening up the world of robotics to the latest advancements in automated reasoning.* 
 
-In this repository you can find the OCaml bindings to the ROS messaging layer, a collection of ROS node models and examples of formal verification of properites of these models.  
+In this repository you can find the OCaml bindings to the ROS messaging layer, a collection of ROS node models and examples of formal verification of properites of these models.    
 
 # Running the code 
 
@@ -36,3 +36,10 @@ Finally, in the last terminal we run the python script that serves a as "buffer"
     python src/zmq_wrapper/src/ros_zmq_translate.py
 
 # Formal verification
+ROS adopts a distributed architecture for robotic computing, enabling independent nodes to communicate via messages across the ROS computation graph. While having many practical advantages, such distributed systems are inherently much more complex and difficult to reason about. To ensure that the software controlling such a distributed system is correct we need to turn to formal verification — mathematically reasoning about the correctness of computer programs.
+
+
+
+ [Imandra](https://www.imandra.ai) by Aesthetic Integration is a proof assistant that is able to reason about your the code written in a subset of OCaml. Imandra provides its own Jupyter kernel that allows one to interactively develop, document and share Imandra models via computational notebook interfaces. If you want to give Imandra notebook a try, visit [https://try.imandra.ai/](https://try.imandra.ai/) to explore our collection of introductory notebooks and run your own Imandra kernel instance in the cloud.
+
+ Here we provide [an example notebook](https://github.com/AestheticIntegration/imandra-ros/blob/e142c40e1533caf6354820898c6a46aa13b348f0/docs/notebooks/Creating%20and%20verifying%20a%20ROS%20node%20in%C2%A0Imandra.ipynb) that walks through the creation and formal verification of the ROS node model that we've compiled and executed in the previous section.
