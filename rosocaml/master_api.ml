@@ -8,7 +8,8 @@ module Datatypes = struct
   type unreg_pub_result = ( int * string * int    )[@@deriving rpcty]
 
   type get_uri_result = ( int * string * string )[@@deriving rpcty]
-  type lookup_result = ( int * string * string )[@@deriving rpcty]
+  type lookup_result  = ( int * string * string )[@@deriving rpcty]
+  
 
   type published_topics = 
     ( int 
@@ -30,6 +31,7 @@ module Datatypes = struct
       * ( string * string list ) array
       )  
     ) [@@deriving rpcty]
+
 end
 
 
@@ -37,7 +39,7 @@ module ROS_Master_API(R : Idl.RPC) = struct
   open R
   
   let str_p = Idl.Param.mk Rpc.Types.string
-  let int_p = Idl.Param.mk Rpc.Types.int
+  (* let int_p = Idl.Param.mk Rpc.Types.int *)
 
   let   reg_srv_result_p = Idl.Param.mk Datatypes.reg_srv_result
   let unreg_srv_result_p = Idl.Param.mk Datatypes.unreg_srv_result
@@ -47,6 +49,7 @@ module ROS_Master_API(R : Idl.RPC) = struct
   let unreg_pub_result_p = Idl.Param.mk Datatypes.unreg_pub_result
 
   let lookup_result_p    = Idl.Param.mk Datatypes.lookup_result
+  let get_uri_result_p   = Idl.Param.mk Datatypes.get_uri_result
   let published_topics_p = Idl.Param.mk Datatypes.published_topics  
   let topic_types_p      = Idl.Param.mk Datatypes.topic_types  
   let system_state_p     = Idl.Param.mk Datatypes.system_state  
@@ -101,24 +104,29 @@ module ROS_Master_API(R : Idl.RPC) = struct
 
   let getUri = R.declare "getUri"
     ["Get the URI of the master."]
-    (str_p @-> returning system_state_p err)
+    (str_p @-> returning get_uri_result_p err)
 
   let lookupService = R.declare "lookupService"
     ["Lookup all provider of a particular service."]
     (str_p @-> str_p @-> returning lookup_result_p err)
 
+  (*  
   let implementation = implement
     { Idl.Interface.name = "ROS_Master"
     ; namespace = None
     ; description = ["ROS Master"]
     ; version = (0,0,1) 
     }
+  *)
+
 end
 
 type t =
   { caller_id : string
   ; server_proxy_uri : Uri.t
   }
+
+type system_state = Datatypes.system_state
 
 let create ?server caller_id =
   let server_proxy_uri = 
@@ -130,6 +138,7 @@ let create ?server caller_id =
   { caller_id; server_proxy_uri }
 
 module Client = ROS_Master_API( Rpc_lwt.GenClient () )
+
 let ( >>= ) = Lwt.(>>=)
   
 let rpc t call =
@@ -153,56 +162,57 @@ let rpc t call =
     Lwt_io.printl "Request error" >>= Lwt_io.flush_all >>= fun () ->
     Lwt.return @@ Rpc.failure @@ Rpc.rpc_of_unit ()
 
-let x : result
 
-let registerService t service service_api caller_api =
+let unpack_result nm = function   
+  | Error _   -> Lwt.fail (Failure ("XMLRPC " ^ nm ^ " failed"))
+  | Ok result -> Lwt.return result
+
+
+let registerService t service service_api caller_api : Datatypes.reg_srv_result Lwt.t =
   Client.registerService ( rpc t ) t.caller_id service service_api caller_api 
-  |> Rpc_lwt.M.lwt >>= function Error e -> Lwt.fail
+  |> Rpc_lwt.M.lwt >>= unpack_result "registerSerivce"
 
+let registerSubscriber t topic topic_type caller_api : Datatypes.reg_sub_result Lwt.t =
+  Client.registerSubscriber ( rpc t ) t.caller_id topic topic_type caller_api 
+  |> Rpc_lwt.M.lwt >>= unpack_result "registerSubscriber"
 
-  let registerSubscriber t topic topic_type api  
-  let registerPublisher t topic topic_type api
-  let unregisterService t service service_api
-  let unregisterSubscriber t topic api  
-  let unregisterPublisher t topic api
+let registerPublisher t topic topic_type caller_api : Datatypes.reg_pub_result Lwt.t =
+  Client.registerPublisher ( rpc t ) t.caller_id topic topic_type caller_api 
+  |> Rpc_lwt.M.lwt >>= unpack_result "registerPublisher"
 
-  (* Name service and system state *)  
+let unregisterService t service service_api : Datatypes.unreg_srv_result Lwt.t =
+  Client.unregisterService ( rpc t ) t.caller_id service service_api 
+  |> Rpc_lwt.M.lwt >>= unpack_result "unregisterService"
 
-  let lookupNode = R.declare "lookupNode"
-    [ "Get the XML-RPC URI of the node with the associated name/caller_id. "
-    ^ "This API is for looking information about publishers and subscribers. "
-    ^ "Use lookupService instead to lookup ROS-RPC URIs."]
-    ( str_p @-> str_p @-> returning lookup_result_p err)
+let unregisterSubscriber t topic api : Datatypes.unreg_sub_result Lwt.t =
+  Client.unregisterSubscriber ( rpc t ) t.caller_id topic api 
+  |> Rpc_lwt.M.lwt >>= unpack_result "unregisterSubscriber"
 
-  let getPublishedTopics = R.declare "getPublishedTopics"
-    [ "Get list of topics that can be subscribed to. "
-    ^ "This does not return topics that have no publishers. "
-    ^ "See getSystemState() to get more comprehensive list."]
-    ( str_p @-> str_p @-> returning published_topics_p err)
+let unregisterPublisher t topic api : Datatypes.unreg_pub_result Lwt.t =
+  Client.unregisterPublisher ( rpc t ) t.caller_id topic api 
+  |> Rpc_lwt.M.lwt >>= unpack_result "unregisterPublisher"
 
-  let getTopicTypes = R.declare "getTopicTypes"
-    [ "Retrieve list topic names and their types."]
-    ( str_p @-> returning topic_types_p err)
+let lookupNode t node_name : Datatypes.lookup_result Lwt.t = 
+  Client.lookupNode ( rpc t ) t.caller_id node_name 
+  |> Rpc_lwt.M.lwt >>= unpack_result "lookupNode"
+  
+let getPublishedTopics t subgraph : Datatypes.published_topics Lwt.t =
+  Client.getPublishedTopics ( rpc t ) t.caller_id subgraph 
+  |> Rpc_lwt.M.lwt >>= unpack_result "getPublishedTopics"
 
-  let getSystemState = R.declare "getSystemState"
-    ["Retrieve list representation of system state (i.e. publishers, subscribers, and services)."]
-    (str_p @-> returning system_state_p err)
+let getTopicTypes t : Datatypes.topic_types Lwt.t = 
+  Client.getTopicTypes ( rpc t ) t.caller_id  
+  |> Rpc_lwt.M.lwt >>= unpack_result "getTopicTypes"
+  
+let getSystemState t : Datatypes.system_state Lwt.t = 
+  Client.getSystemState ( rpc t ) t.caller_id  
+  |> Rpc_lwt.M.lwt >>= unpack_result "getSystemState"
 
-  let getUri = R.declare "getUri"
-    ["Get the URI of the master."]
-    (str_p @-> returning system_state_p err)
+let getUri t : Datatypes.get_uri_result Lwt.t= 
+  Client.getUri ( rpc t ) t.caller_id  
+  |> Rpc_lwt.M.lwt >>= unpack_result "getUri"
 
-  let lookupService = R.declare "lookupService"
-    ["Lookup all provider of a particular service."]
-    (str_p @-> str_p @-> returning lookup_result_p err)
- 
+let lookupService t service : Datatypes.lookup_result Lwt.t = 
+  Client.lookupService ( rpc t ) t.caller_id service
+  |> Rpc_lwt.M.lwt >>= unpack_result "lookupService"
 
-
-
-    
-let _ =
-  let thread = 
-    Rpc_lwt.M.lwt @@ Client.getSystemState rpc caller_id >>= fun _ ->
-    Lwt.return_unit
-  in
-  Lwt_main.run thread

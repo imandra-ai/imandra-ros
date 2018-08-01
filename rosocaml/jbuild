@@ -14,4 +14,17 @@
   )
 )
 
-
+(library
+  ( (name        rosocaml)
+    (public_name rosocaml)
+    (wrapped     false)
+    (modules (master_api))
+    (preprocess (pps (ppx_deriving_rpc)))
+    (libraries 
+      ( rpclib
+        rpclib-lwt
+        cohttp-lwt-unix
+      ) 
+    ) 
+  )
+)
