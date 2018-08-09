@@ -1,10 +1,10 @@
 module Datatypes = struct
   type str_list = string list [@@deriving rpcty] 
   
-  type      int_result = ( int * string * int    )[@@deriving rpcty]
-  type   string_result = ( int * string * string )[@@deriving rpcty]
-  type     list_result = ( int * string * string list )[@@deriving rpcty]
-  type    assoc_result = ( int * string * ( string * string ) array )[@@deriving rpcty]
+  type      int_result = ( int32 * string * int32 )[@@deriving rpcty]
+  type   string_result = ( int32 * string * string )[@@deriving rpcty]
+  type     list_result = ( int32 * string * string list )[@@deriving rpcty]
+  type    assoc_result = ( int32 * string * ( string * string ) array )[@@deriving rpcty]
 end
 
 
@@ -13,7 +13,7 @@ module ROS_Slave_API(R : Idl.RPC) = struct
   
   let description = Idl.Interface.{
       name = "rosocaml slave XMLRPC API";
-      namespace = Some "rosocaml";
+      namespace = None;
       description = [
         "The OCaml ROS slave XMLRPC API implementation."
       ];
@@ -34,7 +34,10 @@ module ROS_Slave_API(R : Idl.RPC) = struct
 
   let getMasterUri = R.declare "getMasterUri"
     [ "Get the URI of the master node." ]
-    ( str_p @-> returning string_result_p err)     
+    ( str_p @-> returning string_result_p err)  
+  let getPid = R.declare "getPid"
+    [ "Get the PID of this server." ]
+    ( str_p @-> returning int_result_p err)      
   let shutdown = R.declare "shutdown"
     [ "Stop this server." ]
     ( str_p @-> str_p @-> returning int_result_p err)         

@@ -4,19 +4,25 @@
   ( (name        test)
     (public_name test)
     (modules (test))
-    (libraries 
-      ( rosocaml
-        lwt
-      ) 
-    ) 
+    (libraries ( rosocaml lwt ) ) 
   )
 )
+
+(executable
+  ( (name        test_slave)
+    (public_name test_slave)
+    (modules (test_slave))
+    (libraries ( rosocaml lwt ) ) 
+  )
+)
+
+
 
 (library
   ( (name        rosocaml)
     (public_name rosocaml)
     (wrapped     false)
-    (modules (master_api slave_api_client))
+    (modules (master_api slave_api slave_client slave_server))
     (preprocess (pps (ppx_deriving_rpc)))
     (libraries 
       ( rpclib

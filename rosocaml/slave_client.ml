@@ -44,7 +44,7 @@ let rpc ?(verbose=true) t call =
 
 let unpack_result nm = function   
   | Error _   -> Lwt.fail (Failure ("XMLRPC " ^ nm ^ " call failed. Internal error."))
-  | Ok ( 1 , _ , result ) -> Lwt.return result
+  | Ok ( 1l , _ , result ) -> Lwt.return result
   | Ok ( _ , errstr , _ ) -> 
      Lwt.fail (Failure ("XMLRPC " ^ nm ^ " call failed: " ^ errstr))
 
@@ -52,7 +52,7 @@ let getMasterUri t : string Lwt.t =
   Client.getMasterUri (rpc t) t.caller_id 
   |> Rpc_lwt.M.lwt >>= unpack_result "getMasterUri"
 
-let shutdown t ?(msg="") : int Lwt.t =
+let shutdown t ?(msg="") : int32 Lwt.t =
   Client.shutdown (rpc t) t.caller_id msg
   |> Rpc_lwt.M.lwt >>= unpack_result "shutdown"
 
@@ -64,14 +64,16 @@ let getPublications  t : ( string * string ) array Lwt.t =
   Client.getSubscriptions (rpc t) t.caller_id
   |> Rpc_lwt.M.lwt >>= unpack_result "getPublications"
 
-let paramUpdate t parameter_key parameter_value : int Lwt.t =
+let paramUpdate t parameter_key parameter_value : int32 Lwt.t =
   Client.paramUpdate (rpc t) t.caller_id parameter_key parameter_value
   |> Rpc_lwt.M.lwt >>= unpack_result "paramUpdate"
 
-let publisherUpdate t topic publishers : int Lwt.t = 
+let publisherUpdate t topic publishers : int32 Lwt.t = 
   Client.publisherUpdate (rpc t) t.caller_id topic publishers
   |> Rpc_lwt.M.lwt >>= unpack_result "publisherUpdate"
 
 let requestTopic t topic protocols : string list Lwt.t =
   Client.requestTopic (rpc t) t.caller_id topic protocols
   |> Rpc_lwt.M.lwt >>= unpack_result "requestTopic"
+
+

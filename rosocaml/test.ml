@@ -6,7 +6,7 @@ let print_entry (name, names) =
   names |> Lwt_list.iter_s ( fun n ->  "    " ^ n |> Lwt_io.printl )
 
 let thread =
-  let api = Master_api.create "rosocaml" in
+  let api = Master_api.create "/rosocaml" in
   Master_api.getUri api >>= fun masterURI ->
   Lwt_io.printl "Call to getUri" >>= fun () ->
   Lwt_io.printf "Got masterURI : %s \n" masterURI >>= fun () ->
