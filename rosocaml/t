@@ -1,7 +1,0 @@
-opam switch create ros 4.05.0
-
-opam pin add -y rpclib.5.9.0 git@github.com:mirage/ocaml-rpc.git#2525190d7c95c4ad19f90e0d90796a59fa320847
-opam pin add -y ppx_deriving_rpc.5.9.0 git@github.com:mirage/ocaml-rpc.git#2525190d7c95c4ad19f90e0d90796a59fa320847
-opam pin add -y rpclib-lwt.5.9.0 git@github.com:mirage/ocaml-rpc.git#2525190d7c95c4ad19f90e0d90796a59fa320847
-
-

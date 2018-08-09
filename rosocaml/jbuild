@@ -3,12 +3,10 @@
 (executable
   ( (name        test)
     (public_name test)
-    (preprocess (pps (ppx_deriving_rpc)))
     (modules (test))
     (libraries 
-      ( rpclib
-        rpclib-lwt
-        cohttp-lwt-unix
+      ( rosocaml
+        lwt
       ) 
     ) 
   )
@@ -18,7 +16,7 @@
   ( (name        rosocaml)
     (public_name rosocaml)
     (wrapped     false)
-    (modules (master_api))
+    (modules (master_api slave_api_client))
     (preprocess (pps (ppx_deriving_rpc)))
     (libraries 
       ( rpclib

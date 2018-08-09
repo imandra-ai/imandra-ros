@@ -10,7 +10,6 @@ module Datatypes = struct
   type get_uri_result = ( int * string * string )[@@deriving rpcty]
   type lookup_result  = ( int * string * string )[@@deriving rpcty]
   
-
   type published_topics = 
     ( int 
     * string 
@@ -126,7 +125,11 @@ type t =
   ; server_proxy_uri : Uri.t
   }
 
-type system_state = Datatypes.system_state
+type system_state =
+  { publishers  : (string * string list) array 
+  ; subscribers : (string * string list) array 
+  ; services    : (string * string list) array
+  }
 
 let create ?server caller_id =
   let server_proxy_uri = 
@@ -140,8 +143,11 @@ let create ?server caller_id =
 module Client = ROS_Master_API( Rpc_lwt.GenClient () )
 
 let ( >>= ) = Lwt.(>>=)
-  
-let rpc t call =
+
+let log str =
+  Lwt_io.printl str >>= Lwt_io.flush_all 
+
+let rpc ?(verbose=true) t call =
   let body = Xmlrpc.string_of_call call in
   let headers = Cohttp.Header.( of_list
     [ ( "Content-Type"   , "application/x-www-form-urlencoded" )
@@ -150,13 +156,13 @@ let rpc t call =
     ] ) in
   let body = Cohttp_lwt.Body.of_string @@ Xmlrpc.string_of_call call in
   let uri = t.server_proxy_uri in
-  Lwt_io.printl "About to post" >>= Lwt_io.flush_all >>= fun () ->
-  Lwt_io.printl @@ Xmlrpc.string_of_call call >>= Lwt_io.flush_all >>= fun () ->
+  ( if verbose then log "About to post" else Lwt.return_unit ) >>= fun () ->
+  ( if verbose then log  @@ Xmlrpc.string_of_call call else  Lwt.return_unit ) >>= fun () ->
   Cohttp_lwt_unix.Client.post ~headers ~body uri >>= fun (responce, body) ->
    match responce.status with 
   | `OK -> 
     Cohttp_lwt.Body.to_string body >>= fun body ->
-    Lwt_io.printl body >>= Lwt_io.flush_all >>= fun () ->
+    ( if verbose then log body else Lwt.return_unit ) >>= fun () ->
     Lwt.return @@ Xmlrpc.response_of_string body
   | _ -> 
     Lwt_io.printl "Request error" >>= Lwt_io.flush_all >>= fun () ->
@@ -164,55 +170,59 @@ let rpc t call =
 
 
 let unpack_result nm = function   
-  | Error _   -> Lwt.fail (Failure ("XMLRPC " ^ nm ^ " failed"))
-  | Ok result -> Lwt.return result
+  | Error _   -> Lwt.fail (Failure ("XMLRPC " ^ nm ^ " call failed. Internal error."))
+  | Ok ( 1 , _ , result ) -> Lwt.return result
+  | Ok ( _ , errstr , _ ) -> 
+     Lwt.fail (Failure ("XMLRPC " ^ nm ^ " call failed: " ^ errstr))
 
 
-let registerService t service service_api caller_api : Datatypes.reg_srv_result Lwt.t =
+let registerService t service service_api caller_api : string Lwt.t =
   Client.registerService ( rpc t ) t.caller_id service service_api caller_api 
   |> Rpc_lwt.M.lwt >>= unpack_result "registerSerivce"
 
-let registerSubscriber t topic topic_type caller_api : Datatypes.reg_sub_result Lwt.t =
+let registerSubscriber t topic topic_type caller_api : string list Lwt.t =
   Client.registerSubscriber ( rpc t ) t.caller_id topic topic_type caller_api 
   |> Rpc_lwt.M.lwt >>= unpack_result "registerSubscriber"
 
-let registerPublisher t topic topic_type caller_api : Datatypes.reg_pub_result Lwt.t =
+let registerPublisher t topic topic_type caller_api : string list Lwt.t =
   Client.registerPublisher ( rpc t ) t.caller_id topic topic_type caller_api 
   |> Rpc_lwt.M.lwt >>= unpack_result "registerPublisher"
 
-let unregisterService t service service_api : Datatypes.unreg_srv_result Lwt.t =
+let unregisterService t service service_api : int Lwt.t =
   Client.unregisterService ( rpc t ) t.caller_id service service_api 
   |> Rpc_lwt.M.lwt >>= unpack_result "unregisterService"
 
-let unregisterSubscriber t topic api : Datatypes.unreg_sub_result Lwt.t =
+let unregisterSubscriber t topic api : int Lwt.t =
   Client.unregisterSubscriber ( rpc t ) t.caller_id topic api 
   |> Rpc_lwt.M.lwt >>= unpack_result "unregisterSubscriber"
 
-let unregisterPublisher t topic api : Datatypes.unreg_pub_result Lwt.t =
+let unregisterPublisher t topic api : int Lwt.t =
   Client.unregisterPublisher ( rpc t ) t.caller_id topic api 
   |> Rpc_lwt.M.lwt >>= unpack_result "unregisterPublisher"
 
-let lookupNode t node_name : Datatypes.lookup_result Lwt.t = 
+let lookupNode t node_name : string Lwt.t = 
   Client.lookupNode ( rpc t ) t.caller_id node_name 
   |> Rpc_lwt.M.lwt >>= unpack_result "lookupNode"
   
-let getPublishedTopics t subgraph : Datatypes.published_topics Lwt.t =
+let getPublishedTopics t subgraph : (string * string) array Lwt.t =
   Client.getPublishedTopics ( rpc t ) t.caller_id subgraph 
   |> Rpc_lwt.M.lwt >>= unpack_result "getPublishedTopics"
 
-let getTopicTypes t : Datatypes.topic_types Lwt.t = 
+let getTopicTypes t : (string * string) array Lwt.t = 
   Client.getTopicTypes ( rpc t ) t.caller_id  
   |> Rpc_lwt.M.lwt >>= unpack_result "getTopicTypes"
   
-let getSystemState t : Datatypes.system_state Lwt.t = 
+let getSystemState t : system_state Lwt.t = 
   Client.getSystemState ( rpc t ) t.caller_id  
-  |> Rpc_lwt.M.lwt >>= unpack_result "getSystemState"
+  |> Rpc_lwt.M.lwt >>= unpack_result "getSystemState" 
+  >>= fun (publishers,subscribers,services) ->
+  Lwt.return { publishers; subscribers; services }
 
-let getUri t : Datatypes.get_uri_result Lwt.t= 
+let getUri t : string Lwt.t= 
   Client.getUri ( rpc t ) t.caller_id  
   |> Rpc_lwt.M.lwt >>= unpack_result "getUri"
 
-let lookupService t service : Datatypes.lookup_result Lwt.t = 
+let lookupService t service : string Lwt.t = 
   Client.lookupService ( rpc t ) t.caller_id service
   |> Rpc_lwt.M.lwt >>= unpack_result "lookupService"
 
