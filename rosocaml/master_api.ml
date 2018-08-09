@@ -147,7 +147,7 @@ let ( >>= ) = Lwt.(>>=)
 let log str =
   Lwt_io.printl str >>= Lwt_io.flush_all 
 
-let rpc ?(verbose=true) t call =
+let rpc ?(verbose=false) t call =
   let body = Xmlrpc.string_of_call call in
   let headers = Cohttp.Header.( of_list
     [ ( "Content-Type"   , "application/x-www-form-urlencoded" )

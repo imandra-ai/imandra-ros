@@ -70,7 +70,6 @@ let server (port : int) (fn : Rpc_lwt.lwt_rpcfn) =
     ; ( "Content-Length" , string_of_int @@ String.length body )
     ; ( "Accept"         , "*/*"                               )
     ] ) in 
-    Lwt_io.printl body >>= fun () ->
     Cohttp_lwt_unix.Server.respond_string ~status:`OK ~body ~headers ()
     in
   let mode = `TCP (`Port port) in
@@ -83,9 +82,7 @@ let slave_server_thread t =
     ok "getMasterUri" @@ Uri.to_string t.server_proxy_uri 
   );
   Server.getPid ( fun _ -> 
-    Unix.getpid () 
-      |> Int32.of_int 
-      |> ok "getPid" 
+    Unix.getpid () |> Int32.of_int |> ok "getPid" 
   );
   Server.shutdown ( fun caller_id reason -> 
     log ("Slave API shutdown initiated by " ^ caller_id ^ ": " ^ reason ) >>= fun () ->
@@ -97,10 +94,14 @@ let slave_server_thread t =
     rpc_wrap ( Lwt_mvar.put t.publishers publishers ) >>= fun () ->
     ok "publisherUpdate" @@ 1l 
   );
-  Server.getSubscriptions( fun _ -> Rpc_lwt.M.return_err @@ Idl.DefaultError.InternalError "Not Implemented" );
-  Server.getPublications ( fun _ -> Rpc_lwt.M.return_err @@ Idl.DefaultError.InternalError "Not Implemented" );
-  Server.paramUpdate     ( fun _ _ _ -> Rpc_lwt.M.return_err @@ Idl.DefaultError.InternalError "Not Implemented" );
-  Server.requestTopic    ( fun _ _ _ -> Rpc_lwt.M.return_err @@ Idl.DefaultError.InternalError "Not Implemented" );
+  Server.getSubscriptions( fun _ -> 
+    log ("Received request on \"getSubscriptions\". The endpoint is not implemented yet." ) >>= fun () ->
+    Rpc_lwt.M.return ( 0l , "Not Implemented" , [||] ) 
+  );
+  Server.getBusInfo      ( fun _     -> Rpc_lwt.M.return ( 0l , "Not Implemented" , []   ) );
+  Server.getPublications ( fun _     -> Rpc_lwt.M.return ( 0l , "Not Implemented" , [||] ) );
+  Server.paramUpdate     ( fun _ _ _ -> Rpc_lwt.M.return ( 0l , "Not Implemented" , 0l   ) );
+  Server.requestTopic    ( fun _ _ _ -> Rpc_lwt.M.return ( 0l , "Not Implemented" , []   ) );
   Lwt.choose 
     [ server t.port @@ Rpc_lwt.server Server.implementation
     ; Lwt_mvar.take t.shutdown

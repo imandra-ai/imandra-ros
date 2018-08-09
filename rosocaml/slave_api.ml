@@ -38,6 +38,9 @@ module ROS_Slave_API(R : Idl.RPC) = struct
   let getPid = R.declare "getPid"
     [ "Get the PID of this server." ]
     ( str_p @-> returning int_result_p err)      
+  let getBusInfo = R.declare "getBusInfo"
+    [ "Retrieve transport/topic connection information.." ]
+    ( str_p @-> returning list_result_p err)      
   let shutdown = R.declare "shutdown"
     [ "Stop this server." ]
     ( str_p @-> str_p @-> returning int_result_p err)         
