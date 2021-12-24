@@ -1,14 +1,17 @@
 import subprocess 
 import json
 
-messages = subprocess.check_output(["rosmsg" , "list"]).splitlines()
+cmd = ["ros2", "interface", "list", "-m"]
+messages = subprocess.check_output(cmd).splitlines()
 
 data = {}
 for msg in messages:
-    print msg
-    cmd = [ "rosmsg" , "show" , msg ]
-    info = subprocess.check_output(cmd)
-    data[msg] = info
+    if msg.startswith(b"Messages:"): continue
+    msg = msg.strip().decode("utf-8") 
+    print(msg)
+    cmd = [ "ros2", "interface", "show" , msg ]
+    info = subprocess.check_output(cmd).splitlines()
+    data[msg] =  [i.decode("utf-8") for i in info]
 
 with open("rosmsgs.json", "w") as jsonFile:
     json.dump(data, jsonFile)
