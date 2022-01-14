@@ -5,9 +5,9 @@
   <xacro:property name="cameraSize" value="0.05"/>
   <xacro:property name="cameraMass" value="0.1"/>
 
-  <xacro:include filename="$(find imandrabot_description)/urdf/imandrabot.gazebo" />
-  <xacro:include filename="$(find imandrabot_description)/urdf/materials.xacro" />
-  <xacro:include filename="$(find imandrabot_description)/urdf/macros.xacro" />
+  <xacro:include filename="$(find imandrabot_description)/imandrabot.gazebo" />
+  <xacro:include filename="$(find imandrabot_description)/materials.xacro" />
+  <xacro:include filename="$(find imandrabot_description)/macros.xacro" />
 
   <!-- "Spherical wheel" macros -->
 

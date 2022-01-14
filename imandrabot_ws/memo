@@ -1,0 +1,10 @@
+# Resolve dependencies
+rosdep install -i --from-path src --rosdistro galactic -y
+# Build
+colcon build
+#
+source install/local_setup.sh
+
+PACKAGE=src/imandrabot_description
+mkdir -p $PACKAGE/proto
+ros2 run webots_ros2_importer xacro2proto --input=$PACKAGE/urdf/imandrabot.xacro --disable-mesh-optimization --output=$PACKAGE/proto/imandrabot.proto
