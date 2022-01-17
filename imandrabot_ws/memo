@@ -3,9 +3,8 @@ source /opt/ros/galactic/setup.bash
 rosdep install -i --from-path src --rosdistro galactic -y
 # Build
 colcon build
-#
+# Setup env
 source install/local_setup.sh
+# Run webots stuff
+ros2 launch imandrabot robot_launch.py
 
-PACKAGE=src/imandrabot_description
-mkdir -p $PACKAGE/protos
-ros2 run webots_ros2_importer xacro2proto --input=$PACKAGE/urdf/imandrabot.xacro --disable-mesh-optimization --output=$PACKAGE/protos/imandrabot.proto
