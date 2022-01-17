@@ -1,0 +1,11 @@
+(library
+  (name        ros_model)
+  (wrapped     false)
+  (libraries 
+    ros_messages 
+    ros_messages_pp
+    yojson
+  ) 
+)
+
+

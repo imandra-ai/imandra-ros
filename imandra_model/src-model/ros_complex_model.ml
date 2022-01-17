@@ -1,5 +1,4 @@
 open Ros_messages;; 
-open Imandra_prelude;;
 
 type incoming =
   | Clock  of Rosgraph_msgs.clock

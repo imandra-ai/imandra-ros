@@ -1,0 +1,11 @@
+(library
+  (name        ros_messages_pp)
+  (wrapped     true)
+  (libraries 
+    ros_messages
+    yojson
+  )
+  (flags (:standard -warn-error -a-27))
+)
+
+
