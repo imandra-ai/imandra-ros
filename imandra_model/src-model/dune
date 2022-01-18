@@ -5,6 +5,7 @@
     ros_messages 
     ros_messages_pp
     yojson
+    imandra-prelude
   ) 
 )
 
