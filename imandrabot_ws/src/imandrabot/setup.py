@@ -1,4 +1,4 @@
-"""webots_ros2_epuck package setup file."""
+"""imandrabotpackage setup file."""
 
 from setuptools import setup
 
