@@ -47,7 +47,9 @@ setup(
     license='TODO',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': [],
+        'console_scripts': [
+            'imandra_zmq_proxy = imandrabot.imandra_zmq_proxy:main'
+        ],
         'launch.frontend.launch_extension': ['launch_ros = launch_ros']
     }
 )

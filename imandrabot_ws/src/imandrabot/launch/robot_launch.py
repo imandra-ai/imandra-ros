@@ -59,6 +59,13 @@ def generate_launch_description():
         ]
     )
 
+    imandra_proxy = Node(
+        package='imandrabot',
+        executable='imandra_zmq_proxy',
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time}]
+    )
+
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -70,6 +77,7 @@ def generate_launch_description():
         diffdrive_controller_spawner,
         joint_state_broadcaster_spawner,
         webots_driver,
+        imandra_proxy,
 
         # This action will kill all nodes once the Webots simulation has exited
         launch.actions.RegisterEventHandler(
