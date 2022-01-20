@@ -16,9 +16,9 @@ modules = \
 
 # Second-order encoder combinators
 
-def sequence_to_json(f):
+def sequence_to_json(enc):
     def f(lst):
-        return [ f(x) for x in lst ]
+        return [ enc(x) for x in lst ]
     return f
 
 def msg_to_json(fields):
@@ -30,7 +30,10 @@ def msg_to_json(fields):
 
 float_scale = 100000
 def float_to_json(x):
-    return { "value" : int(x * float_scale) , "precision" : float_scale }  
+    try:
+        return { "value" : int(x * float_scale) , "precision" : float_scale }  
+    except:
+        return None
 
 
 basic = {}
@@ -59,6 +62,6 @@ def get_encoder(t):
         return msg_to_json(tfields)
     return None
 
-def msg_to_json(t, msg):
+def encode_msg(t, msg):
     f = get_encoder(t)
     return json.dumps(f(msg))
