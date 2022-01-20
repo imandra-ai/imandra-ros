@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<robot name="Epuck Webots">
+<robot name="Imandrabot">
     <webots>
         <device reference="lidar" type="Lidar">
             <ros>

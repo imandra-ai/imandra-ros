@@ -28,7 +28,7 @@ PROTO imandrabot [
     children [
       Shape {
         appearance PBRAppearance {
-          baseColor 0.500000 0.500000 0.500000
+          baseColor 0.900000 0.900000 0.900000
           transparency 0.000000
           roughness 1.000000
           metalness 0
@@ -44,7 +44,7 @@ PROTO imandrabot [
         children [
           Shape {
             appearance PBRAppearance {
-              baseColor 0.500000 0.500000 0.500000
+              baseColor 0.000000 0.000000 0.000000
               transparency 0.000000
               roughness 1.000000
               metalness 0
@@ -78,7 +78,7 @@ PROTO imandrabot [
             children [
               Shape {
                 appearance PBRAppearance {
-                  baseColor 0.500000 0.500000 0.500000
+                  baseColor 0.900000 0.900000 0.900000
                   transparency 0.000000
                   roughness 1.000000
                   metalness 0
@@ -115,7 +115,7 @@ PROTO imandrabot [
                       children [
                         Shape {
                           appearance PBRAppearance {
-                            baseColor 0.500000 0.500000 0.500000
+                            baseColor 0.000000 0.000000 0.000000
                             transparency 0.000000
                             roughness 1.000000
                             metalness 0
@@ -172,7 +172,7 @@ PROTO imandrabot [
             children [
               Shape {
                 appearance PBRAppearance {
-                  baseColor 0.500000 0.500000 0.500000
+                  baseColor 0.900000 0.900000 0.900000
                   transparency 0.000000
                   roughness 1.000000
                   metalness 0
@@ -209,7 +209,7 @@ PROTO imandrabot [
                       children [
                         Shape {
                           appearance PBRAppearance {
-                            baseColor 0.500000 0.500000 0.500000
+                            baseColor 0.000000 0.000000 0.000000
                             transparency 0.000000
                             roughness 1.000000
                             metalness 0
@@ -275,43 +275,25 @@ PROTO imandrabot [
           ]
         }
       }
-      Solid {
-        translation 0.060000 0.000000 0.000000
-        rotation 0.000000 1.000000 0.000000 0.000000
+      Transform {
+        rotation 1.000000 0.000000 0.000000 1.57000
         children [
-          Shape {
-            appearance PBRAppearance {
-              baseColor 0.500000 0.500000 0.500000
-              transparency 0.000000
-              roughness 1.000000
-              metalness 0
-              emissiveColor 0.000000 0.000000 0.000000
+        Solid {
+          translation 0.070000 0.000000 0.000000
+          rotation 0.000000 1.000000 0.000000 -1.570000
+          children [
+            Lidar {
+              name "lidar"
+              fieldOfView 3.141592
+              horizontalResolution 20
+              numberOfLayers 1
+              minRange 0.100000
+              maxRange 1.000000
+              noise 0.010000
+              resolution 0.010000
             }
-            geometry Sphere {
-              radius 0.002
-            }
-          }
-          Lidar {
-            name "lidar"
-            fieldOfView 3.141592
-            horizontalResolution 180
-            numberOfLayers 1
-            minRange 0.100000
-            maxRange 1.000000
-            noise 0.010000
-            resolution 0.010000
-          }
-        ]
-        name "scanner"
-        physics Physics {
-          density -1
-          mass 0.000001
-          centerOfMass [ 0.000000 0.000000 0.000000 ]
-          inertiaMatrix [
-            1.000000e-08 1.000000e-07 1.000000e-07
-            0.000000e+00 0.000000e+00 0.000000e+00
           ]
-        }
+        }]
       }
     ]
     name IS name 
