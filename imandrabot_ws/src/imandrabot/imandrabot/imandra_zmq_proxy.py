@@ -6,6 +6,8 @@ import rclpy.node
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import Twist
 
+from  .json_utils import msg_to_json
+
 class ImandraZmqProxy(rclpy.node.Node):
     def __init__(self):
         super().__init__('imandra_zmq_proxy')
@@ -14,7 +16,7 @@ class ImandraZmqProxy(rclpy.node.Node):
         self.create_subscription(LaserScan, '/scan', self.__on_scan, 1)
 
     def __on_scan(self, msg):
-        print(msg)
+        print(msg_to_json(msg))
 
 
 
