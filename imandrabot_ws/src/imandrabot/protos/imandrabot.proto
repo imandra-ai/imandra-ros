@@ -287,8 +287,7 @@ PROTO imandrabot [
               fieldOfView 3.141592
               horizontalResolution 20
               numberOfLayers 1
-              minRange 0.100000
-              maxRange 1.000000
+
               noise 0.010000
               resolution 0.010000
             }
