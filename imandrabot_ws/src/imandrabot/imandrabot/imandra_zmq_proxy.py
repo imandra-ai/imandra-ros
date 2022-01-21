@@ -19,8 +19,8 @@ class ImandraZmqProxy(rclpy.node.Node):
         self.create_timer(0.1, self.__timer_callback)
 
         self.create_subscription(LaserScan, '/scan', self.__on_scan, 1)
-        self.publishers = {}
-        self.publishers["geometry_msgs/Twist"] = self.create_publisher(Twist, '/cmd_vel', 1)
+        self.zmq_proxy_publishers = {}
+        self.zmq_proxy_publishers["geometry_msgs/Twist"] = self.create_publisher(Twist, '/cmd_vel', 1)
 
 
     def __timer_callback(self):
@@ -33,7 +33,7 @@ class ImandraZmqProxy(rclpy.node.Node):
             msg_type = msg.get("ros2_message_type")
             if msg_type is None: continue
             msg = decode_msg(msg_type, msg_json)
-            self.publishers[msg].publish(msg)
+            self.zmq_proxy_publishers[msg].publish(msg)
 
 
     def __on_scan(self, msg):
