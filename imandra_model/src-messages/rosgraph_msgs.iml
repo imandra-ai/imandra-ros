@@ -1,0 +1,4 @@
+type clock = {
+   clock : Builtin_interfaces.time  
+}
+
