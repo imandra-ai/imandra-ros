@@ -2,7 +2,15 @@
   (name        ros_messages)
   (wrapped     true)
   (flags (:standard -warn-error -a-33))
-  
+  (libraries
+    imandra-prelude
+  )
+  (modules 
+    basic_types
+    builtin_interfaces
+    std_msgs
+    sensor_msgs
+  )
 )
 
 

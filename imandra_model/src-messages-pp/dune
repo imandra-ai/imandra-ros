@@ -3,7 +3,13 @@
   (wrapped     true)
   (libraries 
     ros_messages
-    yojson
+    decoders-yojson
+  )
+  (modules 
+    basic_types
+    builtin_interfaces
+    std_msgs
+    sensor_msgs
   )
   (flags (:standard -warn-error -a-27))
 )
