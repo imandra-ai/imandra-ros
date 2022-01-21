@@ -1,9 +1,9 @@
 import json 
 
-import builtin_interfaces
-import std_msgs
-import sensor_msgs
-import geometry_msgs
+import builtin_interfaces.msg
+import std_msgs.msg
+import sensor_msgs.msg
+import geometry_msgs.msg
 
 modules = \
   { "builtin_interfaces" : builtin_interfaces
@@ -107,4 +107,4 @@ def get_decoder(t):
 
 def decode_msg(t, msg):
     f = get_decoder(t)
-    return f(json.loads(msg))
+    return f(msg)
