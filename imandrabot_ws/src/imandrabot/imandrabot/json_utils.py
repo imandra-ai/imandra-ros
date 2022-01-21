@@ -12,7 +12,9 @@ modules = \
   , "geometry_msgs" : geometry_msgs
   }
 
-##### Encoding
+#############################################
+################# Encoders ##################
+#############################################
 
 # Second-order encoder combinators
 
@@ -65,3 +67,44 @@ def get_encoder(t):
 def encode_msg(t, msg):
     f = get_encoder(t)
     return json.dumps(f(msg))
+
+#############################################
+################# Decoders ##################
+#############################################
+
+def sequence_decoder(dec):
+    def f(lst):
+        return [dec(x) for x in lst]
+    return f
+    
+def msg_decoder(msg_class):
+    tfields = msg_class.get_fields_and_field_types()
+    def f(msg):
+        args = {}
+        for k, t in tfields.items():
+            decoder = get_decoder(t)
+            v = msg.get(k)
+            if v is None: continue
+            args[k] = v if decoder is None else decoder(v)
+        return msg_class(**args)
+    return f
+
+def float_decoder(x):
+    if x is None: return float("inf")
+    return x["value"] / x["precision"]
+    
+def get_decoder(t):
+    if t == "float":
+        return float_decoder
+    if t == "sequence<float>":
+        return sequence_decoder(float_decoder)
+    if "/" in t:
+        ( module , msg ) = t.split("/")
+        module = modules[module]
+        msg_class = getattr(module.msg, msg)      
+        return msg_decoder(msg_class)
+    return None
+
+def decode_msg(t, msg):
+    f = get_decoder(t)
+    return f(json.loads(msg))

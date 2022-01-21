@@ -6,7 +6,7 @@ import rclpy.node
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import Twist
 
-from  .json_utils import encode_msg
+from  .json_utils import encode_msg , decode_msg
 
 class ImandraZmqProxy(rclpy.node.Node):
     def __init__(self, pub_socket, sub_socket):
@@ -23,6 +23,9 @@ class ImandraZmqProxy(rclpy.node.Node):
         print(msg_json)
         self.pub_socket.send_string(msg_json)
 
+        # Test decoder
+        msg = decode_msg("sensor_msgs/LaserScan", msg_json)
+        print(msg)
 
 
 
