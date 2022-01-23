@@ -1,4 +1,0 @@
-type float =
-  { value : int
-  ; precision : int
-  }

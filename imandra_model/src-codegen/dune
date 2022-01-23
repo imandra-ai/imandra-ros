@@ -1,0 +1,21 @@
+(library
+  (name        ros_codegen)
+  (wrapped     true)
+  (flags (:standard -warn-error -a-33))
+  (modules (:standard \ cg))
+  (libraries 
+   decoders-yojson
+   containers
+   utop
+  )
+)
+
+(executable
+  (name cg)
+  (modules cg)
+  (libraries 
+    ros_codegen
+  )
+)
+
+

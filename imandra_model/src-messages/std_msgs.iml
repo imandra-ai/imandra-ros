@@ -1,4 +1,0 @@
-type header = {
-   stamp : Builtin_interfaces.time ;
-   frame_id : string 
-}

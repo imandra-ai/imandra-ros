@@ -1,4 +1,0 @@
-type time = 
-  { sec : int
-  ; nanosec : int   
-  }

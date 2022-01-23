@@ -1,0 +1,54 @@
+{ "modules" :
+[ { "name" : "Builtin_interfaces"
+  , "messages": 
+  [ { "name" : "time" , "fields" : 
+    [ { "name" : "sec" , "type" : {"basic" : "int"} } 
+    , { "name" : "nanosec" , "type" : {"basic" : "int"} }
+    ] }
+  ] }    
+, { "name" : "Rosgraph_msgs"
+  , "messages": 
+  [ { "name" : "clock" , "fields" : 
+    [ { "name" : "clock" , "type" : {"record" : { "module": "Builtin_interfaces" , "name" : "time" } } } 
+    ] }
+  ] }
+, { "name" : "Std_msgs"
+  , "messages": 
+  [ { "name" : "header" , "fields" : 
+    [ { "name" : "stamp" , "type" : {"record" : { "module": "Builtin_interfaces" , "name" : "time" } } } 
+    , { "name" : "frame_id" , "type" : {"raw" : "string"} }
+    ] }
+  ] }
+, { "name" : "Sensor_msgs"
+  , "messages": 
+  [ { "name" : "laser_scan" , "fields" : 
+    [ { "name" : "header" , "type" : {"record" : { "module": "Std_msgs" , "name" : "header" } } } 
+    , { "name" : "angle_min" , "type" : {"basic" : "float"} }
+    , { "name" : "angle_max" , "type" : {"basic" : "float"} }
+    , { "name" : "angle_increment" , "type" : {"basic" : "float"} }
+    , { "name" : "time_increment" , "type" : {"basic" : "float"} }
+    , { "name" : "scan_time" , "type" : {"basic" : "float"} }
+    , { "name" : "range_min" , "type" : {"basic" : "float"} }
+    , { "name" : "range_max" , "type" : {"basic" : "float"} }
+    , { "name" : "ranges" , "type" : { "list" : {"basic" : "float"} } }
+    , { "name" : "intensities" , "type" : { "list" : {"basic" : "float"} } }
+    ] }
+  ] }
+, { "name" : "Geometry_msgs"
+  , "messages": 
+  [ { "name" : "point" , "fields" : 
+    [ { "name" : "x" , "type" : {"basic" : "float"} }
+    , { "name" : "y" , "type" : {"basic" : "float"} }
+    , { "name" : "z" , "type" : {"basic" : "float"} }    
+    ] }
+  , { "name" : "vector3" , "fields" : 
+    [ { "name" : "x" , "type" : {"basic" : "float"} }
+    , { "name" : "y" , "type" : {"basic" : "float"} }
+    , { "name" : "z" , "type" : {"basic" : "float"} }    
+    ] }
+  , { "name" : "twist" , "fields" : 
+    [ { "name" : "linear" , "type" : {"record" :  { "name" : "vector3" } } }
+    , { "name" : "angular" , "type" : {"record" :  { "name" : "vector3" } } }
+    ] }
+  ] }
+] }
