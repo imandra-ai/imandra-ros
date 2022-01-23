@@ -1,10 +1,9 @@
 (library
   (name        ros_model)
   (wrapped     false)
+  (flags (:standard -warn-error -a-33))
   (libraries 
     ros_messages 
-    ros_messages_pp
-    yojson
     imandra-prelude
   ) 
 )

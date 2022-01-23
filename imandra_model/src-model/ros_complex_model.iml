@@ -2,7 +2,7 @@ open Ros_messages;;
 
 type incoming =
   | Clock  of Rosgraph_msgs.clock
-  | Sensor of Sensor_msgs.laserScan
+  | Sensor of Sensor_msgs.laser_scan
 
 type outgoing =
   | Twist of Geometry_msgs.twist
@@ -27,14 +27,20 @@ let init_state =
 
 let make_twist_message v omega =
   let open Geometry_msgs in
-  let mkvector x y z = { vector3_x = x; vector3_y = y; vector3_z = z } in 
-  Twist { twist_linear  = mkvector v 0 0
-        ; twist_angular = mkvector 0 0 omega 
+  let precision = 10000 in
+  let mkvector x y z = 
+    let x = Basic_types.{value = x; precision} in
+    let y = Basic_types.{value = y; precision} in
+    let z = Basic_types.{value = z; precision} in
+    { x; y; z } 
+    in 
+  Twist { linear  = mkvector v 0 0
+        ; angular = mkvector 0 0 omega 
         } 
 
 let valid_incoming incoming =
   match incoming with
-    | Sensor smsg -> List.length smsg.Sensor_msgs.laserScan_ranges = 5
+    | Sensor smsg -> List.length smsg.Sensor_msgs.ranges = 5
     | _ -> true
 
 type sensor_interpretation =
@@ -44,10 +50,13 @@ type sensor_interpretation =
   | WallAhead
   | SensorError
 
-let interpret_sensor ( ranges : int list ) : sensor_interpretation =
+let interpret_sensor ( ranges : Basic_types.float list ) : sensor_interpretation =
   match List.nth 1 ranges with None -> SensorError | Some range_right ->
   match List.nth 2 ranges with None -> SensorError | Some range_mid   ->
   match List.nth 3 ranges with None -> SensorError | Some range_left  ->
+  let range_right = range_right.Basic_types.value in  
+  let range_mid   = range_mid.Basic_types.value in  
+  let range_left  = range_left.Basic_types.value in 
   if range_mid < 65000 then WallAhead else
   if (range_right < 50000) && (range_left < 50000) then WallAhead else
   if  range_right < 50000  then Free2Left  else
@@ -59,7 +68,7 @@ let process_stopped ( state , msg ) =
   match msg with
     | Clock  _ -> state
     | Sensor l -> begin 
-      match interpret_sensor l.Sensor_msgs.laserScan_ranges with
+      match interpret_sensor l.Sensor_msgs.ranges with
       | WallAhead -> {state with outgoing = Some (make_twist_message 0 10000) }
       | _ -> {state with outgoing = Some (make_twist_message 10000 0) }
     end
@@ -68,7 +77,7 @@ let process_driving ( state , msg ) =
   match msg with
     | Clock  _ -> state
     | Sensor l -> begin 
-      match interpret_sensor l.Sensor_msgs.laserScan_ranges with
+      match interpret_sensor l.Sensor_msgs.ranges with
       | WallAhead -> {state with outgoing = Some (make_twist_message 0 10000) }
       | _ -> {state with outgoing = Some (make_twist_message 10000 0) }
     end
@@ -77,7 +86,7 @@ let process_turning ( state , msg ) =
   match msg with
     | Clock  _ -> state
     | Sensor l -> begin 
-      match interpret_sensor l.Sensor_msgs.laserScan_ranges with
+      match interpret_sensor l.Sensor_msgs.ranges with
       | WallAhead -> {state with outgoing = Some (make_twist_message 0 10000) }
       | _ -> {state with outgoing = Some (make_twist_message 10000 0) }
     end
