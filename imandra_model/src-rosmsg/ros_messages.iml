@@ -1,0 +1,64 @@
+module Basic_types = struct
+  type int = Z.t
+  
+  type float = { value : int ; precision : int }
+end
+
+module Builtin_interfaces = 
+struct
+  type time =
+    { sec : Basic_types.int
+    ; nanosec : Basic_types.int
+    }
+end
+
+module Rosgraph_msgs = 
+struct
+  type clock =
+    { clock : Builtin_interfaces.time
+    }
+end
+
+module Std_msgs = 
+struct
+  type header =
+    { stamp : Builtin_interfaces.time
+    ; frame_id : string
+    }
+end
+
+module Sensor_msgs = 
+struct
+  type laser_scan =
+    { header : Std_msgs.header
+    ; angle_min : Basic_types.float
+    ; angle_max : Basic_types.float
+    ; angle_increment : Basic_types.float
+    ; time_increment : Basic_types.float
+    ; scan_time : Basic_types.float
+    ; range_min : Basic_types.float
+    ; range_max : Basic_types.float
+    ; ranges : Basic_types.float list
+    ; intensities : Basic_types.float list
+    }
+end
+
+module Geometry_msgs = 
+struct
+  type point =
+    { x : Basic_types.float
+    ; y : Basic_types.float
+    ; z : Basic_types.float
+    }
+  
+  type vector3 =
+    { x : Basic_types.float
+    ; y : Basic_types.float
+    ; z : Basic_types.float
+    }
+  
+  type twist =
+    { linear : vector3
+    ; angular : vector3
+    }
+end
