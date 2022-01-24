@@ -6,7 +6,6 @@
   (libraries 
    decoders-yojson
    containers
-   utop
   )
 )
 

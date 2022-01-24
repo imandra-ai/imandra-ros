@@ -4,6 +4,7 @@ import json
 
 import rclpy
 import rclpy.node
+from rosgraph_msgs.msg import Clock
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import Twist
 
@@ -19,7 +20,9 @@ class ImandraZmqProxy(rclpy.node.Node):
 
         self.create_timer(0.1, self.__timer_callback)
 
+        self.create_subscription(Clock, '/clock', self.__on_clock, 1)
         self.create_subscription(LaserScan, '/scan', self.__on_scan, 1)
+
         self.zmq_proxy_publishers = {}
         self.zmq_proxy_publishers["geometry_msgs/Twist"] = self.create_publisher(Twist, '/cmd_vel', 1)
 
@@ -27,26 +30,23 @@ class ImandraZmqProxy(rclpy.node.Node):
     def __timer_callback(self):
         while True:
             try:
-                msg = sub_socket.recv(flags=zmq.NOBLOCK)
+                msg = self.sub_socket.recv(flags=zmq.NOBLOCK)
             except:
                 break
+            print("received ", msg)
             msg = json.loads(msg)
-            msg_type = msg.get("ros2_message_type")
+            msg_type = msg.get("tag")
             if msg_type is None: continue
-            msg = decode_msg(msg_type, msg_json)
-            self.zmq_proxy_publishers[msg].publish(msg)
+            msg = decode_msg(msg)
+            self.zmq_proxy_publishers[msg_type].publish(msg)
 
+    def __on_clock(self, msg):
+        msg_json = encode_msg("rosgraph_msgs/Clock", msg)
+        self.pub_socket.send_string(msg_json)
 
     def __on_scan(self, msg):
         msg_json = encode_msg("sensor_msgs/LaserScan", msg)
-        print(msg_json)
         self.pub_socket.send_string(msg_json)
-
-        # Test decoder
-        msg_json = json.loads(msg_json)
-        msg = decode_msg(msg_json)
-        print(msg)
-
 
 
 def main(args=None):
