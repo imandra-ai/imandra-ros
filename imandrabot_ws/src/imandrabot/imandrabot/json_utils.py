@@ -98,7 +98,7 @@ def float_decoder(x):
     return x["value"] / x["precision"]
     
 def get_decoder(t):
-    if t == "float":
+    if t in [ "float" , "double"]:
         return float_decoder
     if t == "sequence<float>":
         return sequence_decoder(float_decoder)
