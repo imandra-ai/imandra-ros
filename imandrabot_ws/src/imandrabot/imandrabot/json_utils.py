@@ -66,7 +66,9 @@ def get_encoder(t):
 
 def encode_msg(t, msg):
     f = get_encoder(t)
-    return json.dumps(f(msg))
+    data = f(msg)
+    data = { "tag" : t , "data" : data }
+    return json.dumps(data)
 
 #############################################
 ################# Decoders ##################
@@ -105,6 +107,7 @@ def get_decoder(t):
         return msg_decoder(msg_class)
     return None
 
-def decode_msg(t, msg):
+def decode_msg(msg):
+    t = msg["tag"]
     f = get_decoder(t)
-    return f(msg)
+    return f(msg["data"])

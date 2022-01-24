@@ -44,7 +44,7 @@ class ImandraZmqProxy(rclpy.node.Node):
 
         # Test decoder
         msg_json = json.loads(msg_json)
-        msg = decode_msg("sensor_msgs/LaserScan", msg_json)
+        msg = decode_msg(msg_json)
         print(msg)
 
 
