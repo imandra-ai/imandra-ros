@@ -1,12 +1,14 @@
 import json 
 
 import builtin_interfaces.msg
+import rosgraph_msgs.msg
 import std_msgs.msg
 import sensor_msgs.msg
 import geometry_msgs.msg
 
 modules = \
   { "builtin_interfaces" : builtin_interfaces
+  , "rosgraph_msgs" : rosgraph_msgs
   , "std_msgs" : std_msgs 
   , "sensor_msgs" : sensor_msgs
   , "geometry_msgs" : geometry_msgs
