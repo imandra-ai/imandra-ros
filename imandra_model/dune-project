@@ -7,3 +7,23 @@
   (preprocess  (system "imandra-extract %{input-file}"))
   (format (system "ocamlformat %{input-file}")))
  (interface (extension "imli")))
+
+(name imandra-ros)
+(generate_opam_files true)
+(license ISC)
+(authors "Kostya <kostya@imandra.ai>")
+(maintainers "Kostya <kostya@imandra.ai>")
+(source (github "AestheticIntegration/imandra-ros"))
+
+(package
+ (name imandra-ros)
+ (synopsis "")
+ (description "")
+ (depends
+  (ocaml (>= 4.08))
+  (dune (>= 2.0))
+  containers
+  zmq-lwt
+  decoders-yojson
+ )
+)

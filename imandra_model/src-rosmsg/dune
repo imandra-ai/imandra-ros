@@ -1,0 +1,13 @@
+(library
+  (name        ros_messages)
+  (wrapped     false)
+  (flags (:standard -warn-error -a-33))
+  (libraries
+    imandra-prelude
+    decoders-yojson
+  )
+  (modules 
+    ros_messages
+    ros_messages_json
+  )
+)

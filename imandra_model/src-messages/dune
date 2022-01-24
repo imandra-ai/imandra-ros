@@ -1,8 +1,0 @@
-(library
-  (name        ros_messages)
-  (wrapped     true)
-  (flags (:standard -warn-error -a-33))
-  
-)
-
-
