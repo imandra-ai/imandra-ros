@@ -11,7 +11,7 @@ for msg in messages:
     print(msg)
     cmd = [ "ros2", "interface", "show" , msg ]
     info = subprocess.check_output(cmd).splitlines()
-    data[msg] =  [i.decode("utf-8") for i in info]
+    data[msg] =  "\n".join([i.decode("utf-8") for i in info])
 
 with open("rosmsgs.json", "w") as jsonFile:
     json.dump(data, jsonFile)

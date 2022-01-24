@@ -1,6 +1,27 @@
 open Angstrom
 
+let whitespace = take_while1 ( function | ' ' -> true | _ -> false )
+let integer = take_while1 (function '0' .. '9' -> true | _ -> false) >>| int_of_string
+
+let alnum = 
+  let alpha = function
+    | '_' 
+    | '0' .. '9'  
+    | 'A' .. 'Z' 
+    | 'a' .. 'z' -> true
+    | _ -> false
+    in
+  take_while1 alpha
+
 let baseType =
+  let rosstring = 
+    let* str = choice  
+      [ string "string" *> return Rostype.String
+      ; string "string" *> return Rostype.Wstring
+      ] in
+    let* () = (string "<=" *> integer *>  return ()) <|> return () in 
+    return str
+    in
   choice
   [ string "bool"    *> return Rostype.Bool 
   ; string "byte"    *> return Rostype.Byte
@@ -15,20 +36,8 @@ let baseType =
   ; string "uint32"  *> return Rostype.Uint32
   ; string "int64"   *> return Rostype.Int64
   ; string "uint64"  *> return Rostype.Uint64
-  ; string "string"  *> return Rostype.String
-  ; string "wstring" *> return Rostype.Wstring
+  ; rosstring
   ] >>= fun x -> return @@ Rostype.Base x
-  
-let integer = take_while1 (function '0' .. '9' -> true | _ -> false) >>| int_of_string
-
-let alnum = 
-  let alpha = function
-    | '0' .. '9'  
-    | 'A' .. 'Z' 
-    | 'a' .. 'z' -> true
-    | _ -> false
-    in
-  take_while1 alpha
 
 let typeref module_ = 
   choice [ alnum <* char '/' ; return module_] >>= fun module_ ->
@@ -44,9 +53,28 @@ let array type_ =
   let* size = fix_arr <|> inf_arr in 
   return @@ Rostype.Array { size ; type_}
 
-
 let rostype module_ =
   let* t = choice ~failure_msg:"failed to parse ros type"
     [ baseType ; typeref module_ ] 
     in
   choice [ array t ; return t ]
+
+let maybe_comment = 
+  choice
+  [ end_of_input
+  ; whitespace *> char '#' *> return () 
+  ; whitespace *> end_of_input *> return ()
+  ]
+
+let message_entry module_ =
+  let* type_ = rostype module_ in
+  let* name = whitespace *> alnum in
+  let field =
+    return @@ Rosmessage.Field { type_ ; name }
+    in
+  let constant  =
+    let* value = whitespace *> char '=' *> take_while1 (function '#' -> false | _ -> true ) in
+    return @@ Rosmessage.Const { type_ ; name ; value }
+    in
+  constant <|> field
+  

@@ -3,5 +3,7 @@
  (libraries 
   angstrom
   decoders-yojson
+  str
+  ocamlgraph
  )
 )

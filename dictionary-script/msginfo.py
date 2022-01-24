@@ -13,7 +13,9 @@ def get_module_name(msg):
 def get_type_info(rostype):
     tinfo = {}
     if '/' in rostype: 
-        module , rostype = rostype.split('/')
+        spl = rostype.split('/')
+        module = spl[0]
+        rostype = spl[-1]
         tinfo['module'] = module.capitalize()
     rostype = rostype[0].lower() + rostype[1:]    
     tinfo['name'] = rostype
@@ -53,6 +55,8 @@ class MsgInfo(object):
         self.entries = []
         raw_filtered = filter(lambda x: '=' not in x, self.raw)
         for entry in raw_filtered:
+            entry = entry.strip()
+            if entry[0] == "#" or entry.strip() == "": continue
             lst = entry.split(' ')
             if len(lst) != 2:
                 raise ValueError("Cant process raw entry '{}'".format(entry))
@@ -74,7 +78,6 @@ class MsgInfo(object):
         self.module = get_module_name(msg)
         self.name =  get_type_info(msg)['name']
         
-        info = info.splitlines()
         info = filter(lambda x : not x.startswith(' '), info)
         info = filter(lambda x : x, info)
         
